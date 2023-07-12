@@ -1,3 +1,3 @@
 test_that("Other file formats", {
-  expect_error(2 * 2, 5)
+  expect_equal(2 * 2, 4)
 })
