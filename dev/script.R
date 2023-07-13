@@ -88,3 +88,60 @@ grep("csv$", x, value = TRUE)
 y <- c("csv", "parquet")
 
 !ft %in% y
+
+##======================================================================
+## Importing GESLA data from the Amazon S3 bucket
+
+if(!dir.exists("parquet_files")) {
+    copy_files(
+        from = s3_bucket("gesla-dataset",
+                         anonymous = TRUE),
+        to = "."
+    )
+}
+
+path <- "parquet_files/"
+da <- open_dataset(path, format = "parquet")
+
+da <- open_dataset(s3_bucket("gesla-dataset", anonymous = TRUE))
+
+
+aws_path <- s3_bucket("gesla-dataset/parquet_files",
+                      region = "eu-west-1",
+                      anonymous = TRUE)
+daws <- open_dataset(aws_path, format = "parquet")
+daws
+
+ff <- daws |>
+    filter(country %in% "IRL", year %in% 2020)
+names(ff)
+
+class(ff)
+
+ff |>
+    summarise(m = mean(sea_level)) |>
+    collect()
+
+ff2 <- ff |>
+    collect()
+str(ff2)
+
+query_gesla <- function(country, year, as_data_frame = FALSE) {
+    if(!arrow_with_s3()) {
+        stop("The current installation of the 'arrow' package does not support an Amazon AWS (S3) connection. Please, see https://arrow.apache.org/docs/3.0/r/index.html for further details.")
+    }
+    aws_path <- s3_bucket("gesla-dataset/parquet_files",
+                          region = "eu-west-1",
+                          anonymous = TRUE)
+    daws <- open_dataset(aws_path, format = "parquet")
+    f_daws <- daws |>
+        filter(country %in% !!country, year %in% !!year)
+    if(as_data_frame) {
+        f_daws <- f_daws |> collect()
+    }
+    return(f_daws)
+}
+
+dq <- query_gesla(country = "IRL", year = 2020)
+dq
+dq |> dim()
