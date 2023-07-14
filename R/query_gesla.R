@@ -14,10 +14,17 @@
 ##' @author Fernando Mayer
 ##' @importFrom dplyr filter collect
 ##' @importFrom arrow arrow_with_s3 s3_bucket open_dataset
+##' @importFrom cli format_error
 ##' @export
 query_gesla <- function(country, year, as_data_frame = FALSE) {
     if(!arrow_with_s3()) {
-        stop("The current installation of the 'arrow' package does not support an Amazon AWS (S3) connection. Please, see https://arrow.apache.org/docs/3.0/r/index.html for further details.")
+        stop(format_error(c("",
+            "x" =
+                "The current installation of the 'arrow' package does not support an Amazon AWS (S3) connection.",
+            "i" = "Please, check if {.fn arrow_with_s3} returns TRUE",
+            "i" =
+                "See https://arrow.apache.org/docs/3.0/r/index.html for further details."
+        )))
     }
     aws_path <- s3_bucket("gesla-dataset/parquet_files",
                           region = "eu-west-1",
