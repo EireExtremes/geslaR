@@ -14,7 +14,7 @@
 ##' @author Fernando Mayer
 ##' @importFrom dplyr filter collect
 ##' @importFrom arrow arrow_with_s3 s3_bucket open_dataset
-##' @importFrom cli format_error
+##' @importFrom cli format_error cli_progress_step cli_alert_info
 ##' @export
 query_gesla <- function(country, year, as_data_frame = FALSE) {
     if(!arrow_with_s3()) {
@@ -26,14 +26,22 @@ query_gesla <- function(country, year, as_data_frame = FALSE) {
                 "See https://arrow.apache.org/docs/3.0/r/index.html for further details."
         )))
     }
+    cli_alert_info("This process can take some time, as it depends on the size of the final dataset, and on internet connection.",
+                   wrap = TRUE)
+    cli_progress_step("Connecting to the data server...")
     aws_path <- s3_bucket("gesla-dataset/parquet_files",
                           region = "eu-west-1",
                           anonymous = TRUE)
     daws <- open_dataset(aws_path, format = "parquet")
+    cli_progress_step("Filtering data...")
     f_daws <- daws |>
         filter(country %in% !!country, year %in% !!year)
     if(as_data_frame) {
+        cli_progress_step("Converting to data frame...")
+        cli_alert_info("Converting to data frame can take some time and may result in large size objects. Consider using {.arg as_data_frame = FALSE} first.",
+                       wrap = TRUE)
         f_daws <- f_daws |> collect()
     }
+    cli_progress_step("Query finished.")
     return(f_daws)
 }
