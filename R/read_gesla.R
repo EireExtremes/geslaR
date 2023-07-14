@@ -14,11 +14,13 @@
 ##' @return An Arrow Table object, or a data.frame (tibble)
 ##' @author Fernando Mayer
 ##' @importFrom arrow read_csv_arrow read_parquet
+##' @importFrom cli format_error
 ##' @export
 read_gesla <- function(file, as_data_frame = FALSE, ...) {
     ftype <- unlist(strsplit(file, split = "\\."))[2]
     if(!ftype %in% c("csv", "parquet")) {
-        stop("'file' must be csv or parquet.")
+        stop(format_error(c("",
+                            "x" = "'file' must be csv or parquet.")))
     }
     switch(
         ftype,

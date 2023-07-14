@@ -64,7 +64,8 @@ dc2 |>
 read_gesla <- function(file, as_data_frame = FALSE, ...) {
     ftype <- unlist(strsplit(file, split = "\\."))[2]
     if(!ftype %in% c("csv", "parquet")) {
-        stop("'file' must be csv or parquet.")
+        stop(cli::format_error(c("",
+                                 "x" = "'file' must be csv or parquet.")))
     }
     switch(
         ftype,
@@ -75,7 +76,7 @@ read_gesla <- function(file, as_data_frame = FALSE, ...) {
     )
 }
 
-dg <- read_gesla("antarctica.parquet", as_data_frame = TRUE)
+dg <- read_gesla("antarctica.txt", as_data_frame = TRUE)
 class(dg)
 str(dg)
 
