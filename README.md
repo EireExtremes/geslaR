@@ -12,9 +12,10 @@ Main branch
 Development branch
 
 [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml)
+Main branch
 
 [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml)
-<!-- badges: end -->
+Development branch <!-- badges: end -->
 
 The goal of geslaR is to …
 
