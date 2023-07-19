@@ -8,11 +8,15 @@
 ##' @export
 ##' @param overwrite Overwrite?
 run_gesla_app <- function(overwrite = FALSE) {
-    if(!requireNamespace("shiny", quietly = TRUE)) {
+    missing_pkgs <- check_suggests()
+    if(length(missing_pkgs != 0L)) {
         stop(format_error(c("",
-            "x" = "This function requires the {.pkg shiny} package",
+            "x" =
+                "The following packages are required to run the GESLA app: {missing_pkgs}",
             "i" =
-                "Consider installing it with {.code install.packages('shiny')}"))
+                "Consider installing each one with {.code install.packages('name')}",
+            "i" =
+                "Or reinstall the {.pkg geslaR} package with {.code remotes::install_github('EireExtremes/geslaR', dependencies = TRUE)}. In this case you will need to restart your R session."))
         )
     }
     gd <- "inst/shiny/gesla_dataset"
