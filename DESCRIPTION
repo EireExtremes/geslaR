@@ -18,5 +18,16 @@ Imports:
     cli,
     dplyr
 Suggests:
-    testthat (>= 3.0.0)
+    bslib,
+    leaflet,
+    leafpop,
+    lubridate,
+    patchwork,
+    plotly,
+    shiny,
+    shinyalert,
+    shinycssloaders,
+    shinyWidgets,
+    testthat (>= 3.0.0),
+    tidyverse
 Config/testthat/edition: 3
