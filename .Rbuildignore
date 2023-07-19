@@ -1,4 +1,4 @@
-^inst/shiny/gesla_dataset$
+^gesla_app$
 ^dev$
 ^LICENSE\.md$
 ^\.github$
