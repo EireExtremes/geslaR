@@ -4,22 +4,9 @@ pkgs <- c("arrow", "tidyverse", "lubridate", "shiny", "shinyWidgets",
 lapply(pkgs, library, character.only = TRUE)
 theme_set(theme_bw())
 
-
-##----------------------------------------------------------------------
-## Download dataset locally if not available
-if(!dir.exists("gesla_dataset")) {
-  dir.create("gesla_dataset")
-  copy_files(
-    from = s3_bucket("gesla-test/parquet_files",
-                     region = "eu-west-1",
-                     anonymous = TRUE),
-    to = "./gesla_dataset"
-  )
-}
-
 ## Create arrow dataset
 ## path <- s3_bucket("gesla-dataset/parquet_files", anonymous = TRUE)
-path <- "gesla_dataset/"
+path <- "gesla_dataset"
 da <- open_dataset(path, format = "parquet")
 names(da)
 
