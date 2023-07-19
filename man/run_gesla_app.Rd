@@ -4,9 +4,17 @@
 \alias{run_gesla_app}
 \title{Run the Gesla app}
 \usage{
-run_gesla_app(overwrite = FALSE)
+run_gesla_app(
+  app_dest = "./gesla_app",
+  dest = paste0(app_dest, "/gesla_dataset"),
+  overwrite = FALSE
+)
 }
 \arguments{
+\item{app_dest}{The app folder}
+
+\item{dest}{The dataset folder}
+
 \item{overwrite}{Overwrite?}
 }
 \value{

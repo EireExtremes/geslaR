@@ -6,8 +6,12 @@
 ##' @author Fernando Mayer
 ##' @importFrom cli format_error cli_alert_info cli_progress_step cli_progress_message
 ##' @export
+##' @param app_dest The app folder
+##' @param dest The dataset folder
 ##' @param overwrite Overwrite?
-run_gesla_app <- function(overwrite = FALSE) {
+run_gesla_app <- function(app_dest = "./gesla_app",
+                          dest = paste0(app_dest, "/gesla_dataset"),
+                          overwrite = FALSE) {
     missing_pkgs <- check_suggests()
     if(length(missing_pkgs != 0L)) {
         stop(format_error(c("",
@@ -19,8 +23,8 @@ run_gesla_app <- function(overwrite = FALSE) {
                 "Or reinstall the {.pkg geslaR} package with {.code remotes::install_github('EireExtremes/geslaR', dependencies = TRUE)}. In this case you will need to restart your R session."))
         )
     }
-    gd <- "inst/shiny/gesla_dataset"
-    if(!dir.exists(gd) && overwrite) {
+    ## gd <- "inst/shiny/gesla_dataset"
+    if(!dir.exists(dest) && overwrite) {
         stop(format_error(c("",
             "x" = "The GESLA dataset was not found locally",
             "i" =
@@ -29,7 +33,7 @@ run_gesla_app <- function(overwrite = FALSE) {
                 "Use {.arg overwrite = FALSE} to download the dataset first"))
         )
     }
-    if(!dir.exists(gd) && !overwrite) {
+    if(!dir.exists(dest) && !overwrite) {
         cli_alert_info(
             "To use the app, the whole GESLA dataset must be downloaded locally",
             wrap = TRUE)
@@ -39,7 +43,8 @@ run_gesla_app <- function(overwrite = FALSE) {
         opt <- utils::menu(c("Yes", "No"), title = "Do you wish to continue?")
         if(opt == 1L) {
             cli_alert_info("Wait while the dataset is downloaded...")
-            download_gesla(messages = FALSE, ask = FALSE, overwrite = FALSE)
+            download_gesla(dest = dest, ask = FALSE,
+                messages = FALSE, overwrite = FALSE)
         } else {
             stop(format_error(c("",
                 "x" = "No data was downloaded",
@@ -48,7 +53,7 @@ run_gesla_app <- function(overwrite = FALSE) {
             )
         }
     }
-    if(dir.exists(gd) && overwrite) {
+    if(dir.exists(dest) && overwrite) {
         cli_alert_info(
             "You chose {.arg overwrite = TRUE} to download the dataset again",
             wrap = TRUE)
@@ -58,7 +63,8 @@ run_gesla_app <- function(overwrite = FALSE) {
         opt <- utils::menu(c("Yes", "No"), title = "Do you wish to continue?")
         if(opt == 1L) {
             cli_alert_info("Wait while the dataset is downloaded...")
-            download_gesla(messages = FALSE, ask = FALSE, overwrite = TRUE)
+            download_gesla(dest = dest, ask = FALSE,
+                messages = FALSE, overwrite = TRUE)
         } else {
             stop(format_error(c("",
                 "x" = "No data was downloaded",
@@ -68,5 +74,12 @@ run_gesla_app <- function(overwrite = FALSE) {
         }
     }
     cli_alert_info("Running app...")
-    shiny::runApp(system.file("shiny", package = "geslaR"), quiet = TRUE)
+    fls <- list.files(system.file("shiny", package = "geslaR"))
+    for(app_files in fls) {
+        if(!file.exists(paste0(app_dest, "/", app_files))) {
+            file.copy(system.file("shiny", app_files, package = "geslaR"),
+                to = app_dest)
+        }
+    }
+    shiny::runApp(app_dest, quiet = TRUE)
 }
