@@ -1,0 +1,252 @@
+Country	Alpha-2 code	Alpha-3 code	Numeric code	Latitude (average)	Longitude (average)	emoji_flag
+Afghanistan	AF	AFG	4	33	65	🇦🇫
+Albania	AL	ALB	8	41	20	🇦🇱
+Algeria	DZ	DZA	12	28	3	🇩🇿
+American Samoa	AS	ASM	16	-14.3333	-170	🇦🇸
+Andorra	AD	AND	20	42.5	1.6	🇦🇩
+Angola	AO	AGO	24	-12.5	18.5	🇦🇴
+Anguilla	AI	AIA	660	18.25	-63.1667	🇦🇮
+Antarctica	AQ	ATA	10	-90	0	🇦🇶
+Antigua and Barbuda	AG	ATG	28	17.05	-61.8	🇦🇬
+Argentina	AR	ARG	32	-34	-64	🇦🇷
+Armenia	AM	ARM	51	40	45	🇦🇲
+Aruba	AW	ABW	533	12.5	-69.9667	🇦🇼
+Australia	AU	AUS	36	-27	133	🇦🇺
+Austria	AT	AUT	40	47.3333	13.3333	🇦🇹
+Azerbaijan	AZ	AZE	31	40.5	47.5	🇦🇿
+Bahamas	BS	BHS	44	24.25	-76	🇧🇸
+Bahrain	BH	BHR	48	26	50.55	🇧🇭
+Bangladesh	BD	BGD	50	24	90	🇧🇩
+Barbados	BB	BRB	52	13.1667	-59.5333	🇧🇧
+Belarus	BY	BLR	112	53	28	🇧🇾
+Belgium	BE	BEL	56	50.8333	4	🇧🇪
+Belize	BZ	BLZ	84	17.25	-88.75	🇧🇿
+Benin	BJ	BEN	204	9.5	2.25	🇧🇯
+Bermuda	BM	BMU	60	32.3333	-64.75	🇧🇲
+Bhutan	BT	BTN	64	27.5	90.5	🇧🇹
+Bolivia	BO	BOL	68	-17	-65	🇧🇴
+Bosnia and Herzegovina	BA	BIH	70	44	18	🇧🇦
+Botswana	BW	BWA	72	-22	24	🇧🇼
+Bouvet Island	BV	BVT	74	-54.4333	3.4	🇧🇻
+Brazil	BR	BRA	76	-10	-55	🇧🇷
+British Indian Ocean Territory	IO	IOT	86	-6	71.5	🇮🇴
+Brunei	BN	BRN	96	4.5	114.6667	🇧🇳
+Bulgaria	BG	BGR	100	43	25	🇧🇬
+Burkina Faso	BF	BFA	854	13	-2	🇧🇫
+Burundi	BI	BDI	108	-3.5	30	🇧🇮
+Cambodia	KH	KHM	116	13	105	🇰🇭
+Cameroon	CM	CMR	120	6	12	🇨🇲
+Canada	CA	CAN	124	60	-95	🇨🇦
+Cape Verde	CV	CPV	132	16	-24	🇨🇻
+Cayman Islands	KY	CYM	136	19.5	-80.5	🇰🇾
+Central African Republic	CF	CAF	140	7	21	🇨🇫
+Chad	TD	TCD	148	15	19	🇹🇩
+Chile	CL	CHL	152	-30	-71	🇨🇱
+China	CN	CHN	156	35	105	🇨🇳
+Christmas Island	CX	CXR	162	-10.5	105.6667	🇨🇽
+Cocos (Keeling) Islands	CC	CCK	166	-12.5	96.8333	🇨🇨
+Colombia	CO	COL	170	4	-72	🇨🇴
+Comoros	KM	COM	174	-12.1667	44.25	🇰🇲
+Congo	CG	COG	178	-1	15	🇨🇬
+Congo, the Democratic Republic of the	CD	COD	180	0	25	🇨🇩
+Cook Islands	CK	COK	184	-21.2333	-159.7667	🇨🇰
+Costa Rica	CR	CRI	188	10	-84	🇨🇷
+Ivory Coast	CI	CIV	384	8	-5	🇨🇮
+Croatia	HR	HRV	191	45.1667	15.5	🇭🇷
+Cuba	CU	CUB	192	21.5	-80	🇨🇺
+Cyprus	CY	CYP	196	35	33	🇨🇾
+Czech Republic	CZ	CZE	203	49.75	15.5	🇨🇿
+Denmark	DK	DNK	208	56	10	🇩🇰
+Djibouti	DJ	DJI	262	11.5	43	🇩🇯
+Dominica	DM	DMA	212	15.4167	-61.3333	🇩🇲
+Dominican Republic	DO	DOM	214	19	-70.6667	🇩🇴
+Ecuador	EC	ECU	218	-2	-77.5	🇪🇨
+Egypt	EG	EGY	818	27	30	🇪🇬
+El Salvador	SV	SLV	222	13.8333	-88.9167	🇸🇻
+Equatorial Guinea	GQ	GNQ	226	2	10	🇬🇶
+Eritrea	ER	ERI	232	15	39	🇪🇷
+Estonia	EE	EST	233	59	26	🇪🇪
+Ethiopia	ET	ETH	231	8	38	🇪🇹
+Falkland Islands (Malvinas)	FK	FLK	238	-51.75	-59	🇫🇰
+Faroe Islands	FO	FRO	234	62	-7	🇫🇴
+Fiji	FJ	FJI	242	-18	175	🇫🇯
+Finland	FI	FIN	246	64	26	🇫🇮
+France	FR	FRA	250	46	2	🇫🇷
+French Guiana	GF	GUF	254	4	-53	🇬🇫
+French Polynesia	PF	PYF	258	-15	-140	🇵🇫
+French Southern Territories	TF	ATF	260	-43	67	🇹🇫
+Gabon	GA	GAB	266	-1	11.75	🇬🇦
+Gambia	GM	GMB	270	13.4667	-16.5667	🇬🇲
+Georgia	GE	GEO	268	42	43.5	🇬🇪
+Germany	DE	DEU	276	51	9	🇩🇪
+Ghana	GH	GHA	288	8	-2	🇬🇭
+Gibraltar	GI	GIB	292	36.1833	-5.3667	🇬🇮
+Greece	GR	GRC	300	39	22	🇬🇷
+Greenland	GL	GRL	304	72	-40	🇬🇱
+Grenada	GD	GRD	308	12.1167	-61.6667	🇬🇩
+Guadeloupe	GP	GLP	312	16.25	-61.5833	🇬🇵
+Guam	GU	GUM	316	13.4667	144.7833	🇬🇺
+Guatemala	GT	GTM	320	15.5	-90.25	🇬🇹
+Guernsey	GG	GGY	831	49.5	-2.56	🇬🇬
+Guinea	GN	GIN	324	11	-10	🇬🇳
+Guinea-Bissau	GW	GNB	624	12	-15	🇬🇼
+Guyana	GY	GUY	328	5	-59	🇬🇾
+Haiti	HT	HTI	332	19	-72.4167	🇭🇹
+Heard Island and McDonald Islands	HM	HMD	334	-53.1	72.5167	🇭🇲
+Holy See (Vatican City State)	VA	VAT	336	41.9	12.45	🇻🇦
+Honduras	HN	HND	340	15	-86.5	🇭🇳
+Hong Kong	HK	HKG	344	22.25	114.1667	🇭🇰
+Hungary	HU	HUN	348	47	20	🇭🇺
+Iceland	IS	ISL	352	65	-18	🇮🇸
+India	IN	IND	356	20	77	🇮🇳
+Indonesia	ID	IDN	360	-5	120	🇮🇩
+Iran, Islamic Republic of	IR	IRN	364	32	53	🇮🇷
+Iraq	IQ	IRQ	368	33	44	🇮🇶
+Ireland	IE	IRL	372	53	-8	🇮🇪
+Isle of Man	IM	IMN	833	54.23	-4.55	🇮🇲
+Israel	IL	ISR	376	31.5	34.75	🇮🇱
+Italy	IT	ITA	380	42.8333	12.8333	🇮🇹
+Jamaica	JM	JAM	388	18.25	-77.5	🇯🇲
+Japan	JP	JPN	392	36	138	🇯🇵
+Jersey	JE	JEY	832	49.21	-2.13	🇯🇪
+Jordan	JO	JOR	400	31	36	🇯🇴
+Kazakhstan	KZ	KAZ	398	48	68	🇰🇿
+Kenya	KE	KEN	404	1	38	🇰🇪
+Kiribati	KI	KIR	296	1.4167	173	🇰🇮
+Korea, Democratic People's Republic of	KP	PRK	408	40	127	🇰🇵
+South Korea	KR	KOR	410	37	127.5	🇰🇷
+Kuwait	KW	KWT	414	29.3375	47.6581	🇰🇼
+Kyrgyzstan	KG	KGZ	417	41	75	🇰🇬
+Lao People's Democratic Republic	LA	LAO	418	18	105	🇱🇦
+Latvia	LV	LVA	428	57	25	🇱🇻
+Lebanon	LB	LBN	422	33.8333	35.8333	🇱🇧
+Lesotho	LS	LSO	426	-29.5	28.5	🇱🇸
+Liberia	LR	LBR	430	6.5	-9.5	🇱🇷
+Libya	LY	LBY	434	25	17	🇱🇾
+Liechtenstein	LI	LIE	438	47.1667	9.5333	🇱🇮
+Lithuania	LT	LTU	440	56	24	🇱🇹
+Luxembourg	LU	LUX	442	49.75	6.1667	🇱🇺
+Macao	MO	MAC	446	22.1667	113.55	🇲🇴
+Macedonia, the former Yugoslav Republic of	MK	MKD	807	41.8333	22	🇲🇰
+Madagascar	MG	MDG	450	-20	47	🇲🇬
+Malawi	MW	MWI	454	-13.5	34	🇲🇼
+Malaysia	MY	MYS	458	2.5	112.5	🇲🇾
+Maldives	MV	MDV	462	3.25	73	🇲🇻
+Mali	ML	MLI	466	17	-4	🇲🇱
+Malta	MT	MLT	470	35.8333	14.5833	🇲🇹
+Marshall Islands	MH	MHL	584	9	168	🇲🇭
+Martinique	MQ	MTQ	474	14.6667	-61	🇲🇶
+Mauritania	MR	MRT	478	20	-12	🇲🇷
+Mauritius	MU	MUS	480	-20.2833	57.55	🇲🇺
+Mayotte	YT	MYT	175	-12.8333	45.1667	🇾🇹
+Mexico	MX	MEX	484	23	-102	🇲🇽
+Micronesia, Federated States of	FM	FSM	583	6.9167	158.25	🇫🇲
+Moldova, Republic of	MD	MDA	498	47	29	🇲🇩
+Monaco	MC	MCO	492	43.7333	7.4	🇲🇨
+Mongolia	MN	MNG	496	46	105	🇲🇳
+Montenegro	ME	MNE	499	42	19	🇲🇪
+Montserrat	MS	MSR	500	16.75	-62.2	🇲🇸
+Morocco	MA	MAR	504	32	-5	🇲🇦
+Mozambique	MZ	MOZ	508	-18.25	35	🇲🇿
+Myanmar	MM	MMR	104	22	98	🇲🇲
+Namibia	NA	NAM	516	-22	17	🇳🇦
+Nauru	NR	NRU	520	-0.5333	166.9167	🇳🇷
+Nepal	NP	NPL	524	28	84	🇳🇵
+Netherlands	NL	NLD	528	52.5	5.75	🇳🇱
+Netherlands Antilles	AN	ANT	530	12.25	-68.75	🇦🇳
+New Caledonia	NC	NCL	540	-21.5	165.5	🇳🇨
+New Zealand	NZ	NZL	554	-41	174	🇳🇿
+Nicaragua	NI	NIC	558	13	-85	🇳🇮
+Niger	NE	NER	562	16	8	🇳🇪
+Nigeria	NG	NGA	566	10	8	🇳🇬
+Niue	NU	NIU	570	-19.0333	-169.8667	🇳🇺
+Norfolk Island	NF	NFK	574	-29.0333	167.95	🇳🇫
+Northern Mariana Islands	MP	MNP	580	15.2	145.75	🇲🇵
+Norway	NO	NOR	578	62	10	🇳🇴
+Oman	OM	OMN	512	21	57	🇴🇲
+Pakistan	PK	PAK	586	30	70	🇵🇰
+Palau	PW	PLW	585	7.5	134.5	🇵🇼
+Palestinian Territory, Occupied	PS	PSE	275	32	35.25	🇵🇸
+Panama	PA	PAN	591	9	-80	🇵🇦
+Papua New Guinea	PG	PNG	598	-6	147	🇵🇬
+Paraguay	PY	PRY	600	-23	-58	🇵🇾
+Peru	PE	PER	604	-10	-76	🇵🇪
+Philippines	PH	PHL	608	13	122	🇵🇭
+Pitcairn	PN	PCN	612	-24.7	-127.4	🇵🇳
+Poland	PL	POL	616	52	20	🇵🇱
+Portugal	PT	PRT	620	39.5	-8	🇵🇹
+Puerto Rico	PR	PRI	630	18.25	-66.5	🇵🇷
+Qatar	QA	QAT	634	25.5	51.25	🇶🇦
+Réunion	RE	REU	638	-21.1	55.6	🇷🇪
+Romania	RO	ROU	642	46	25	🇷🇴
+Russia	RU	RUS	643	60	100	🇷🇺
+Rwanda	RW	RWA	646	-2	30	🇷🇼
+Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654	-15.9333	-5.7	🇸🇭
+Saint Kitts and Nevis	KN	KNA	659	17.3333	-62.75	🇰🇳
+Saint Lucia	LC	LCA	662	13.8833	-61.1333	🇱🇨
+Saint Pierre and Miquelon	PM	SPM	666	46.8333	-56.3333	🇵🇲
+Saint Vincent and the Grenadines	VC	VCT	670	13.25	-61.2	🇻🇨
+Samoa	WS	WSM	882	-13.5833	-172.3333	🇼🇸
+San Marino	SM	SMR	674	43.7667	12.4167	🇸🇲
+Sao Tome and Principe	ST	STP	678	1	7	🇸🇹
+Saudi Arabia	SA	SAU	682	25	45	🇸🇦
+Senegal	SN	SEN	686	14	-14	🇸🇳
+Serbia	RS	SRB	688	44	21	🇷🇸
+Seychelles	SC	SYC	690	-4.5833	55.6667	🇸🇨
+Sierra Leone	SL	SLE	694	8.5	-11.5	🇸🇱
+Singapore	SG	SGP	702	1.3667	103.8	🇸🇬
+Slovakia	SK	SVK	703	48.6667	19.5	🇸🇰
+Slovenia	SI	SVN	705	46	15	🇸🇮
+Solomon Islands	SB	SLB	90	-8	159	🇸🇧
+Somalia	SO	SOM	706	10	49	🇸🇴
+South Africa	ZA	ZAF	710	-29	24	🇿🇦
+South Georgia and the South Sandwich Islands	GS	SGS	239	-54.5	-37	🇬🇸
+South Sudan	SS	SSD	728	8	30	🇸🇸
+Spain	ES	ESP	724	40	-4	🇪🇸
+Sri Lanka	LK	LKA	144	7	81	🇱🇰
+Sudan	SD	SDN	736	15	30	🇸🇩
+Suriname	SR	SUR	740	4	-56	🇸🇷
+Svalbard and Jan Mayen	SJ	SJM	744	78	20	🇸🇯
+Swaziland	SZ	SWZ	748	-26.5	31.5	🇸🇿
+Sweden	SE	SWE	752	62	15	🇸🇪
+Switzerland	CH	CHE	756	47	8	🇨🇭
+Syrian Arab Republic	SY	SYR	760	35	38	🇸🇾
+Taiwan	TW	TWN	158	23.5	121	🇹🇼
+Tajikistan	TJ	TJK	762	39	71	🇹🇯
+Tanzania, United Republic of	TZ	TZA	834	-6	35	🇹🇿
+Thailand	TH	THA	764	15	100	🇹🇭
+Timor-Leste	TL	TLS	626	-8.55	125.5167	🇹🇱
+Togo	TG	TGO	768	8	1.1667	🇹🇬
+Tokelau	TK	TKL	772	-9	-172	🇹🇰
+Tonga	TO	TON	776	-20	-175	🇹🇴
+Trinidad and Tobago	TT	TTO	780	11	-61	🇹🇹
+Tunisia	TN	TUN	788	34	9	🇹🇳
+Turkey	TR	TUR	792	39	35	🇹🇷
+Turkmenistan	TM	TKM	795	40	60	🇹🇲
+Turks and Caicos Islands	TC	TCA	796	21.75	-71.5833	🇹🇨
+Tuvalu	TV	TUV	798	-8	178	🇹🇻
+Uganda	UG	UGA	800	1	32	🇺🇬
+Ukraine	UA	UKR	804	49	32	🇺🇦
+United Arab Emirates	AE	ARE	784	24	54	🇦🇪
+United Kingdom	GB	GBR	826	54	-2	🇬🇧
+United States	US	USA	840	38	-97	🇺🇸
+United States Minor Outlying Islands	UM	UMI	581	19.2833	166.6	🇺🇲
+Uruguay	UY	URY	858	-33	-56	🇺🇾
+Uzbekistan	UZ	UZB	860	41	64	🇺🇿
+Vanuatu	VU	VUT	548	-16	167	🇻🇺
+Venezuela	VE	VEN	862	8	-66	🇻🇪
+Vietnam	VN	VNM	704	16	106	🇻🇳
+Virgin Islands, British	VG	VGB	92	18.5	-64.5	🇻🇬
+Virgin Islands, U.S.	VI	VIR	850	18.3333	-64.8333	🇻🇮
+Wallis and Futuna	WF	WLF	876	-13.3	-176.2	🇼🇫
+Western Sahara	EH	ESH	732	24.5	-13	🇪🇭
+Yemen	YE	YEM	887	15	48	🇾🇪
+Zambia	ZM	ZMB	894	-15	30	🇿🇲
+Zimbabwe	ZW	ZWE	716	-20	30	🇿🇼
+Åland Islands	AX	ALA	248	60.116667	19.9	🇦🇽
+Bonaire, Sint Eustatius and Saba	BQ	BES	535	12.183333	-68.233333	🇧🇶
+Curaçao	CW	CUW	531	12.166667	-68.966667	🇨🇼
+Saint Barthélemy	BL	BLM	652	17.897728	-62.834244	🇧🇱
+Saint Martin (French part)	MF	MAF	663	18.075278	-63.06	🇲🇫
+Sint Maarten (Dutch part)	SX	SXM	534	18.033333	-63.05	🇸🇽
+Kosovo	XK	XKX	-1	42.583333	21	🇽🇰
