@@ -4,12 +4,19 @@
 \alias{download_gesla}
 \title{Download GESLA data}
 \usage{
-download_gesla(messages = TRUE, ask = TRUE, overwrite = FALSE)
+download_gesla(
+  dest = "./gesla_dataset",
+  ask = TRUE,
+  messages = TRUE,
+  overwrite = FALSE
+)
 }
 \arguments{
-\item{messages}{Include informative messages?}
+\item{dest}{The destination of the dataset}
 
 \item{ask}{Ask for confirmation}
+
+\item{messages}{Include informative messages?}
 
 \item{overwrite}{Overwrite (download again)?}
 }

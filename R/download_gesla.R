@@ -7,13 +7,14 @@
 ##' @importFrom arrow copy_files s3_bucket
 ##' @importFrom cli cli_alert_info format_error
 ##' @export
-##' @param messages Include informative messages?
+##' @param dest The destination of the dataset
 ##' @param ask Ask for confirmation
+##' @param messages Include informative messages?
 ##' @param overwrite Overwrite (download again)?
-download_gesla <- function(messages = TRUE, ask = TRUE, overwrite = FALSE) {
-    gd <- "inst/shiny/gesla_dataset"
-    if(!dir.exists(gd)) {
-        dir.create(gd)
+download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
+                           messages = TRUE, overwrite = FALSE) {
+    if(!dir.exists(dest)) {
+        dir.create(dest, recursive = TRUE)
     } else {
         if(!overwrite) {
             stop(format_error(c("",
@@ -36,10 +37,10 @@ download_gesla <- function(messages = TRUE, ask = TRUE, overwrite = FALSE) {
                 from = s3_bucket("gesla-test/parquet_files",
                     region = "eu-west-1",
                     anonymous = TRUE),
-                to = gd
+                to = dest
             )
         } else {
-            unlink(gd, recursive = TRUE)
+            unlink(dest, recursive = TRUE)
             stop(format_error(c("",
                 "x" = "No data was downloaded"))
             )
@@ -52,7 +53,7 @@ download_gesla <- function(messages = TRUE, ask = TRUE, overwrite = FALSE) {
             from = s3_bucket("gesla-test/parquet_files",
                 region = "eu-west-1",
                 anonymous = TRUE),
-            to = gd
+            to = dest
         )
     }
 }
