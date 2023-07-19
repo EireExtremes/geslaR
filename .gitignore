@@ -1,3 +1,4 @@
+inst/shiny/gesla_dataset/
 dev/*.csv
 dev/*.parquet
 dev/*.txt
