@@ -7,7 +7,7 @@
 run_gesla_app(overwrite = FALSE)
 }
 \arguments{
-\item{overwrite}{Overwrite the current dataset?}
+\item{overwrite}{Overwrite?}
 }
 \value{
 A shiny interface.
