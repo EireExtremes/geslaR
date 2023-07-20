@@ -60,12 +60,13 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="geslar">geslaR<a class="anchor" aria-label="anchor" href="#geslar"></a>
 </h1></div>
+<p>Get And Manipulate the GESLA Dataset</p>
 <!-- badges: start -->
 
 <p><a href="https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev" alt="R-CMD-check"></a> Development branch</p>
 <p><a href="https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml" class="external-link"><img src="https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=main" alt="test-coverage"></a> Main branch</p>
 <p><a href="https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml" class="external-link"><img src="https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=dev" alt="test-coverage"></a> Development branch <!-- badges: end --></p>
-<p>The goal of geslaR is to …</p>
+<p>The geslaR package was developed to deal with the <a href="https://gesla787883612.wordpress.com" class="external-link">GESLA</a> (Global Extreme Sea Level Analysis) dataset.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -75,12 +76,78 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EireExtremes/geslaR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
+<span></span>
+<span><span class="co">##----------------------------------------------------------------------</span></span>
+<span><span class="co">## Read files downloaded from the Shiny interface</span></span>
+<span></span>
+<span><span class="co">## Read a CSV file as Table</span></span>
+<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span></span>
+<span>    file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"antarctica.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>,</span>
+<span>    as_data_frame <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"</span></span>
+<span></span>
+<span><span class="co">## Read a CSV file as data frame</span></span>
+<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span></span>
+<span>    file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"antarctica.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>,</span>
+<span>    as_data_frame <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></span>
+<span></span>
+<span><span class="co">## Read a Parquet file as Table</span></span>
+<span><span class="va">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span></span>
+<span>    file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"antarctica.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>,</span>
+<span>    as_data_frame <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">dc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"</span></span>
+<span></span>
+<span><span class="co">## Read a Parquet file as data frame</span></span>
+<span><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span></span>
+<span>    file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"antarctica.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>,</span>
+<span>    as_data_frame <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">dd</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Query a subset of the GESLA dataset, without the need of downloading</span></span>
+<span><span class="co">## all the dataset</span></span>
+<span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query_gesla.html">query_gesla</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"IRL"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">:</span><span class="fl">2021</span>, as_data_frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ This process can take some time, as it depends on the size of the final</span></span>
+<span><span class="co">#&gt; dataset, and on internet connection.</span></span>
+<span><span class="co">#&gt; ℹ Connecting to the data server...</span></span>
+<span><span class="co">#&gt; ✔ Connecting to the data server... [3s]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Filtering data...</span></span>
+<span><span class="co">#&gt; ✔ Filtering data... [28ms]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Query finished.</span></span>
+<span><span class="co">#&gt; ✔ Query finished. [11ms]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "arrow_dplyr_query"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Download the whole dataset (parquet files) into a specific location</span></span>
+<span><span class="fu"><a href="reference/download_gesla.html">download_gesla</a></span><span class="op">(</span>dest <span class="op">=</span> <span class="st">"./gesla_dataset"</span><span class="op">)</span></span>
+<span><span class="co">## ℹ The total size of the dataset is about 7GB, and the download time will depend on</span></span>
+<span><span class="co">## your internet connection</span></span>
+<span><span class="co">## Do you want to download the whole dataset?</span></span>
+<span></span>
+<span><span class="co">## 1: Yes</span></span>
+<span><span class="co">## 2: No</span></span>
+<span></span>
+<span><span class="co">## Selection: 1</span></span>
+<span><span class="co">## ℹ Wait while the dataset is downloaded...</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## This function will download the whole dataset (if not yet done), and</span></span>
+<span><span class="co">## open the geslar-app web interface locally on your browser</span></span>
+<span><span class="fu"><a href="reference/run_gesla_app.html">run_gesla_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
