@@ -1,3 +1,4 @@
+gesla_dataset/
 gesla_app/
 dev/*.csv
 dev/*.parquet
