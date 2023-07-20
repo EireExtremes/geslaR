@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_gesla_app.R
 \name{run_gesla_app}
 \alias{run_gesla_app}
-\title{Run the Gesla app}
+\title{Run the GESLA Shiny app.}
 \usage{
 run_gesla_app(
   app_dest = "./gesla_app",
@@ -21,7 +21,23 @@ run_gesla_app(
 A shiny interface.
 }
 \description{
-Run the Gesla Shiny app locally.
+Run the GESLA Shiny app (geslaR-app) locally. The first
+time this function is called, it will check if the GESLA dataset is
+present. If not, it will prompt to download it or not. Please note
+that the entire GESLA dataset is about 7GB in size, so make sure
+there is enough space for it. The Shiny app will only work with the
+entire dataset downloaded locally.
+
+Note, however, that the dataset needs to be downloaded only once, so
+the next time this function is called, the app will open instantly.
+
+The same application is hosted online at https://bit.ly/gesla-app,
+with the exact same capabilities. The advantage of using the
+interface locally is primarily because of its speed. If you don't
+need the whole GESLA dataset and/or will only use a subset of it, we
+recommend to use the online interface to filter the desired subset.
+After that, you can use the \code{\link[=read_gesla]{read_gesla()}} function to
+import it.
 }
 \details{
 Write details here.
