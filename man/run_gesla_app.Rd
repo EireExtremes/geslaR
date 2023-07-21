@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_gesla_app.R
 \name{run_gesla_app}
 \alias{run_gesla_app}
-\title{Run the GESLA Shiny app.}
+\title{Run the GESLA Shiny app}
 \usage{
 run_gesla_app(
   app_dest = "./gesla_app",
@@ -11,14 +11,24 @@ run_gesla_app(
 )
 }
 \arguments{
-\item{app_dest}{The app folder}
+\item{app_dest}{The destination directory that will host the app and
+the database. It will be created if it doesn't exist. By default, it
+will create a directory called \code{gesla_app} in the current working
+directory.}
 
-\item{dest}{The dataset folder}
+\item{dest}{The destination directory that will host the GESLA
+dataset files. By default, it will create a subdirectory under the
+directory defined in \code{app_dest}. It's not recommended to change this
+argument. If needed, change only the \code{app_dest} argument.}
 
-\item{overwrite}{Overwrite?}
+\item{overwrite}{Overwrite the current dataset? If \code{TRUE} and called
+on the same directory as the app, it will overwrite (i.e. download
+again) the whole dataset. This is usually not necessary, unless the
+dataset has really changed.}
 }
 \value{
-A shiny interface.
+The geslaR-app Shiny interface will open in your default
+browser.
 }
 \description{
 Run the GESLA Shiny app (geslaR-app) locally. The first
@@ -31,7 +41,7 @@ entire dataset downloaded locally.
 Note, however, that the dataset needs to be downloaded only once, so
 the next time this function is called, the app will open instantly.
 
-The same application is hosted online at \url{https://bit.ly/gesla-app},
+The same application is hosted online at \url{https://bit.ly/geslar-app},
 with the exact same capabilities. The advantage of using the
 interface locally is primarily because of its speed. If you don't
 need the whole GESLA dataset and/or will only use a subset of it, we
@@ -40,11 +50,25 @@ After that, you can use the \code{\link[=read_gesla]{read_gesla()}} function to
 import it.
 }
 \details{
-Write details here.
+The geslaR-app Shiny interface relies on a set of packages,
+defined in the Suggests fiels of the package \code{DESCRIPTION} file.
+When called for the first time, the function will check if all the
+packages are available. If one or more are not installed, a message
+will show which one of them should be installed. Alternatively, you
+can install all of them by reinstalling the \code{geslaR} package with
+\code{devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)}. In this case, you will need to restar your R session.
+
+When downloading the GESLA dataset for the first time, it may take a
+few minutes, since it depends on your internet connection and on the
+traffic on an Amazon AWS server. Don't stop the process before it
+ends completely. Note that this will be needed only the first time.
+Once the dataset is downloaded, the other time this function is
+called on the same directory, the interface should open in your
+browser instantly.
 }
 \examples{
 \dontrun{
-## This will create a directory called `gesla_app` on the current
+## This will create a directory called `geslaR_app` on the current
 working directory and import the necessary files for the app. Also,
 it will create a subdirectory `gesla_app/gesla_dataset`, where the
 dataset will be downloaded.

@@ -1,4 +1,4 @@
-##' @title Run the GESLA Shiny app.
+##' @title Run the GESLA Shiny app
 ##' @description Run the GESLA Shiny app (geslaR-app) locally. The first
 ##' time this function is called, it will check if the GESLA dataset is
 ##' present. If not, it will prompt to download it or not. Please note
@@ -9,22 +9,47 @@
 ##' Note, however, that the dataset needs to be downloaded only once, so
 ##' the next time this function is called, the app will open instantly.
 ##'
-##' The same application is hosted online at <https://bit.ly/gesla-app>,
+##' The same application is hosted online at <https://bit.ly/geslar-app>,
 ##' with the exact same capabilities. The advantage of using the
 ##' interface locally is primarily because of its speed. If you don't
 ##' need the whole GESLA dataset and/or will only use a subset of it, we
 ##' recommend to use the online interface to filter the desired subset.
 ##' After that, you can use the [geslaR::read_gesla()] function to
 ##' import it.
-##' @details Write details here.
-##' @param app_dest The app folder
-##' @param dest The dataset folder
-##' @param overwrite Overwrite?
-##' @return A shiny interface.
+##' @details The geslaR-app Shiny interface relies on a set of packages,
+##' defined in the Suggests fiels of the package `DESCRIPTION` file.
+##' When called for the first time, the function will check if all the
+##' packages are available. If one or more are not installed, a message
+##' will show which one of them should be installed. Alternatively, you
+##' can install all of them by reinstalling the `geslaR` package with
+##' `devtools::install_github("EireExtremes/geslaR", dependencies =
+##' TRUE)`. In this case, you will need to restar your R session.
+##'
+##' When downloading the GESLA dataset for the first time, it may take a
+##' few minutes, since it depends on your internet connection and on the
+##' traffic on an Amazon AWS server. Don't stop the process before it
+##' ends completely. Note that this will be needed only the first time.
+##' Once the dataset is downloaded, the other time this function is
+##' called on the same directory, the interface should open in your
+##' browser instantly.
+##' @param app_dest The destination directory that will host the app and
+##' the database. It will be created if it doesn't exist. By default, it
+##' will create a directory called `gesla_app` in the current working
+##' directory.
+##' @param dest The destination directory that will host the GESLA
+##' dataset files. By default, it will create a subdirectory under the
+##' directory defined in `app_dest`. It's not recommended to change this
+##' argument. If needed, change only the `app_dest` argument.
+##' @param overwrite Overwrite the current dataset? If `TRUE` and called
+##' on the same directory as the app, it will overwrite (i.e. download
+##' again) the whole dataset. This is usually not necessary, unless the
+##' dataset has really changed.
+##' @return The geslaR-app Shiny interface will open in your default
+##' browser.
 ##' @author Fernando Mayer
 ##' @examples
 ##' \dontrun{
-##' ## This will create a directory called `gesla_app` on the current
+##' ## This will create a directory called `geslaR_app` on the current
 ##' working directory and import the necessary files for the app. Also,
 ##' it will create a subdirectory `gesla_app/gesla_dataset`, where the
 ##' dataset will be downloaded.
