@@ -50,17 +50,17 @@
 ##' @examples
 ##' \dontrun{
 ##' ## This will create a directory called `geslaR_app` on the current
-##' working directory and import the necessary files for the app. Also,
-##' it will create a subdirectory `gesla_app/gesla_dataset`, where the
-##' dataset will be downloaded.
+##' ## working directory and import the necessary files for the app.
+##' ## Also, it will create a subdirectory `gesla_app/gesla_dataset`,
+##' ## where the dataset will be downloaded.
 ##' run_gesla_app()
 ##'
 ##' ## This will do the same, but everything will be in the specified path
 ##' run_gesla_app(app_dest = "~/my_gesla_app")
 ##'
 ##' ## This function call on the same directory where the app is hosted,
-##' will overwrite the whole dataset (i.e. it will be downloaded again).
-##' A prompt for confirmation will be issued.
+##' ## will overwrite the whole dataset (i.e. it will be downloaded
+##' ## again). A prompt for confirmation will be issued.
 ##' run_gesla_app(overwrite = TRUE)
 ##' }
 ##' @importFrom cli format_error cli_alert_info cli_progress_step
