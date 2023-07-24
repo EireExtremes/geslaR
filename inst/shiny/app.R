@@ -23,7 +23,7 @@ cc <- vroom::vroom("countries.csv", show_col_types = FALSE,
                                   flag = "emoji_flag"))
 
 ## Country names, country codes and flags
-cc <- right_join(cc, tibble(code = countries)) |>
+cc <- right_join(cc, tibble(code = countries), by = "code") |>
   arrange(country)
 
 ## This is necessary to use in multiInput()
