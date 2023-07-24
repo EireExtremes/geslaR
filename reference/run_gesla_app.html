@@ -93,7 +93,8 @@ filter the desired subset. After that, you can use the
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">run_gesla_app</span><span class="op">(</span></span>
 <span>  app_dest <span class="op">=</span> <span class="st">"./gesla_app"</span>,</span>
 <span>  dest <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">app_dest</span>, <span class="st">"/gesla_dataset"</span><span class="op">)</span>,</span>
-<span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  open <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -118,6 +119,11 @@ argument. If needed, change only the <code>app_dest</code> argument.</p></dd>
 on the same directory as the app, it will overwrite (i.e. download
 again) the whole dataset. This is usually not necessary, unless the
 dataset has really changed.</p></dd>
+
+
+<dt>open</dt>
+<dd><p>Should the app open in the default browser? Defaults to
+<code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
