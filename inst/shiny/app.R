@@ -1,7 +1,9 @@
 pkgs <- c("arrow", "tidyverse", "lubridate", "shiny", "shinyWidgets",
           "leaflet", "patchwork", "shinycssloaders", "shinyalert",
           "leafpop", "plotly", "bslib")
-lapply(pkgs, library, character.only = TRUE)
+lapply(pkgs, library, character.only = TRUE, warn.conflicts = FALSE,
+    verbose = FALSE, quietly = TRUE) |>
+    suppressMessages()
 theme_set(theme_bw())
 
 ## Create arrow dataset

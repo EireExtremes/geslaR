@@ -129,7 +129,7 @@ run_gesla_app <- function(app_dest = "./gesla_app",
             )
         }
     }
-    cli_alert_info("Running app...")
+    cli_alert_info("Running the geslaR app...")
     fls <- list.files(system.file("shiny", package = "geslaR"))
     for(app_files in fls) {
         if(!file.exists(paste0(app_dest, "/", app_files))) {
@@ -137,5 +137,5 @@ run_gesla_app <- function(app_dest = "./gesla_app",
                 to = app_dest)
         }
     }
-    shiny::runApp(app_dest, quiet = TRUE)
+    suppressMessages(shiny::runApp(app_dest, quiet = TRUE))
 }
