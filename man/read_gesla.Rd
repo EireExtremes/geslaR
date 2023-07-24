@@ -7,26 +7,92 @@
 read_gesla(file, as_data_frame = FALSE, ...)
 }
 \arguments{
-\item{file}{The file name (must be csv or parquet only)}
+\item{file}{The file name (must end in \code{.csv} or \code{.parquet} only)}
 
-\item{as_data_frame}{If FALSE (default), the data will be imported
-as an Arrow Table format. Otherwise, the data will be in a
-data.frame (tibble) format. See Details.}
+\item{as_data_frame}{If \code{FALSE} (default), the data will be imported
+as an Arrow \code{Table} format. Otherwise, the data will be in a
+\code{tbl_df} (\code{data.frame}) format. See Details.}
 
 \item{...}{Other arguments from \code{\link[arrow:read_delim_arrow]{arrow::read_csv_arrow()}}, and
-\code{\link[arrow:read_parquet]{arrow::read_parquet()}}, from the arrow package.}
+\code{\link[arrow:read_parquet]{arrow::read_parquet()}}, from the
+\href{https://arrow.apache.org/docs/r/}{arrow} package.}
 }
 \value{
-An Arrow Table object, or a data.frame (tibble)
+An Arrow \code{Table} object, or a \code{tbl_df} (\code{data_frame})
 }
 \description{
-Read a csv or parquet file, as exported from the geslaR web
-interface
+Read a CSV or Parquet file, as exported from the GESLA
+Shiny app interface (geslaR-app). A "GESLA dataset file" is a subset
+of the GESLA dataset, fetched from the geslaR-app. When using that
+app, you can choose to download the selected subset in CSV or
+Parquet file formats. Whichever option is chosen this function will
+automatically identify the file type and use the appropriate
+functions to import the dataset to R.
+
+This function can be used for exported files from the online
+interface (hosted at \url{https://bit.ly/geslar-app}) or from a local
+interface, as when using the \code{\link[=run_gesla_app]{run_gesla_app()}} function.
 }
 \details{
-The read_gesla function will automatically identify the file type
-(csv or parquet) and use the appropriate functions to read an
-exported Gesla dataset.
+We highly recommend to export subsets of the GESLA dataset
+from the geslaR-app in the Parquet file format. This format has a
+much smaller file size when comparred to the CSV format.
+
+In any case, the only difference between CSV and Parquet files will
+be the file size. However, when importing these data to R, both
+file types have the option to be imported as an Arrow \code{Table}
+format, which is the default (argument \code{as_data_frame = FALSE}).
+This way, the object created in R will have a very small size,
+independent of how big the file size is. To deal with this type of
+object, you can use \code{dplyr} verbs, in the same way as a normal
+\code{data.frame} (or \code{tbl_df}). Some examples can be found in the \href{https://arrow.apache.org/docs/r/articles/data_wrangling.html}{Arrow documentation}.
+
+If the \code{as_data_frame} argument is set to \code{TRUE}, the imported R
+object will vary in size, according to the size of the dataset, and
+regardless of the file type. In many situations, this can be
+infeasible, since the object can result in a "larger-than-memory"
+size, and possibly will make R operations slow or even a session
+crash. Therefore, we always recommend to start with \code{as_data_frame = FALSE}, and work with the dataset from there.
+
+See \strong{Examples} below.
+}
+\examples{
+\dontrun{
+##------------------------------------------------------------------
+## Import an internal example Parquet file
+da <- read_gesla(
+    system.file("extdata", "antarctica.parquet", package="geslaR")
+)
+## Check size in memory
+object.size(da) # 488 bytes
+
+##------------------------------------------------------------------
+## Import an internal example CSV file
+da <- read_gesla(
+    system.file("extdata", "antarctica.csv", package="geslaR")
+)
+## Check size in memory
+object.size(da) # 488 bytes
+
+##------------------------------------------------------------------
+## Import an internal example Parquet file as data.frame
+da <- read_gesla(
+    system.file("extdata", "antarctica.parquet", package="geslaR"),
+    as_data_frame = TRUE
+)
+## Check size in memory
+object.size(da) # 62664 bytes
+
+##------------------------------------------------------------------
+## Import an internal example CSV file as data.frame
+da <- read_gesla(
+    system.file("extdata", "antarctica.csv", package="geslaR"),
+    as_data_frame = TRUE
+)
+## Check size in memory
+object.size(da) # 62664 bytes
+}
+
 }
 \author{
 Fernando Mayer
