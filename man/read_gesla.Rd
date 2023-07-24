@@ -18,7 +18,7 @@ as an Arrow \code{Table} format. Otherwise, the data will be in a
 \href{https://arrow.apache.org/docs/r/}{arrow} package.}
 }
 \value{
-An Arrow \code{Table} object, or a \code{tbl_df} (\code{data_frame})
+An Arrow \code{Table} object, or a \code{tbl_df} (\code{data.frame})
 }
 \description{
 Read a CSV or Parquet file, as exported from the GESLA
@@ -61,7 +61,7 @@ See \strong{Examples} below.
 ##------------------------------------------------------------------
 ## Import an internal example Parquet file
 da <- read_gesla(
-    system.file("extdata", "antarctica.parquet", package="geslaR")
+    system.file("extdata", "antarctica.parquet", package = "geslaR")
 )
 ## Check size in memory
 object.size(da) # 488 bytes
@@ -69,7 +69,7 @@ object.size(da) # 488 bytes
 ##------------------------------------------------------------------
 ## Import an internal example CSV file
 da <- read_gesla(
-    system.file("extdata", "antarctica.csv", package="geslaR")
+    system.file("extdata", "antarctica.csv", package = "geslaR")
 )
 ## Check size in memory
 object.size(da) # 488 bytes
@@ -77,7 +77,7 @@ object.size(da) # 488 bytes
 ##------------------------------------------------------------------
 ## Import an internal example Parquet file as data.frame
 da <- read_gesla(
-    system.file("extdata", "antarctica.parquet", package="geslaR"),
+    system.file("extdata", "antarctica.parquet", package = "geslaR"),
     as_data_frame = TRUE
 )
 ## Check size in memory
@@ -86,7 +86,7 @@ object.size(da) # 62664 bytes
 ##------------------------------------------------------------------
 ## Import an internal example CSV file as data.frame
 da <- read_gesla(
-    system.file("extdata", "antarctica.csv", package="geslaR"),
+    system.file("extdata", "antarctica.csv", package = "geslaR"),
     as_data_frame = TRUE
 )
 ## Check size in memory
