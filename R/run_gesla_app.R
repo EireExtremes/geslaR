@@ -50,6 +50,9 @@
 ##' again) the whole dataset. This is usually not necessary, unless the
 ##' dataset has really changed.
 ##'
+##' @param open Should the app open in the default browser? Defaults to
+##' `TRUE`.
+##'
 ##' @return The geslaR-app Shiny interface will open in your default
 ##' browser.
 ##'
@@ -81,7 +84,8 @@
 ##' @export
 run_gesla_app <- function(app_dest = "./gesla_app",
                           dest = paste0(app_dest, "/gesla_dataset"),
-                          overwrite = FALSE) {
+                          overwrite = FALSE,
+                          open = TRUE) {
     missing_pkgs <- check_suggests()
     if(length(missing_pkgs != 0L)) {
         stop(format_error(c("",
@@ -142,7 +146,6 @@ run_gesla_app <- function(app_dest = "./gesla_app",
             )
         }
     }
-    cli_alert_info("Running the geslaR-app...")
     fls <- list.files(system.file("shiny", package = "geslaR"))
     for(app_files in fls) {
         if(!file.exists(paste0(app_dest, "/", app_files))) {
@@ -150,5 +153,11 @@ run_gesla_app <- function(app_dest = "./gesla_app",
                 to = app_dest)
         }
     }
-    suppressMessages(shiny::runApp(app_dest, quiet = TRUE))
+    if(open) {
+        cli_alert_info("Running the geslaR-app...")
+        suppressMessages(shiny::runApp(app_dest, quiet = TRUE))
+    } else {
+        cli_alert_info("To open the geslaR-app in your browser, you should run")
+        cli_alert_info("{.code shiny::runApp()} in the {.arg app_dest} directory")
+    }
 }

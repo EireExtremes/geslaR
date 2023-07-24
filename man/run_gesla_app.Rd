@@ -7,7 +7,8 @@
 run_gesla_app(
   app_dest = "./gesla_app",
   dest = paste0(app_dest, "/gesla_dataset"),
-  overwrite = FALSE
+  overwrite = FALSE,
+  open = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ argument. If needed, change only the \code{app_dest} argument.}
 on the same directory as the app, it will overwrite (i.e. download
 again) the whole dataset. This is usually not necessary, unless the
 dataset has really changed.}
+
+\item{open}{Should the app open in the default browser? Defaults to
+\code{TRUE}.}
 }
 \value{
 The geslaR-app Shiny interface will open in your default
