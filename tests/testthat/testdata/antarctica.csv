@@ -1,0 +1,6 @@
+"date_time","year","month","day","hour","country","site_name","lat","lon","sea_level","qc_flag","use_flag","file_name"
+2019-01-01 00:00:00.000000,2019,1,1,0,"ATA","Syowa_Station_Antarctica",-69.00778333,39.57028333,2.69,1,1,"syowa_station_antarctica-hd50-ata-jodc_jcg"
+2019-01-01 01:00:00.000000,2019,1,1,1,"ATA","Syowa_Station_Antarctica",-69.00778333,39.57028333,2.64,1,1,"syowa_station_antarctica-hd50-ata-jodc_jcg"
+2019-01-01 02:00:00.000000,2019,1,1,2,"ATA","Syowa_Station_Antarctica",-69.00778333,39.57028333,2.54,1,1,"syowa_station_antarctica-hd50-ata-jodc_jcg"
+2019-01-01 03:00:00.000000,2019,1,1,3,"ATA","Syowa_Station_Antarctica",-69.00778333,39.57028333,2.38,1,1,"syowa_station_antarctica-hd50-ata-jodc_jcg"
+2019-01-01 04:00:00.000000,2019,1,1,4,"ATA","Syowa_Station_Antarctica",-69.00778333,39.57028333,2.23,1,1,"syowa_station_antarctica-hd50-ata-jodc_jcg"
