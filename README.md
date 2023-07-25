@@ -6,18 +6,18 @@
 Get And Manipulate the GESLA Dataset
 
 <!-- badges: start -->
-
-[![R-CMD-check](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml)
-Main branch
-
-[![R-CMD-check](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml)
-Development branch
-[![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml)
-Main branch
-[![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml)
-Development branch [![Codecov test
-coverage](https://codecov.io/gh/EireExtremes/geslaR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EireExtremes/geslaR?branch=main)
+<!-- [![R-CMD-check](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml) -->
+<!-- Main branch -->
+<!-- [![R-CMD-check](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml) -->
+<!-- Development branch -->
+<!-- [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml) Main branch -->
+<!-- [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml) Development branch -->
+<!-- [![Codecov test coverage](https://codecov.io/gh/EireExtremes/geslaR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EireExtremes/geslaR?branch=main) -->
 <!-- badges: end -->
+
+| **Action** | `R-CMD-check`                                                                                                                                                                    | `test-coverage`                                                                                                                                                                                    | `pkgdown`                                                                                                                                                                        | `codecov`                                                                                                                                                    |
+|:----------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Status** | [![R-CMD-check](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml) | [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml) | [![pkgdown](https://github.com/EireExtremes/geslaR/actions/workflows/pkgdown.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/pkgdown.yaml) | [![Codecov test coverage](https://codecov.io/gh/EireExtremes/geslaR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EireExtremes/geslaR?branch=main) |
 
 The geslaR package was developed to deal with the
 [GESLA](https://gesla787883612.wordpress.com) (Global Extreme Sea Level
@@ -84,10 +84,10 @@ de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
 #> ✔ Connecting to the data server... [3.1s]
 #> 
 #> ℹ Filtering data...
-#> ✔ Filtering data... [31ms]
+#> ✔ Filtering data... [24ms]
 #> 
 #> ℹ Query finished.
-#> ✔ Query finished. [12ms]
+#> ✔ Query finished. [18ms]
 #> 
 class(de)
 #> [1] "arrow_dplyr_query"
