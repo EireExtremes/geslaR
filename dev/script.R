@@ -146,3 +146,104 @@ query_gesla <- function(country, year, as_data_frame = FALSE) {
 dq <- query_gesla(country = "IRL", year = 2020)
 dq
 dq |> dim()
+
+
+##======================================================================
+## Testing query_gesla
+
+da <- query_gesla(country = "ATA", year = 2019, as_data_frame = TRUE)
+str(da)
+names(da)
+da |> dim()
+da |>
+    count(use_flag)
+
+da <- query_gesla(country = "ATA", year = c(2018, 2019),
+    site_name = "Faraday")
+
+da |>
+    count(site_name) |>
+    collect()
+
+my_mean <- function(data, var) {
+    with(data, mean({{ var }}))
+}
+
+my_mean(mtcars, cyl)
+
+mm <- function(carb, am = 1, cyl = NULL) {
+    da <- mtcars
+    db <- da |>
+        filter(
+            .data$carb %in% .env$carb,
+            .data$am == .env$am,
+            .data$cyl %in% .env$cyl
+        )
+    return(db)
+}
+
+table(mtcars$carb)
+table(mtcars$am)
+table(mtcars$cyl)
+mm(carb = c(1, 8))
+mm(carb = c(1, 8), am = 1)
+mm(carb = c(1, 8), am = 0)
+
+xx <- function(carb = NULL, cyl = NULL) {
+    da <- mtcars
+    ## is.null({{ carb }})
+    da |>
+        filter(case_when(
+            !is.null({{ carb }}) ~ carb %in% {{ carb }},
+            !is.null({{ cyl }}) ~ cyl %in% {{ cyl }}
+        ))
+}
+
+xx <- function(carb = NULL, cyl = NULL) {
+    da <- mtcars
+    ## is.null({{ carb }})
+    da |>
+        filter(
+            case_when(!is.null({{ carb }}) ~ carb %in% {{ carb }}),
+            case_when(!is.null({{ cyl }}) ~ cyl %in% {{ cyl }})
+        )
+}
+
+xx()
+xx(carb = 1)
+xx(carb = c(1, 8))
+xx(carb = c(1, 8), cyl = 4)
+
+
+mm <- function(carb, am = 1, cyl = NULL) {
+    da <- mtcars
+    db <- da |>
+        filter(
+            .data$carb %in% .env$carb,
+            .data$am == .env$am,
+            case_when(!is.null({{ cyl }}) ~ .data$cyl %in% .env$cyl)
+        )
+    return(db)
+}
+
+mm(carb = c(1, 8))
+mm(carb = c(1, 8), am = 1)
+mm(carb = c(1, 8), am = 0)
+mm(carb = c(1, 8), am = 0, cyl = 4)
+
+mm <- function(carb, am = 1, cyl = NULL) {
+    da <- mtcars
+    db <- da |>
+        filter(.data$carb %in% .env$carb,
+            .data$am == .env$am)
+    if(!is.null(cyl)) {
+        db <- db |>
+            filter(.data$cyl %in% .env$cyl)
+    }
+    return(db)
+}
+
+mm(carb = c(1, 8))
+mm(carb = c(1, 8), am = 1)
+mm(carb = c(1, 8), am = 0)
+mm(carb = c(1, 8), am = 0, cyl = 4)

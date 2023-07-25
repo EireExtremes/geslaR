@@ -4,13 +4,23 @@
 \alias{query_gesla}
 \title{Query the GESLA dataset}
 \usage{
-query_gesla(country, year, as_data_frame = FALSE)
+query_gesla(
+  country,
+  year,
+  site_name = NULL,
+  use_flag = 1,
+  as_data_frame = FALSE
+)
 }
 \arguments{
 \item{country}{A character vector specifying the selected countries,
 using the three-letter \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{ISO 3166-1 alpha-3} code.}
 
 \item{year}{A numeric vector specifying the selected years.}
+
+\item{site_name}{Optional character vector of site names.}
+
+\item{use_flag}{See details.}
 
 \item{as_data_frame}{Should the query return a data frame (tibble)?
 Defaults to FALSE. By default it will return an object of the
