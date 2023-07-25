@@ -48,7 +48,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">query_gesla</span><span class="op">(</span><span class="va">country</span>, <span class="va">year</span>, as_data_frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">query_gesla</span><span class="op">(</span></span>
+<span>  <span class="va">country</span>,</span>
+<span>  <span class="va">year</span>,</span>
+<span>  site_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  use_flag <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  as_data_frame <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,6 +66,14 @@ using the three-letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
 
 <dt>year</dt>
 <dd><p>A numeric vector specifying the selected years.</p></dd>
+
+
+<dt>site_name</dt>
+<dd><p>Optional character vector of site names.</p></dd>
+
+
+<dt>use_flag</dt>
+<dd><p>See details.</p></dd>
 
 
 <dt>as_data_frame</dt>
