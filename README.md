@@ -12,12 +12,12 @@ Main branch
 
 [![R-CMD-check](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml)
 Development branch
-
 [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml)
 Main branch
-
 [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml)
-Development branch <!-- badges: end -->
+Development branch [![Codecov test
+coverage](https://codecov.io/gh/EireExtremes/geslaR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EireExtremes/geslaR?branch=main)
+<!-- badges: end -->
 
 The geslaR package was developed to deal with the
 [GESLA](https://gesla787883612.wordpress.com) (Global Extreme Sea Level
@@ -81,13 +81,13 @@ de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
 #> ℹ This process can take some time, as it depends on the size of the final
 #> dataset, and on internet connection.
 #> ℹ Connecting to the data server...
-#> ✔ Connecting to the data server... [3s]
+#> ✔ Connecting to the data server... [3.1s]
 #> 
 #> ℹ Filtering data...
-#> ✔ Filtering data... [28ms]
+#> ✔ Filtering data... [31ms]
 #> 
 #> ℹ Query finished.
-#> ✔ Query finished. [11ms]
+#> ✔ Query finished. [12ms]
 #> 
 class(de)
 #> [1] "arrow_dplyr_query"
