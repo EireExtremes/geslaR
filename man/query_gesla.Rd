@@ -14,31 +14,96 @@ query_gesla(
 }
 \arguments{
 \item{country}{A character vector specifying the selected countries,
-using the three-letter \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{ISO 3166-1 alpha-3} code.}
+using the three-letter \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{ISO 3166-1 alpha-3} code. See
+Details.}
 
 \item{year}{A numeric vector specifying the selected years.}
 
 \item{site_name}{Optional character vector of site names.}
 
-\item{use_flag}{See details.}
+\item{use_flag}{The default is \code{1}, which means to use only the data
+that was revised and usefull for analysis. Can be \code{0}, to fetch only
+revised and not recommend for analysis, or \code{c(0, 1)} to fetch all
+tha data. See Details.}
 
-\item{as_data_frame}{Should the query return a data frame (tibble)?
-Defaults to FALSE. By default it will return an object of the
-\code{arrow_dplyr_query}.}
+\item{as_data_frame}{If \code{FALSE} (default), the data will be imported
+as an \code{arrow_dplyr_query} object. Otherwise, the data will be in a
+\code{tbl_df} (\code{data.frame}) format. See Details.}
 }
 \value{
-An object of class \code{arrow_dplyr_query} or a data frame.
+An object of class \code{arrow_dplyr_query} or a \code{tbl_df}
+(\code{data.frame}).
 }
 \description{
-Query for a subset of the GESLA dataset.
+This function will make a query to fetch a subset of
+the GESLA dataset. At least a country code and one year must be
+specified. Site names can also be specified, but are optional. By
+default, the resulting subset will contain only data that were
+revised and recommended for analysis, by the GESLA group of
+researchers.
 }
 \details{
-Make a query for the GESLA dataset, by selecting one or more
-countries and one or more years.
+The country codes must follow the three-letter \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{ISO 3166-1 alpha-3} code.
+However, note that not all countries are available at the GESLA
+dataset. If in doubt, please check the GESLA Shiny app interface
+(geslaR-app) online at \url{https://bit.ly/geslar-app}, or use the
+\code{\link[=run_gesla_app]{run_gesla_app()}} function to open the interface locally.
+
+The \code{use_flag} argument must be \code{1} or \code{0}, or \code{c(0, 1)}. The
+\code{use_flag} is a column at the GESLA dataset thet indicates wehter
+the data should be used for analysis or not. The \code{1} (default)
+indicates it should, and \code{0} the otherwise. In a data analysis
+scenario, the user must only be interested in using the recommended
+data, so this argument shouldn't be changed. However, in same cases,
+one must be interested in the non-recommended data, therefore this
+option is available. Also, you can specify \code{c(0, 1)} to fetch all
+the data (usable and not usable). In any case, the \code{use_flag} column
+will always be present, and it can be used for any post-processing.
+Please, see the \href{https://gesla787883612.wordpress.com/format/}{GESLA format} documentation
+for more details.
+
+The default argument \code{as_data_frame = FALSE} will result in an
+object of the \code{arrow_dplyr_query} class. The advantage is that,
+regardless of the size of the resulting dataset, the object will be
+small in (memory) size. Also, as it happens with the Arrow \code{Table}
+class, it can be manipulated with \code{dplyr} verbs. Please, see the
+documentation at the \href{https://arrow.apache.org/docs/r/articles/data_wrangling.html}{Arrow website}.
+
+Note that, if the \code{as_data_frame} argument is set to \code{TRUE}, the
+imported R object will vary in size, according to the size of the
+subset. In many situations, this can take a long time an may even be
+infeasible, since the object can result in a "larger-than-memory"
+size, and possibly will make R operations slow or even a session
+crash. Therefore, we always recommend to start with \code{as_data_frame = FALSE}, and work with the dataset from there.
 }
 \examples{
 \dontrun{
-da <- query_gesla(country = "ATA", year = 2019)
+## Simple query
+da <- query_gesla(country = "ATA", year = 2018)
+
+## Multiple years
+da <- query_gesla(country = "ATA", year = c(2018, 2019))
+da <- query_gesla(country = "ATA", year = 2010:2019)
+da <- query_gesla(country = "ATA", year = c(2010, 2012, 2014))
+da |>
+    count(year) |>
+    collect()
+
+## Multiple countries
+da <- query_gesla(country = c("IRL", "ATA", "BRA"), year = 2018)
+da <- query_gesla(country = c("IRL", "ATA", "BRA"), year = 2010:2019)
+da |>
+    count(country, year) |>
+    collect()
+
+## Specifying a site name. Note that in this particular case,
+## "Faraday" data is only available for 2018, so no 2019 data will
+## be available
+da <- query_gesla(country = "ATA", year = c(2018, 2019),
+    site_name = "Faraday")
+da |>
+    count(year) |>
+    collect()
 }
 
 }
