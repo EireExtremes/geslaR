@@ -53,7 +53,7 @@
 ##' @param use_flag The default is `1`, which means to use only the data
 ##' that was revised and usefull for analysis. Can be `0`, to fetch only
 ##' revised and not recommend for analysis, or `c(0, 1)` to fetch all
-##' tha data. See Details.
+##' the data. See Details.
 ##' @param as_data_frame If `FALSE` (default), the data will be imported
 ##' as an `arrow_dplyr_query` object. Otherwise, the data will be in a
 ##' `tbl_df` (`data.frame`) format. See Details.
@@ -133,19 +133,19 @@ query_gesla <- function(country, year, site_name = NULL, use_flag = 1,
         filter(country %in% {{ country }},
             year %in% {{ year }},
             use_flag %in% {{ use_flag }})
-    if(!is.null(site_name)) {
+    if(!is.null(site_name)) { # nocov start
         f_daws <- f_daws |>
             filter(site_name %in% {{ site_name }})
-    }
+    } # nocov end
     ## NOTE have to see if this is worthwile, because it will change the
     ## class to the standard Table. However, it taks some time.
     ## f_daws <- f_daws |> compute()
-    if(as_data_frame) {
+    if(as_data_frame) { # nocov start
         cli_progress_step("Converting to data frame...")
         cli_alert_info("Converting to data frame can take some time and may result in large size objects. Consider using {.arg as_data_frame = FALSE} first.",
                        wrap = TRUE)
         f_daws <- f_daws |> collect()
-    }
+    } # nocov end
     cli_progress_step("Query finished.")
     return(f_daws)
 }

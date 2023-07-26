@@ -24,7 +24,7 @@ Details.}
 \item{use_flag}{The default is \code{1}, which means to use only the data
 that was revised and usefull for analysis. Can be \code{0}, to fetch only
 revised and not recommend for analysis, or \code{c(0, 1)} to fetch all
-tha data. See Details.}
+the data. See Details.}
 
 \item{as_data_frame}{If \code{FALSE} (default), the data will be imported
 as an \code{arrow_dplyr_query} object. Otherwise, the data will be in a
