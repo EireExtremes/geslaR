@@ -84,7 +84,7 @@ run_gesla_app <- function(app_dest = "./gesla_app",
                           overwrite = FALSE,
                           open = TRUE) {
     missing_pkgs <- check_suggests()
-    if(length(missing_pkgs != 0L)) {
+    if(length(missing_pkgs != 0L)) { # nocov start
         stop(format_error(c("",
             "x" =
                 "The following packages are required to run the GESLA app: {missing_pkgs}",
@@ -93,7 +93,7 @@ run_gesla_app <- function(app_dest = "./gesla_app",
             "i" =
                 "Or reinstall the {.pkg geslaR} package with {.code remotes::install_github('EireExtremes/geslaR', dependencies = TRUE)}. In this case you will need to restart your R session."))
         )
-    }
+    } # nocov end
     if(!dir.exists(dest) && overwrite) {
         stop(format_error(c("",
             "x" = "The GESLA dataset was not found locally",
@@ -151,8 +151,8 @@ run_gesla_app <- function(app_dest = "./gesla_app",
         }
     }
     if(open) {
-        cli_alert_info("Running the geslaR-app...")
-        suppressMessages(shiny::runApp(app_dest, quiet = TRUE))
+        cli_alert_info("Running the geslaR-app...") # nocov
+        suppressMessages(shiny::runApp(app_dest, quiet = TRUE)) # nocov
     } else {
         cli_alert_info("To open the geslaR-app in your browser, you should run")
         cli_alert_info("{.code shiny::runApp()} in the {.arg app_dest} directory")

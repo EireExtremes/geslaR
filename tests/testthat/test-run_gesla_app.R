@@ -58,3 +58,14 @@ test_that("Dataset overwrite prompt works as expected when user declines", {
         open = FALSE),
         "No data was downloaded")
 })
+
+test_that("Message will show when open = FALSE", {
+    ## Simulate the situation where the dataset is available and the
+    ## user chooses not to open the app
+    app_dest <- tempdir()
+    dir.create(paste0(app_dest, "/gesla_dataset"), showWarnings = FALSE)
+    ## Use mock for utils::menu to simulate user input
+    local_mocked_bindings(menu = function(...) 1L, .package = "utils")
+    expect_message(run_gesla_app(app_dest = app_dest, open = FALSE),
+        "To open the geslaR-app in your browser, you should run")
+})
