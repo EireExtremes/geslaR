@@ -161,9 +161,92 @@ da |>
 da <- query_gesla(country = "ATA", year = c(2018, 2019),
     site_name = "Faraday")
 
+da <- query_gesla(country = "ATA", year = c(2018, 2019),
+    site_name = "Farada")
+
 da |>
     count(site_name) |>
     collect()
+
+## This should not work
+da <- query_gesla(country = "ATA", year = 2019,
+    site_name = "Faraday")
+
+db <- da |> collect()
+db
+
+da <- query_gesla(country = "ATA", year = 2019)
+da <- query_gesla(country = "ATA")
+da <- query_gesla(year = 2019)
+
+da <- query_gesla(country = "ATA", year = 2019,
+    use_flag = 0,
+    as_data_frame = FALSE)
+
+class(da)
+
+db <- da |> compute()
+class(db)
+db$metadata
+dim(db)
+
+
+dd <- db |>
+    collect()
+
+dc <- da |> collapse()
+class(dc)
+db$metadata
+
+
+da |>
+    count(site_name) |>
+    compute()
+
+da |>
+    count(site_name) |>
+    collect()
+
+da |>
+    count(site_name) |>
+    collapse()
+
+db |>
+    count(site_name) |>
+    compute()
+
+db |>
+    count(site_name) |>
+    collect()
+
+db |>
+    count(site_name) |>
+    collapse() |>
+    collect()
+
+
+8712 + 45
+
+da |>
+    select(qc_flag, use_flag) |>
+    slice_sample(prop = 0.1)
+
+da |>
+    count(use_flag)
+
+da <- query_gesla(country = "ATA", year = 2019,
+    use_flag = 0,
+    as_data_frame = TRUE)
+
+class(da)
+
+is(da, "data.frame")
+is(da, "tbl_df")
+
+x <- c(0, 1, 3)
+!any(x %in% c(0, 1))
+
+!length(x) %in% c(1, 2)
 
 my_mean <- function(data, var) {
     with(data, mean({{ var }}))
