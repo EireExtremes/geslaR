@@ -39,17 +39,14 @@
 ##' the database. It will be created if it doesn't exist. By default, it
 ##' will create a directory called `gesla_app` in the current working
 ##' directory.
-##'
 ##' @param dest The destination directory that will host the GESLA
 ##' dataset files. By default, it will create a subdirectory under the
 ##' directory defined in `app_dest`. It's not recommended to change this
 ##' argument. If needed, change only the `app_dest` argument.
-##'
 ##' @param overwrite Overwrite the current dataset? If `TRUE` and called
 ##' on the same directory as the app, it will overwrite (i.e. download
 ##' again) the whole dataset. This is usually not necessary, unless the
 ##' dataset has really changed.
-##'
 ##' @param open Should the app open in the default browser? Defaults to
 ##' `TRUE`.
 ##'

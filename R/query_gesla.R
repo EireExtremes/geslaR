@@ -1,8 +1,10 @@
-##' Query for a subset of the GESLA dataset.
-##'
-##' Make a query for the GESLA dataset, by selecting one or more
-##' countries and one or more years.
 ##' @title Query the GESLA dataset
+##'
+##' @description Query for a subset of the GESLA dataset.
+##'
+##' @details Make a query for the GESLA dataset, by selecting one or more
+##' countries and one or more years.
+##'
 ##' @param country A character vector specifying the selected countries,
 ##' using the three-letter [ISO 3166-1
 ##' alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code.
@@ -12,11 +14,20 @@
 ##' @param as_data_frame Should the query return a data frame (tibble)?
 ##' Defaults to FALSE. By default it will return an object of the
 ##' `arrow_dplyr_query`.
+##'
 ##' @return An object of class `arrow_dplyr_query` or a data frame.
+##'
 ##' @author Fernando Mayer
+##'
+##' @examples
+##' \dontrun{
+##' da <- query_gesla(country = "ATA", year = 2019)
+##' }
+##'
 ##' @importFrom dplyr filter collect
 ##' @importFrom arrow arrow_with_s3 s3_bucket open_dataset
 ##' @importFrom cli format_error cli_progress_step cli_alert_info
+##'
 ##' @export
 query_gesla <- function(country, year, site_name = NULL, use_flag = 1,
                         as_data_frame = FALSE) {
@@ -27,6 +38,11 @@ query_gesla <- function(country, year, site_name = NULL, use_flag = 1,
             "i" = "Please, check if {.fn arrow_with_s3} returns TRUE",
             "i" =
                 "See https://arrow.apache.org/docs/3.0/r/index.html for further details."
+        )))
+    }
+    if(missing(country) || missing(year)) {
+        stop(format_error(c("",
+            "x" = "At least one country and one year must be selected."
         )))
     }
     cli_alert_info("This process can take some time, as it depends on the size of the final dataset, and on internet connection.",

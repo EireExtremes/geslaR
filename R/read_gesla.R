@@ -37,11 +37,9 @@
 ##' See **Examples** below.
 ##'
 ##' @param file The file name (must end in `.csv` or `.parquet` only)
-##'
 ##' @param as_data_frame If `FALSE` (default), the data will be imported
 ##' as an Arrow `Table` format. Otherwise, the data will be in a
 ##' `tbl_df` (`data.frame`) format. See Details.
-##'
 ##' @param ... Other arguments from [arrow::read_csv_arrow()], and
 ##' [arrow::read_parquet()], from the
 ##' [arrow](https://arrow.apache.org/docs/r/) package.
@@ -88,7 +86,6 @@
 ##' }
 ##'
 ##' @importFrom arrow read_csv_arrow read_parquet
-##'
 ##' @importFrom cli format_error
 ##'
 ##' @export

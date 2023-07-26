@@ -36,6 +36,12 @@ Query for a subset of the GESLA dataset.
 Make a query for the GESLA dataset, by selecting one or more
 countries and one or more years.
 }
+\examples{
+\dontrun{
+da <- query_gesla(country = "ATA", year = 2019)
+}
+
+}
 \author{
 Fernando Mayer
 }
