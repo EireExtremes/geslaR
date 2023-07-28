@@ -1,16 +1,53 @@
-##' Download GESLA dataset
+##' @title Download the GESLA dataset
 ##'
-##' Details of download.
-##' @title Download GESLA data
-##' @return Parquet files
+##' @description This function will download the entire GESLA dataset to
+##' the specified folder. Note that the full dataset is about 7GB in
+##' size, so the total download time may take a few minutes, as it will
+##' depend on internet connection. If you don't need the whole dataset,
+##' you can use the [geslaR::query_gesla()] function, to directly import
+##' a subset of it.
+##'
+##' @details This function should only be usefull if you want to deal
+##' with all the files from the GESLA dataset. If you need only a
+##' subset, you can use the [geslaR::query_gesla()] function, or the
+##' GESLA Shiny app interface, from the [geslaR::run_gesla_app()]
+##' function.
+##'
+##' @param dest The directory to download the files to. If the directory
+##' doesn't exist, it will be created. Defaults to a folder called
+##' `gesla_dataset` in the current working directory.
+##' @param ask Ask for confirmation before downloading? Defaults to
+##' `TRUE`.
+##' @param messages Show informative messages? Defaults to `TRUE`.
+##' @param overwrite Overwrite the whole dataset (i.e. download again)?
+##' Defaults to `FALSE`. Note that, if `TRUE`, it will only overwrite if
+##' the function is called in the same directory where `dest` is.
+##'
+##' @return The whole GESLA dataset, consisting of 5119 files (with
+##' `.parquet` extension). It should have approximately 7GB in size.
+##'
 ##' @author Fernando Mayer
+##'
+##' @examples
+##' \dontrun{
+##' ## Download to 'gesla_dataset' folder in the current working
+##' ## directory
+##' download_gesla()
+##' ## To overwrite (download again) on the same location
+##' download_gesla(overwrite = TRUE)
+##' ## Download to another directory
+##' download_gesla(dest = "~/gesla")
+##' ## Don't ask for confirmation before download
+##' download_gesla(ask = FALSE)
+##' ## Don't show informative messages
+##' download_gesla(messages = FALSE)
+##' ## Don't ask for confirmation neither show messages
+##' download_gesla(ask = FALSE, messages = FALSE)
+##' }
 ##' @importFrom arrow copy_files s3_bucket
 ##' @importFrom cli cli_alert_info format_error
+##'
 ##' @export
-##' @param dest The destination of the dataset
-##' @param ask Ask for confirmation
-##' @param messages Include informative messages?
-##' @param overwrite Overwrite (download again)?
 download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
                            messages = TRUE, overwrite = FALSE) {
     if(!dir.exists(dest)) {
@@ -18,7 +55,8 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
     } else {
         if(!overwrite) {
             stop(format_error(c("",
-                "x" = "The GESLA dataset is already downloaded")))
+                "x" = "The GESLA dataset is already downloaded",
+                "i" = "Use {.code overwrite = TRUE} to download it again")))
         }
     }
     if(ask) {
@@ -39,6 +77,9 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
                     anonymous = TRUE),
                 to = dest
             )
+            if(messages) {
+                cli_alert_info("Dataset downloaded to {.path {dest}}")
+            }
         } else {
             unlink(dest, recursive = TRUE)
             stop(format_error(c("",
@@ -55,5 +96,8 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
                 anonymous = TRUE),
             to = dest
         )
+        if(messages) {
+            cli_alert_info("Dataset downloaded to {.path {dest}}")
+        }
     }
 }
