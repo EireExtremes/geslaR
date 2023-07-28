@@ -50,6 +50,12 @@
 ##' @export
 download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
                            messages = TRUE, overwrite = FALSE) {
+    if(!dir.exists(dest) && overwrite) {
+        stop(format_error(c("",
+            "x" = "No dataset found in {.path {dest}} to overwrite",
+            "i" =
+                "Use {.code overwrite = FALSE} to download the dataset first")))
+    }
     if(!dir.exists(dest)) {
         dir.create(dest, recursive = TRUE)
     } else {
