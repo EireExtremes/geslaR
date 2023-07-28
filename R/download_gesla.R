@@ -75,7 +75,7 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
             title = "Do you want to download the whole dataset?")
         if(opt == 1L) {
             if(messages) {
-                cli_alert_info("Wait while the dataset is downloaded...")
+                cli_alert_info("Wait while the dataset is downloaded...") # nocov
             }
             copy_files(
                 from = s3_bucket("gesla-test/parquet_files",
@@ -84,7 +84,7 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
                 to = dest
             )
             if(messages) {
-                cli_alert_info("Dataset downloaded to {.path {dest}}")
+                cli_alert_info("Dataset downloaded to {.path {dest}}") # nocov
             }
         } else {
             unlink(dest, recursive = TRUE)
@@ -94,7 +94,7 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
         }
     } else {
         if(messages) {
-            cli_alert_info("Wait while the dataset is downloaded...")
+            cli_alert_info("Wait while the dataset is downloaded...") # nocov
         }
         copy_files(
             from = s3_bucket("gesla-test/parquet_files",
@@ -103,7 +103,7 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
             to = dest
         )
         if(messages) {
-            cli_alert_info("Dataset downloaded to {.path {dest}}")
+            cli_alert_info("Dataset downloaded to {.path {dest}}") # nocov
         }
     }
 }
