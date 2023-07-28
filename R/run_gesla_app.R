@@ -84,7 +84,7 @@ run_gesla_app <- function(app_dest = "./gesla_app",
                           overwrite = FALSE,
                           open = TRUE) {
     missing_pkgs <- check_suggests()
-    if(length(missing_pkgs != 0L)) { # nocov start
+    if(length(missing_pkgs != 0L)) {
         stop(format_error(c("",
             "x" =
                 "The following packages are required to run the GESLA app: {missing_pkgs}",
@@ -93,7 +93,7 @@ run_gesla_app <- function(app_dest = "./gesla_app",
             "i" =
                 "Or reinstall the {.pkg geslaR} package with {.code remotes::install_github('EireExtremes/geslaR', dependencies = TRUE)}. In this case you will need to restart your R session."))
         )
-    } # nocov end
+    }
     if(!dir.exists(dest) && overwrite) {
         stop(format_error(c("",
             "x" = "The GESLA dataset was not found locally",
