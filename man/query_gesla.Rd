@@ -75,6 +75,8 @@ subset. In many situations, this can take a long time an may even be
 infeasible, since the object can result in a "larger-than-memory"
 size, and possibly will make R operations slow or even a session
 crash. Therefore, we always recommend to start with \code{as_data_frame = FALSE}, and work with the dataset from there.
+
+Please, see \code{vignette(Introduction)} for a detailed example.
 }
 \examples{
 \dontrun{

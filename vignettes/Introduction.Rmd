@@ -1,0 +1,37 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(geslaR)
+```
+
+Using the `query_gesla()` function here.
+
+```{r}
+da <- query_gesla(country = "ATA", year = 2018)
+class(da)
+```
+
+```{r}
+da |>
+    count(year)
+```
+
+```{r}
+da |>
+    count(year) |>
+    collect()
+```

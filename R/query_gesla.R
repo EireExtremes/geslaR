@@ -44,6 +44,8 @@
 ##' crash. Therefore, we always recommend to start with `as_data_frame =
 ##' FALSE`, and work with the dataset from there.
 ##'
+##' Please, see `vignette(Introduction)` for a detailed example.
+##'
 ##' @param country A character vector specifying the selected countries,
 ##' using the three-letter [ISO 3166-1
 ##' alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code. See
