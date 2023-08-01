@@ -34,5 +34,6 @@ Suggests:
     shinyWidgets,
     testthat (>= 3.0.0),
     tidyverse
+SystemRequirements: arrow
 Config/testthat/edition: 3
 VignetteBuilder: knitr
