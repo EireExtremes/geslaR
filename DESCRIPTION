@@ -13,18 +13,21 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://github.com/EireExtremes/geslaR, https://eireextremes.github.io/geslaR/
 BugReports: https://github.com/EireExtremes/geslaR/issues
-Depends: R (>= 3.5.0)
-Imports:
+Depends:
     arrow,
-    cli,
-    dplyr
+    dplyr,
+    R (>= 3.5.0)
+Imports:
+    cli
 Suggests:
     bslib,
+    knitr,
     leaflet,
     leafpop,
     lubridate,
     patchwork,
     plotly,
+    rmarkdown,
     shiny,
     shinyalert,
     shinycssloaders,
@@ -32,3 +35,4 @@ Suggests:
     testthat (>= 3.0.0),
     tidyverse
 Config/testthat/edition: 3
+VignetteBuilder: knitr
