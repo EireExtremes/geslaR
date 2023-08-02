@@ -49,46 +49,43 @@
 ##' @author Fernando Mayer
 ##'
 ##' @examples
+##' ##------------------------------------------------------------------
+##' ## Import an internal example Parquet file
 ##' tmp <- tempdir()
 ##' file.copy(system.file(
 ##'     "extdata", "antarctica.parquet", package = "geslaR"), tmp)
 ##' da <- read_gesla(paste0(tmp, "/antarctica.parquet"))
-##'
-##' \dontrun{
-##' ##------------------------------------------------------------------
-##' ## Import an internal example Parquet file
-##' da <- read_gesla(
-##'     system.file("extdata", "antarctica.parquet", package = "geslaR")
-##' )
 ##' ## Check size in memory
-##' object.size(da) # 488 bytes
+##' object.size(da)
 ##'
 ##' ##------------------------------------------------------------------
 ##' ## Import an internal example CSV file
-##' da <- read_gesla(
-##'     system.file("extdata", "antarctica.csv", package = "geslaR")
-##' )
+##' tmp <- tempdir()
+##' file.copy(system.file(
+##'     "extdata", "antarctica.csv", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/antarctica.csv"))
 ##' ## Check size in memory
-##' object.size(da) # 488 bytes
+##' object.size(da)
 ##'
 ##' ##------------------------------------------------------------------
 ##' ## Import an internal example Parquet file as data.frame
-##' da <- read_gesla(
-##'     system.file("extdata", "antarctica.parquet", package = "geslaR"),
-##'     as_data_frame = TRUE
-##' )
+##' tmp <- tempdir()
+##' file.copy(system.file(
+##'     "extdata", "antarctica.parquet", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/antarctica.parquet"),
+##'     as_data_frame = TRUE)
 ##' ## Check size in memory
-##' object.size(da) # 62664 bytes
+##' object.size(da)
 ##'
 ##' ##------------------------------------------------------------------
 ##' ## Import an internal example CSV file as data.frame
-##' da <- read_gesla(
-##'     system.file("extdata", "antarctica.csv", package = "geslaR"),
-##'     as_data_frame = TRUE
-##' )
+##' tmp <- tempdir()
+##' file.copy(system.file(
+##'     "extdata", "antarctica.csv", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/antarctica.csv"),
+##'     as_data_frame = TRUE)
 ##' ## Check size in memory
-##' object.size(da) # 62664 bytes
-##' }
+##' object.size(da)
 ##'
 ##' @importFrom arrow read_csv_arrow read_parquet
 ##' @importFrom cli format_error
