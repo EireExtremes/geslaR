@@ -25,12 +25,12 @@ da <- query_gesla(country = "ATA", year = 2018)
 class(da)
 ```
 
-```{r}
+```{r, eval=FALSE}
 da |>
     count(year)
 ```
 
-```{r}
+```{r, eval=FALSE}
 da |>
     count(year) |>
     collect()
