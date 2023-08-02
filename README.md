@@ -37,41 +37,67 @@ devtools::install_github("EireExtremes/geslaR")
 
 ``` r
 library(geslaR)
+#> Loading required package: arrow
+#> 
+#> Attaching package: 'arrow'
+#> The following object is masked from 'package:utils':
+#> 
+#>     timestamp
+#> Loading required package: dplyr
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 
-##----------------------------------------------------------------------
-## Read files downloaded from the Shiny interface
+##------------------------------------------------------------------
+## Import an internal example Parquet file
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "antarctica.parquet", package = "geslaR"), tmp)
+#> [1] TRUE
+da <- read_gesla(paste0(tmp, "/antarctica.parquet"))
+## Check size in memory
+object.size(da)
+#> 488 bytes
 
-## Read a CSV file as Table
-da <- read_gesla(
-    file = system.file("extdata", "antarctica.csv", package = "geslaR"),
-    as_data_frame = FALSE
-)
-class(da)
-#> [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"
+##------------------------------------------------------------------
+## Import an internal example CSV file
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "antarctica.csv", package = "geslaR"), tmp)
+#> [1] TRUE
+da <- read_gesla(paste0(tmp, "/antarctica.csv"))
+## Check size in memory
+object.size(da)
+#> 488 bytes
 
-## Read a CSV file as data frame
-db <- read_gesla(
-    file = system.file("extdata", "antarctica.csv", package = "geslaR"),
-    as_data_frame = TRUE
-)
-class(db)
-#> [1] "tbl_df"     "tbl"        "data.frame"
+##------------------------------------------------------------------
+## Import an internal example Parquet file as data.frame
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "antarctica.parquet", package = "geslaR"), tmp)
+#> [1] FALSE
+da <- read_gesla(paste0(tmp, "/antarctica.parquet"),
+    as_data_frame = TRUE)
+## Check size in memory
+object.size(da)
+#> 62664 bytes
 
-## Read a Parquet file as Table
-dc <- read_gesla(
-    file = system.file("extdata", "antarctica.parquet", package = "geslaR"),
-    as_data_frame = FALSE
-)
-class(dc)
-#> [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"
-
-## Read a Parquet file as data frame
-dd <- read_gesla(
-    file = system.file("extdata", "antarctica.parquet", package = "geslaR"),
-    as_data_frame = TRUE
-)
-class(dd)
-#> [1] "tbl_df"     "tbl"        "data.frame"
+##------------------------------------------------------------------
+## Import an internal example CSV file as data.frame
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "antarctica.csv", package = "geslaR"), tmp)
+#> [1] FALSE
+da <- read_gesla(paste0(tmp, "/antarctica.csv"),
+    as_data_frame = TRUE)
+## Check size in memory
+object.size(da)
+#> 62656 bytes
 ```
 
 ``` r
@@ -81,13 +107,13 @@ de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
 #> ℹ This process can take some time, as it depends on the size of the final
 #> dataset, and on internet connection.
 #> ℹ Connecting to the data server...
-#> ✔ Connecting to the data server... [3.1s]
+#> ✔ Connecting to the data server... [3.5s]
 #> 
 #> ℹ Filtering data...
-#> ✔ Filtering data... [24ms]
+#> ✔ Filtering data... [33ms]
 #> 
 #> ℹ Query finished.
-#> ✔ Query finished. [18ms]
+#> ✔ Query finished. [36ms]
 #> 
 class(de)
 #> [1] "arrow_dplyr_query"
