@@ -31,6 +31,12 @@ researchers."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Introduction.html">Introduction</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -141,6 +147,7 @@ subset. In many situations, this can take a long time an may even be
 infeasible, since the object can result in a "larger-than-memory"
 size, and possibly will make R operations slow or even a session
 crash. Therefore, we always recommend to start with <code>as_data_frame = FALSE</code>, and work with the dataset from there.</p>
+<p>Please, see <code>vignette(Introduction)</code> for a detailed example.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -158,15 +165,15 @@ crash. Therefore, we always recommend to start with <code>as_data_frame = FALSE<
 <span class="r-in"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu">query_gesla</span><span class="op">(</span>country <span class="op">=</span> <span class="st">"ATA"</span>, year <span class="op">=</span> <span class="fl">2010</span><span class="op">:</span><span class="fl">2019</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu">query_gesla</span><span class="op">(</span>country <span class="op">=</span> <span class="st">"ATA"</span>, year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2012</span>, <span class="fl">2014</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">da</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">count</span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">collect</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Multiple countries</span></span></span>
 <span class="r-in"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu">query_gesla</span><span class="op">(</span>country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IRL"</span>, <span class="st">"ATA"</span>, <span class="st">"BRA"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2018</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu">query_gesla</span><span class="op">(</span>country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IRL"</span>, <span class="st">"ATA"</span>, <span class="st">"BRA"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2010</span><span class="op">:</span><span class="fl">2019</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">da</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">count</span><span class="op">(</span><span class="va">country</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">collect</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">country</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Specifying a site name. Note that in this particular case,</span></span></span>
 <span class="r-in"><span><span class="co">## "Faraday" data is only available for 2018, so no 2019 data will</span></span></span>
@@ -174,8 +181,8 @@ crash. Therefore, we always recommend to start with <code>as_data_frame = FALSE<
 <span class="r-in"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu">query_gesla</span><span class="op">(</span>country <span class="op">=</span> <span class="st">"ATA"</span>, year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2018</span>, <span class="fl">2019</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    site_name <span class="op">=</span> <span class="st">"Faraday"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">da</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">count</span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">collect</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
