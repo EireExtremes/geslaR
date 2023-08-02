@@ -330,3 +330,29 @@ mm(carb = c(1, 8))
 mm(carb = c(1, 8), am = 1)
 mm(carb = c(1, 8), am = 0)
 mm(carb = c(1, 8), am = 0, cyl = 4)
+
+
+##======================================================================
+
+library(geslaR)
+da <- read_gesla(system.file("extdata", "antarctica.parquet", package = "geslaR"))
+## Check size in memory
+object.size(da) # 488 bytes
+
+
+fl <- tempdir()
+file.copy(system.file(
+    "extdata", "antarctica.parquet", package = "geslaR"), fl)
+da <- read_gesla(paste0(fl, "/antarctica.parquet"))
+da
+da <- read_gesla("antarctica.parquet")
+
+
+
+arrow_available()
+arrow_info()
+
+## For S3 support
+## install_arrow()
+
+devtools::install_github("EireExtremes/geslaR")

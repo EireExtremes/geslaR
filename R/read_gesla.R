@@ -49,6 +49,11 @@
 ##' @author Fernando Mayer
 ##'
 ##' @examples
+##' tmp <- tempdir()
+##' file.copy(system.file(
+##'     "extdata", "antarctica.parquet", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/antarctica.parquet"))
+##'
 ##' \dontrun{
 ##' ##------------------------------------------------------------------
 ##' ## Import an internal example Parquet file
