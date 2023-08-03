@@ -1,8 +1,9 @@
 ---
-title: "Introduction"
+title: "Dealing with the GESLA dataset in R"
 output: rmarkdown::html_vignette
+author: Fernando Mayer, Niamh Cahill
 vignette: >
-  %\VignetteIndexEntry{Introduction}
+  %\VignetteIndexEntry{Dealing with the GESLA dataset in R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,6 +14,20 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
+The **geslaR** package was designed to fetch the [GESLA][] dataset into
+R, in full or subsets of it. There a few ways that this can be achieved:
+
+- Downloading the entire dataset locally, then load it into R and work
+  from there using the [Apache Arrow][] framework
+  (`download_gesla()`)
+- Querying the hosted dataset directly from R, specifying the desired
+  subset ([geslaR::query_gesla()])
+- Using the GESLA Shiny app (thereafter called only geslaR-app), to
+  filter, visualise and possibly download subsets of the dataset
+  ([geslaR::run_gesla_app()])
+- Directly reading specific files from the full dataset, or reading
+  files exported from the geslaR-app ([geslaR::read_gesla()])
 
 ```{r setup}
 library(geslaR)
@@ -35,3 +50,6 @@ da |>
     count(year) |>
     collect()
 ```
+
+[GESLA]: https://gesla787883612.wordpress.com
+[Apache Arrow]: https://arrow.apache.org
