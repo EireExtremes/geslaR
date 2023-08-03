@@ -71,7 +71,7 @@ researchers.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">query_gesla</span><span class="op">(</span></span>
 <span>  <span class="va">country</span>,</span>
-<span>  <span class="va">year</span>,</span>
+<span>  year <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  site_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  use_flag <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  as_data_frame <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -87,7 +87,8 @@ Details.</p></dd>
 
 
 <dt>year</dt>
-<dd><p>A numeric vector specifying the selected years.</p></dd>
+<dd><p>A numeric vector specifying the selected years. If
+<code>NULL</code> (the default), all available years will be selected.</p></dd>
 
 
 <dt>site_name</dt>
@@ -147,7 +148,7 @@ subset. In many situations, this can take a long time an may even be
 infeasible, since the object can result in a "larger-than-memory"
 size, and possibly will make R operations slow or even a session
 crash. Therefore, we always recommend to start with <code>as_data_frame = FALSE</code>, and work with the dataset from there.</p>
-<p>Please, see <code>vignette(Introduction)</code> for a detailed example.</p>
+<p>Please, see <code><a href="../articles/Introduction.html">vignette("Introduction")</a></code> for a detailed example.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -158,6 +159,9 @@ crash. Therefore, we always recommend to start with <code>as_data_frame = FALSE<
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co">## Simple query</span></span></span>
+<span class="r-in"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu">query_gesla</span><span class="op">(</span>country <span class="op">=</span> <span class="st">"ATA"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Select one specific year</span></span></span>
 <span class="r-in"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu">query_gesla</span><span class="op">(</span>country <span class="op">=</span> <span class="st">"ATA"</span>, year <span class="op">=</span> <span class="fl">2018</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Multiple years</span></span></span>
