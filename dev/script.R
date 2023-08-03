@@ -347,8 +347,6 @@ da <- read_gesla(paste0(fl, "/antarctica.parquet"))
 da
 da <- read_gesla("antarctica.parquet")
 
-
-
 arrow_available()
 arrow_info()
 
@@ -356,3 +354,24 @@ arrow_info()
 ## install_arrow()
 
 devtools::install_github("EireExtremes/geslaR")
+
+da <- query_gesla(country = "IRL", year = 1958:2021)
+da <- query_gesla(country = "IRL")
+db <- query_gesla(country = "IRL", year = 2018)
+
+db |>
+    count(country, year) |>
+    collect()
+
+ctab <- da |>
+    count(country, year) |>
+    collect()
+
+sum(ctab$n)
+sort(ctab$year)
+
+
+da |>
+    distinct(site_name) |>
+    collect() |>
+    pull()

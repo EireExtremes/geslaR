@@ -44,13 +44,14 @@
 ##' crash. Therefore, we always recommend to start with `as_data_frame =
 ##' FALSE`, and work with the dataset from there.
 ##'
-##' Please, see `vignette(Introduction)` for a detailed example.
+##' Please, see `vignette("Introduction")` for a detailed example.
 ##'
 ##' @param country A character vector specifying the selected countries,
 ##' using the three-letter [ISO 3166-1
 ##' alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code. See
 ##' Details.
-##' @param year A numeric vector specifying the selected years.
+##' @param year A numeric vector specifying the selected years. If
+##' `NULL` (the default), all available years will be selected.
 ##' @param site_name Optional character vector of site names.
 ##' @param use_flag The default is `1`, which means to use only the data
 ##' that was revised and usefull for analysis. Can be `0`, to fetch only
@@ -68,6 +69,9 @@
 ##' @examples
 ##' \dontrun{
 ##' ## Simple query
+##' da <- query_gesla(country = "ATA")
+##'
+##' ## Select one specific year
 ##' da <- query_gesla(country = "ATA", year = 2018)
 ##'
 ##' ## Multiple years
@@ -100,7 +104,7 @@
 ##' @importFrom cli format_error cli_progress_step cli_alert_info
 ##'
 ##' @export
-query_gesla <- function(country, year, site_name = NULL, use_flag = 1,
+query_gesla <- function(country, year = NULL, site_name = NULL, use_flag = 1,
                         as_data_frame = FALSE) {
     if(!arrow_with_s3()) {
         stop(format_error(c("",
@@ -111,9 +115,9 @@ query_gesla <- function(country, year, site_name = NULL, use_flag = 1,
                 "See https://arrow.apache.org/docs/3.0/r/index.html for further details."
         )))
     }
-    if(missing(country) || missing(year)) {
+    if(missing(country)) {
         stop(format_error(c("",
-            "x" = "At least one country and one year must be selected."
+            "x" = "At least one country must be specified."
         )))
     }
     if(!length(use_flag) %in% c(1, 2) || !any(use_flag %in% c(0, 1))) {
@@ -133,9 +137,12 @@ query_gesla <- function(country, year, site_name = NULL, use_flag = 1,
     ## See https://rlang.r-lib.org/reference/injection-operator.html
     f_daws <- daws |>
         filter(country %in% {{ country }},
-            year %in% {{ year }},
             use_flag %in% {{ use_flag }})
-    if(!is.null(site_name)) { # nocov start
+    if(!is.null(year)) { # nocov start
+        f_daws <- f_daws |>
+            filter(year %in% {{ year }})
+    }
+    if(!is.null(site_name)) {
         f_daws <- f_daws |>
             filter(site_name %in% {{ site_name }})
     } # nocov end

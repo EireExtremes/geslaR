@@ -6,7 +6,7 @@
 \usage{
 query_gesla(
   country,
-  year,
+  year = NULL,
   site_name = NULL,
   use_flag = 1,
   as_data_frame = FALSE
@@ -17,7 +17,8 @@ query_gesla(
 using the three-letter \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{ISO 3166-1 alpha-3} code. See
 Details.}
 
-\item{year}{A numeric vector specifying the selected years.}
+\item{year}{A numeric vector specifying the selected years. If
+\code{NULL} (the default), all available years will be selected.}
 
 \item{site_name}{Optional character vector of site names.}
 
@@ -76,11 +77,14 @@ infeasible, since the object can result in a "larger-than-memory"
 size, and possibly will make R operations slow or even a session
 crash. Therefore, we always recommend to start with \code{as_data_frame = FALSE}, and work with the dataset from there.
 
-Please, see \code{vignette(Introduction)} for a detailed example.
+Please, see \code{vignette("Introduction")} for a detailed example.
 }
 \examples{
 \dontrun{
 ## Simple query
+da <- query_gesla(country = "ATA")
+
+## Select one specific year
 da <- query_gesla(country = "ATA", year = 2018)
 
 ## Multiple years

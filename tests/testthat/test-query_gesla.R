@@ -5,9 +5,8 @@ test_that("S3 connection is available", {
     expect_true(arrow_with_s3())
 })
 
-test_that("country and year are missing", {
+test_that("country missing", {
     expect_error(query_gesla())
-    expect_error(query_gesla(country = "ATA"))
     expect_error(query_gesla(year = 2018))
 })
 
