@@ -133,9 +133,9 @@
 <span><span class="co">## Import an internal example Parquet file</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">"extdata"</span>, <span class="st">"antarctica.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
+<span>    <span class="st">"extdata"</span>, <span class="st">"ireland.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
-<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/antarctica.parquet"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.parquet"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 488 bytes</span></span>
@@ -144,9 +144,9 @@
 <span><span class="co">## Import an internal example CSV file</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">"extdata"</span>, <span class="st">"antarctica.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
+<span>    <span class="st">"extdata"</span>, <span class="st">"ireland.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
-<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/antarctica.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.csv"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 488 bytes</span></span>
@@ -155,25 +155,25 @@
 <span><span class="co">## Import an internal example Parquet file as data.frame</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">"extdata"</span>, <span class="st">"antarctica.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
+<span>    <span class="st">"extdata"</span>, <span class="st">"ireland.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span>
-<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/antarctica.parquet"</span><span class="op">)</span>,</span>
+<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.parquet"</span><span class="op">)</span>,</span>
 <span>    as_data_frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 62664 bytes</span></span>
+<span><span class="co">#&gt; 11112 bytes</span></span>
 <span></span>
 <span><span class="co">##------------------------------------------------------------------</span></span>
 <span><span class="co">## Import an internal example CSV file as data.frame</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">"extdata"</span>, <span class="st">"antarctica.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
+<span>    <span class="st">"extdata"</span>, <span class="st">"ireland.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span>
-<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/antarctica.csv"</span><span class="op">)</span>,</span>
+<span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.csv"</span><span class="op">)</span>,</span>
 <span>    as_data_frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 62656 bytes</span></span></code></pre></div>
+<span><span class="co">#&gt; 11104 bytes</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Query a subset of the GESLA dataset, without the need of downloading</span></span>
 <span><span class="co">## all the dataset</span></span>
@@ -187,7 +187,7 @@
 <span><span class="co">#&gt; ✔ Filtering data... [30ms]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ℹ Query finished.</span></span>
-<span><span class="co">#&gt; ✔ Query finished. [30ms]</span></span>
+<span><span class="co">#&gt; ✔ Query finished. [31ms]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "arrow_dplyr_query"</span></span></code></pre></div>
