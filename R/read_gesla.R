@@ -53,8 +53,8 @@
 ##' ## Import an internal example Parquet file
 ##' tmp <- tempdir()
 ##' file.copy(system.file(
-##'     "extdata", "antarctica.parquet", package = "geslaR"), tmp)
-##' da <- read_gesla(paste0(tmp, "/antarctica.parquet"))
+##'     "extdata", "ireland.parquet", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/ireland.parquet"))
 ##' ## Check size in memory
 ##' object.size(da)
 ##'
@@ -62,8 +62,8 @@
 ##' ## Import an internal example CSV file
 ##' tmp <- tempdir()
 ##' file.copy(system.file(
-##'     "extdata", "antarctica.csv", package = "geslaR"), tmp)
-##' da <- read_gesla(paste0(tmp, "/antarctica.csv"))
+##'     "extdata", "ireland.csv", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/ireland.csv"))
 ##' ## Check size in memory
 ##' object.size(da)
 ##'
@@ -71,8 +71,8 @@
 ##' ## Import an internal example Parquet file as data.frame
 ##' tmp <- tempdir()
 ##' file.copy(system.file(
-##'     "extdata", "antarctica.parquet", package = "geslaR"), tmp)
-##' da <- read_gesla(paste0(tmp, "/antarctica.parquet"),
+##'     "extdata", "ireland.parquet", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/ireland.parquet"),
 ##'     as_data_frame = TRUE)
 ##' ## Check size in memory
 ##' object.size(da)
@@ -81,8 +81,8 @@
 ##' ## Import an internal example CSV file as data.frame
 ##' tmp <- tempdir()
 ##' file.copy(system.file(
-##'     "extdata", "antarctica.csv", package = "geslaR"), tmp)
-##' da <- read_gesla(paste0(tmp, "/antarctica.csv"),
+##'     "extdata", "ireland.csv", package = "geslaR"), tmp)
+##' da <- read_gesla(paste0(tmp, "/ireland.csv"),
 ##'     as_data_frame = TRUE)
 ##' ## Check size in memory
 ##' object.size(da)

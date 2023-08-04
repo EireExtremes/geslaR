@@ -57,9 +57,9 @@ library(geslaR)
 ## Import an internal example Parquet file
 tmp <- tempdir()
 file.copy(system.file(
-    "extdata", "antarctica.parquet", package = "geslaR"), tmp)
+    "extdata", "ireland.parquet", package = "geslaR"), tmp)
 #> [1] TRUE
-da <- read_gesla(paste0(tmp, "/antarctica.parquet"))
+da <- read_gesla(paste0(tmp, "/ireland.parquet"))
 ## Check size in memory
 object.size(da)
 #> 488 bytes
@@ -68,9 +68,9 @@ object.size(da)
 ## Import an internal example CSV file
 tmp <- tempdir()
 file.copy(system.file(
-    "extdata", "antarctica.csv", package = "geslaR"), tmp)
+    "extdata", "ireland.csv", package = "geslaR"), tmp)
 #> [1] TRUE
-da <- read_gesla(paste0(tmp, "/antarctica.csv"))
+da <- read_gesla(paste0(tmp, "/ireland.csv"))
 ## Check size in memory
 object.size(da)
 #> 488 bytes
@@ -79,25 +79,25 @@ object.size(da)
 ## Import an internal example Parquet file as data.frame
 tmp <- tempdir()
 file.copy(system.file(
-    "extdata", "antarctica.parquet", package = "geslaR"), tmp)
+    "extdata", "ireland.parquet", package = "geslaR"), tmp)
 #> [1] FALSE
-da <- read_gesla(paste0(tmp, "/antarctica.parquet"),
+da <- read_gesla(paste0(tmp, "/ireland.parquet"),
     as_data_frame = TRUE)
 ## Check size in memory
 object.size(da)
-#> 62664 bytes
+#> 11112 bytes
 
 ##------------------------------------------------------------------
 ## Import an internal example CSV file as data.frame
 tmp <- tempdir()
 file.copy(system.file(
-    "extdata", "antarctica.csv", package = "geslaR"), tmp)
+    "extdata", "ireland.csv", package = "geslaR"), tmp)
 #> [1] FALSE
-da <- read_gesla(paste0(tmp, "/antarctica.csv"),
+da <- read_gesla(paste0(tmp, "/ireland.csv"),
     as_data_frame = TRUE)
 ## Check size in memory
 object.size(da)
-#> 62656 bytes
+#> 11104 bytes
 ```
 
 ``` r
@@ -113,7 +113,7 @@ de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
 #> ✔ Filtering data... [30ms]
 #> 
 #> ℹ Query finished.
-#> ✔ Query finished. [30ms]
+#> ✔ Query finished. [31ms]
 #> 
 class(de)
 #> [1] "arrow_dplyr_query"
