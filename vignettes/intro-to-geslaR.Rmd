@@ -22,20 +22,78 @@ R, in full or subsets of it. There a few ways that this can be achieved:
   from there using the [Apache Arrow][] framework
   (`download_gesla()`)
 - Querying the hosted dataset directly from R, specifying the desired
-  subset ([geslaR::query_gesla()])
+  subset (`query_gesla()`)
 - Using the GESLA Shiny app (thereafter called only geslaR-app), to
   filter, visualise and possibly download subsets of the dataset
-  ([geslaR::run_gesla_app()])
+  (`run_gesla_app()`)
 - Directly reading specific files from the full dataset, or reading
-  files exported from the geslaR-app ([geslaR::read_gesla()])
+  files exported from the geslaR-app (`read_gesla()`)
+
+
+
+In the sections below, we will discuss each of these possibilities.
+
+## Loading the package
+
+When you first load the **geslaR** package into an R session, two more
+packages will automatically be loaded: **arrow** and **dplyr**.
 
 ```{r setup}
 library(geslaR)
 ```
 
+These two packages are strictly necessary, as it is the way to deal with
+a huge dataset, like GESLA, without actually loading it in memory at
+once. The full GESLA dataset have more than 1.7 billion lines, and is
+nearly impossible to load it in R (or any other RAM memory language,
+like e.g. Python) all at once. To avoid this problem, there are two
+possibilities:
+
+1. Load (smaller) subsets of the full dataset
+2. Use an "in-memory" analytics framework
+
+In the best case scenario, these two approaches can be used together for
+maximum efficiency, and the **geslaR** package was designed for this
+achievement.
+
+## Downloading the full GESLA dataset
+
+If you want to explore the full GESLA dataset, you can download it with
+the `download_gesla()` function. The simplest way to use this function
+is to call it like
+
+```{r, eval=FALSE}
+download_gesla()
+```
+
+This will create a directory called `gesla_dataset` in the current
+working directory (as defined by `getwd()`) and download the full
+dataset locally. Note that this may take some time, as it depends on
+internet connection. Note that this full dataset will need at least 7GB
+of (hard drive) storage, so make sure this is feasible. However, once
+downloaded, you will have access to the full dataset, and you will only
+need to do this once.
+
+To load this full dataset in R, use
+
+```{r, eval=FALSE}
+da <- open_dataset("gesla_dataset")
+```
+
+Since this is a `FileSystemDataset` object, it will actually not load
+the full dataset in memory (as it would if it was a standard R object,
+such as a `tibble` or `data.frame`). To deal with this object, you can
+use `dplyr` verbs. For example, to count the number of observations by
+country, one could use
+
+```{r, eval=FALSE}
+da |>
+    count(country)
+```
+
 Using the `query_gesla()` function here.
 
-```{r}
+```{r, eval=FALSE}
 da <- query_gesla(country = "ATA", year = 2018)
 class(da)
 ```
