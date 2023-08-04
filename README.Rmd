@@ -141,8 +141,5 @@ support of Science Foundation Ireland and co-funded by GSI under Grant
 number 20/FFP-P/8610.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("inst/img/logos2.png")
-## knitr::include_graphics("inst/img/geological-survey.png")
-## knitr::include_graphics("inst/img/sfi.png")
-## knitr::include_graphics("inst/img/maynooth.png")
+knitr::include_graphics("man/figures/logos2.png")
 ```

@@ -145,4 +145,4 @@ This work has emanated from research conducted with the financial
 support of Science Foundation Ireland and co-funded by GSI under Grant
 number 20/FFP-P/8610.
 
-<img src="inst/img/logos2.png" width="100%" />
+<img src="man/figures/logos2.png" width="100%" />
