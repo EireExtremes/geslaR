@@ -140,9 +140,9 @@ This work has emanated from research conducted with the financial
 support of Science Foundation Ireland and co-funded by GSI under Grant
 number 20/FFP-P/8610.
 
-```{r}
-#| out.width: 70%
-knitr::include_graphics("inst/img/geological-survey.png")
-knitr::include_graphics("inst/img/sfi.png")
-knitr::include_graphics("inst/img/maynooth.png")
+```{r, echo=FALSE}
+knitr::include_graphics("inst/img/logos2.png")
+## knitr::include_graphics("inst/img/geological-survey.png")
+## knitr::include_graphics("inst/img/sfi.png")
+## knitr::include_graphics("inst/img/maynooth.png")
 ```

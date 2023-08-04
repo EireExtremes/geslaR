@@ -107,13 +107,13 @@ de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
 #> ℹ This process can take some time, as it depends on the size of the final
 #> dataset, and on internet connection.
 #> ℹ Connecting to the data server...
-#> ✔ Connecting to the data server... [2.1s]
+#> ✔ Connecting to the data server... [3.1s]
 #> 
 #> ℹ Filtering data...
-#> ✔ Filtering data... [29ms]
+#> ✔ Filtering data... [30ms]
 #> 
 #> ℹ Query finished.
-#> ✔ Query finished. [28ms]
+#> ✔ Query finished. [30ms]
 #> 
 class(de)
 #> [1] "arrow_dplyr_query"
@@ -145,20 +145,4 @@ This work has emanated from research conducted with the financial
 support of Science Foundation Ireland and co-funded by GSI under Grant
 number 20/FFP-P/8610.
 
-``` r
-knitr::include_graphics("inst/img/geological-survey.png")
-```
-
-<img src="inst/img/geological-survey.png" width="70%" />
-
-``` r
-knitr::include_graphics("inst/img/sfi.png")
-```
-
-<img src="inst/img/sfi.png" width="70%" />
-
-``` r
-knitr::include_graphics("inst/img/maynooth.png")
-```
-
-<img src="inst/img/maynooth.png" width="70%" />
+<img src="inst/img/logos2.png" width="100%" />
