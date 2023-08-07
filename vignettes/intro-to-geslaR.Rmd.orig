@@ -8,7 +8,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache.path = "vignettes/intro-to-geslaR_cache/"
+)
+```
 
 The **geslaR** package was designed to fetch the [GESLA][] dataset into
 R, in full or subsets of it. There a few ways that this can be achieved:
@@ -33,8 +39,7 @@ In the sections below, we will discuss each of these possibilities.
 When you first load the **geslaR** package into an R session, two more
 packages will automatically be loaded: **arrow** and **dplyr**.
 
-
-```r
+```{r setup}
 library(geslaR)
 ```
 
@@ -58,12 +63,8 @@ If you want to explore the full GESLA dataset, you can download it with
 the `download_gesla()` function. The simplest way to use this function
 is to call it like
 
-
-```r
+```{r, eval=TRUE, cache=TRUE}
 download_gesla(ask = F)
-#> Error in download_gesla(ask = F): 
-#> ✖ The GESLA dataset is already downloaded
-#> ℹ Use `overwrite = TRUE` to download it again
 ```
 
 This will create a directory called `gesla_dataset` in the current
@@ -76,11 +77,9 @@ full dataset, and you will only need to do this once.
 
 To load this full dataset in R, use
 
-
-```r
+```{r, eval=TRUE, cache=TRUE}
 da <- open_dataset("gesla_dataset")
 class(da)
-#> [1] "FileSystemDataset" "Dataset"           "ArrowObject"       "R6"
 ```
 
 
@@ -91,28 +90,24 @@ such as a `tibble` or `data.frame`). To deal with this object, you can
 use `dplyr` verbs. For example, to count the number of observations by
 country, one could use
 
-
-```r
+```{r, eval=FALSE}
 da |>
     count(country)
 ```
 
 Using the `query_gesla()` function here.
 
-
-```r
+```{r, eval=FALSE}
 da <- query_gesla(country = "ATA", year = 2018)
 class(da)
 ```
 
-
-```r
+```{r, eval=FALSE}
 da |>
     count(year)
 ```
 
-
-```r
+```{r, eval=FALSE}
 da |>
     count(year) |>
     collect()
