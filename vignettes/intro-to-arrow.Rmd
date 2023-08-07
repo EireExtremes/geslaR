@@ -80,31 +80,82 @@ download_gesla()
 #> ℹ Dataset downloaded to './gesla_dataset'
 ```
 
-
-
 This will create a directory called `gesla_dataset` in the current
 working directory (as defined by `getwd()`) and download the full
-dataset locally. This downlopad may take some time, as it depends on
+dataset locally. This download may take some time, as it depends on
 internet connection, but it's necessary only once. Note that this full
 dataset will need at least 7GB of (hard drive) storage, so make sure
 this is feasible. However, once downloaded, you will have access to the
 full dataset, and you will only need to do this once.
 
-To load this full dataset in R, use
+You will notice that the full dataset is composed by 5119 [Apache
+Parquet][] files, ending in `.parquet`
 
 
 ```r
+## Number of downloaded files
+length(list.files("gesla_dataset"))
+#> [1] 61
+## Check the first files
+head(list.files("gesla_dataset"))
+#> [1] "aranmore_island_leabgarrow-ara-irl-mi_c.parquet"
+#> [2] "aranmore-ara-irl-cmems.parquet"                 
+#> [3] "arklow_harbour_opw_station-ark-irl-mi_c.parquet"
+#> [4] "arklowharbour-ark-irl-cmems.parquet"            
+#> [5] "ballycotton_harbour-bal-irl-mi_c.parquet"       
+#> [6] "ballycotton-bal-irl-cmems.parquet"
+```
+
+These files are the same originally distributed in the GESLA dataset, so
+that each one refers to a site from where the data comes from. To load
+this full dataset in R, use the `arrow::open_dataset()` function,
+specifying the location of the `.parquet` files. Altough there are many
+files, this function recognizes them as a single dataset, because they
+all have the same structure (or "Schema").
+
+
+```r
+## Open dataset
 da <- open_dataset("gesla_dataset")
+## Check the object
+da
+#> FileSystemDataset with 61 Parquet files
+#> date_time: timestamp[us]
+#> year: int64
+#> month: int64
+#> day: int64
+#> hour: int64
+#> country: string
+#> site_name: string
+#> lat: double
+#> lon: double
+#> sea_level: double
+#> qc_flag: int64
+#> use_flag: int64
+#> file_name: string
+#> 
+#> See $metadata for additional Schema metadata
+## Verify class
 class(da)
 #> [1] "FileSystemDataset" "Dataset"           "ArrowObject"       "R6"
-dim(da)
-#> [1] 18189361       13
 ```
 
 Since this is an `ArrowObject` object, it will actually not load
 the full dataset in memory (as it would if it was a standard R object,
-such as a `tibble` or `data.frame`). To deal with this object, you can
-use `dplyr` verbs. For example, to count the number of observations by
+such as a `tibble` or `data.frame`). Note that some basic informations,
+such as `dim()` and `names()` can be retrieved simply with
+
+
+```r
+dim(da)
+#> [1] 18189361       13
+names(da)
+#>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"   "site_name"
+#>  [8] "lat"       "lon"       "sea_level" "qc_flag"   "use_flag"  "file_name"
+```
+
+However, any other manipulation of the dataset must be made using
+**dplyr** verbs. For example, to count the number of observations by
 country, one could use
 
 
@@ -135,10 +186,101 @@ da |>
 #> 3 FRA       128934
 ```
 
+This is intentionally done so that you can manipulate, calculate, and
+extract informations from the dataset, taking advantage of the Arrow
+in-memory analytics framework. This way, the computations should be
+faster, and the idea is that you just use `dplyr::collect()` when the
+final result should be needed as an R object. For example, we could
+calculate the mean sea level for Ireland per year, for the whole
+dataset, as
+
+
+```r
+da |>
+    filter(country == "IRL", use_flag == 1) |>
+    group_by(year) |>
+    summarise(mean = mean(sea_level)) |>
+    arrange(year) |>
+    collect()
+#> # A tibble: 63 × 2
+#>     year  mean
+#>    <int> <dbl>
+#>  1  1958  3.11
+#>  2  1959  3.12
+#>  3  1960  3.16
+#>  4  1961  3.16
+#>  5  1962  3.09
+#>  6  1963  3.13
+#>  7  1964  3.13
+#>  8  1965  3.11
+#>  9  1966  3.15
+#> 10  1967  3.14
+#> # ℹ 53 more rows
+```
+
+Any other queries could be made, as long as the **dplyr** verbs uesd are
+supported by the **arrow** package. For example, we could ask for the
+minimum, mean, and maximum sea level values for Ireland per year
+
+
+```r
+da |>
+    filter(country == "IRL", use_flag == 1) |>
+    group_by(year) |>
+    summarise(
+        min = min(sea_level),
+        mean = mean(sea_level),
+        max = max(sea_level)) |>
+    collect()
+#> # A tibble: 63 × 4
+#>     year   min     mean   max
+#>    <int> <dbl>    <dbl> <dbl>
+#>  1  2018 -4.09  0.0462  11.6 
+#>  2  2019 -5.80  0.0436   3.18
+#>  3  2020 -6.37 -0.0558   7.58
+#>  4  2021 -3.5  -0.0137   2.86
+#>  5  2008 -3.41 -0.00481  4.85
+#>  6  2009 -3.00  0.0108   2.94
+#>  7  2010 -3.71 -0.0192   3.11
+#>  8  2011 -3.17 -0.00690  3.07
+#>  9  2012 -3.14 -0.0495   3.28
+#> 10  2013 -3.36 -0.0482   3.53
+#> # ℹ 53 more rows
+```
+
+This same query could already be used to produce graphics with
+**ggplot2**, for example. In this case, note that tha call to
+`dplyr::collect()` is mandatory in advance to using **ggplot2**
+functions, as it will only accept standard R objects (such as `tibble`
+or `data.frame`).
+
+
+```r
+library(ggplot2)
+da |>
+    filter(country == "IRL", use_flag == 1) |>
+    group_by(year) |>
+    summarise(
+        min = min(sea_level),
+        mean = mean(sea_level),
+        max = max(sea_level)) |>
+    collect() |>
+    tidyr::pivot_longer(cols = c(min, mean, max)) |>
+    ggplot(aes(x = year, y = value, colour = name)) +
+    geom_line() +
+    theme(legend.position = "top") +
+    labs(colour = "")
+```
+
+<div class="figure" style="text-align: center">
+<img src="fig-gg-irl-1.png" alt="plot of chunk gg-irl"  />
+<p class="caption">plot of chunk gg-irl</p>
+</div>
 
 [dplyr]: https://dplyr.tidyverse.org/index.html
 [arrow]: https://arrow.apache.org/docs/r/index.html
 [GESLA]: https://gesla787883612.wordpress.com
 [Apache Arrow]: https://arrow.apache.org
+[Apache Parquet]: https://parquet.apache.org
 [Functions available in Arrow dplyr queries]: https://arrow.apache.org/docs/r/reference/acero.html
 [Data analysis with dplyr syntax]: https://arrow.apache.org/docs/r/articles/data_wrangling.html

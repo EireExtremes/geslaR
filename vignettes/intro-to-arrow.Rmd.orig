@@ -12,8 +12,10 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  fig.path = "fig-",
+  fig.align = "center",
   cache = TRUE,
-  cache.path = "vignettes/intro-to-arrow_cache/"
+  cache.path = "intro-to-arrow_cache/"
 )
 ```
 
@@ -79,28 +81,52 @@ if(dir.exists("gesla_dataset")) unlink("gesla_dataset", recursive = TRUE)
 download_gesla()
 ```
 
-
-
 This will create a directory called `gesla_dataset` in the current
 working directory (as defined by `getwd()`) and download the full
-dataset locally. This downlopad may take some time, as it depends on
+dataset locally. This download may take some time, as it depends on
 internet connection, but it's necessary only once. Note that this full
 dataset will need at least 7GB of (hard drive) storage, so make sure
 this is feasible. However, once downloaded, you will have access to the
 full dataset, and you will only need to do this once.
 
-To load this full dataset in R, use
+You will notice that the full dataset is composed by 5119 [Apache
+Parquet][] files, ending in `.parquet`
 
 ```{r}
+## Number of downloaded files
+length(list.files("gesla_dataset"))
+## Check the first files
+head(list.files("gesla_dataset"))
+```
+
+These files are the same originally distributed in the GESLA dataset, so
+that each one refers to a site from where the data comes from. To load
+this full dataset in R, use the `arrow::open_dataset()` function,
+specifying the location of the `.parquet` files. Altough there are many
+files, this function recognizes them as a single dataset, because they
+all have the same structure (or "Schema").
+
+```{r}
+## Open dataset
 da <- open_dataset("gesla_dataset")
+## Check the object
+da
+## Verify class
 class(da)
-dim(da)
 ```
 
 Since this is an `ArrowObject` object, it will actually not load
 the full dataset in memory (as it would if it was a standard R object,
-such as a `tibble` or `data.frame`). To deal with this object, you can
-use `dplyr` verbs. For example, to count the number of observations by
+such as a `tibble` or `data.frame`). Note that some basic informations,
+such as `dim()` and `names()` can be retrieved simply with
+
+```{r}
+dim(da)
+names(da)
+```
+
+However, any other manipulation of the dataset must be made using
+**dplyr** verbs. For example, to count the number of observations by
 country, one could use
 
 ```{r}
@@ -118,10 +144,65 @@ da |>
     collect()
 ```
 
+This is intentionally done so that you can manipulate, calculate, and
+extract informations from the dataset, taking advantage of the Arrow
+in-memory analytics framework. This way, the computations should be
+faster, and the idea is that you just use `dplyr::collect()` when the
+final result should be needed as an R object. For example, we could
+calculate the mean sea level for Ireland per year, for the whole
+dataset, as
+
+```{r}
+da |>
+    filter(country == "IRL", use_flag == 1) |>
+    group_by(year) |>
+    summarise(mean = mean(sea_level)) |>
+    arrange(year) |>
+    collect()
+```
+
+Any other queries could be made, as long as the **dplyr** verbs uesd are
+supported by the **arrow** package. For example, we could ask for the
+minimum, mean, and maximum sea level values for Ireland per year
+
+```{r}
+da |>
+    filter(country == "IRL", use_flag == 1) |>
+    group_by(year) |>
+    summarise(
+        min = min(sea_level),
+        mean = mean(sea_level),
+        max = max(sea_level)) |>
+    collect()
+```
+
+This same query could already be used to produce graphics with
+**ggplot2**, for example. In this case, note that tha call to
+`dplyr::collect()` is mandatory in advance to using **ggplot2**
+functions, as it will only accept standard R objects (such as `tibble`
+or `data.frame`).
+
+```{r gg-irl}
+library(ggplot2)
+da |>
+    filter(country == "IRL", use_flag == 1) |>
+    group_by(year) |>
+    summarise(
+        min = min(sea_level),
+        mean = mean(sea_level),
+        max = max(sea_level)) |>
+    collect() |>
+    tidyr::pivot_longer(cols = c(min, mean, max)) |>
+    ggplot(aes(x = year, y = value, colour = name)) +
+    geom_line() +
+    theme(legend.position = "top") +
+    labs(colour = "")
+```
 
 [dplyr]: https://dplyr.tidyverse.org/index.html
 [arrow]: https://arrow.apache.org/docs/r/index.html
 [GESLA]: https://gesla787883612.wordpress.com
 [Apache Arrow]: https://arrow.apache.org
+[Apache Parquet]: https://parquet.apache.org
 [Functions available in Arrow dplyr queries]: https://arrow.apache.org/docs/r/reference/acero.html
 [Data analysis with dplyr syntax]: https://arrow.apache.org/docs/r/articles/data_wrangling.html

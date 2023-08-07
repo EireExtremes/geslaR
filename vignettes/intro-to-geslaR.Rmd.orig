@@ -31,8 +31,6 @@ R, in full or subsets of it. There a few ways that this can be achieved:
 - Directly reading specific files from the full dataset, or reading
   files exported from the geslaR-app (`read_gesla()`)
 
-
-
 In the sections below, we will discuss each of these possibilities.
 
 ## Loading the package
