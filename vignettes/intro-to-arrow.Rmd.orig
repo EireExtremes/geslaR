@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "fig-",
   fig.align = "center",
+  out.width = "90%",
   cache = TRUE,
   cache.path = "intro-to-arrow_cache/"
 )
@@ -182,7 +183,7 @@ This same query could already be used to produce graphics with
 functions, as it will only accept standard R objects (such as `tibble`
 or `data.frame`).
 
-```{r gg-irl}
+```{r gg-irl, fig.cap=''}
 library(ggplot2)
 da |>
     filter(country == "IRL", use_flag == 1) |>

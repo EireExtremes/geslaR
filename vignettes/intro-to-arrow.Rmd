@@ -233,18 +233,18 @@ da |>
         max = max(sea_level)) |>
     collect()
 #> # A tibble: 63 × 4
-#>     year   min     mean   max
-#>    <int> <dbl>    <dbl> <dbl>
-#>  1  2018 -4.09  0.0462  11.6 
-#>  2  2019 -5.80  0.0436   3.18
-#>  3  2020 -6.37 -0.0558   7.58
-#>  4  2021 -3.5  -0.0137   2.86
-#>  5  2008 -3.41 -0.00481  4.85
-#>  6  2009 -3.00  0.0108   2.94
-#>  7  2010 -3.71 -0.0192   3.11
-#>  8  2011 -3.17 -0.00690  3.07
-#>  9  2012 -3.14 -0.0495   3.28
-#> 10  2013 -3.36 -0.0482   3.53
+#>     year   min    mean   max
+#>    <int> <dbl>   <dbl> <dbl>
+#>  1  2018 -4.09  0.0462 11.6 
+#>  2  2019 -5.80  0.0436  3.18
+#>  3  2015 -3.93 -0.0613  5.41
+#>  4  2016 -3.17 -0.0370  2.99
+#>  5  2017 -2.96 -0.0212  3.31
+#>  6  2012 -3.14 -0.0495  3.28
+#>  7  2013 -3.36 -0.0482  3.53
+#>  8  2020 -6.37 -0.0558  7.58
+#>  9  2021 -3.5  -0.0137  2.86
+#> 10  2014 -2.96 -0.0175  3.59
 #> # ℹ 53 more rows
 ```
 
@@ -272,10 +272,7 @@ da |>
     labs(colour = "")
 ```
 
-<div class="figure" style="text-align: center">
-<img src="fig-gg-irl-1.png" alt="plot of chunk gg-irl"  />
-<p class="caption">plot of chunk gg-irl</p>
-</div>
+<img src="fig-gg-irl-1.png" width="90%" style="display: block; margin: auto;" />
 
 [dplyr]: https://dplyr.tidyverse.org/index.html
 [arrow]: https://arrow.apache.org/docs/r/index.html
