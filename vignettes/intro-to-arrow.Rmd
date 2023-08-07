@@ -1,0 +1,144 @@
+---
+title: "Introduction to Apache Arrow framework"
+output: rmarkdown::html_vignette
+author: Fernando Mayer, Niamh Cahill
+vignette: >
+  %\VignetteIndexEntry{Introduction to Apache Arrow framework}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+## The Apache Arrow framework
+
+The definition of the Apache Arrow framework is best described from
+their website:
+
+> Apache Arrow is a software development platform for building high
+performance applications that process and transport large data sets. It
+is designed to both improve the performance of analytical algorithms and
+the efficiency of moving data from one system or programming language to
+another.
+
+> A critical component of Apache Arrow is its in-memory columnar format, a
+standardized, language-agnostic specification for representing
+structured, table-like datasets in-memory. This data format has a rich
+data type system (included nested and user-defined data types) designed
+to support the needs of analytic database systems, data frame libraries,
+and more.
+
+In other words, the Apache Arrow framework was designed to deal with
+large datsets (larger than memory), using in-memory analytics. This
+means that the computations made with "Arrow datasets" are extremaly
+efficient, resulting in very fast computations, otherwise infeasible
+with standard computations.
+
+The Apache Arrow framework can be used in many different programming
+languages. However, in each of this languages, there are specific
+libraries to deal with it. In R, the [arrow][] package is available to
+load and manipulate Arrow datasets. The manipulation of Arrow objects
+are made through [dplyr][] verbs, which helps users to feel familiar
+with it. Not all **dplyr** verbs are availbale to work with Arrow
+datasets, but the vast majority of the most used ones are already
+"translated" to be used with Arrow. A list of such functions can be
+found in [Functions available in Arrow dplyr queries][]. A general
+introduction of using **dplyr** verbs with Arrow can be seen in [Data
+analysis with dplyr syntax][].
+
+## Using Apache Arrow with geslaR
+
+The **geslaR** package makes use of the [Apache Arrow][] framework to deal
+with the [GESLA][] dataset in R.
+
+In this tutorial, we will use the `download_gesla()` function, to
+download the full GESLA dataset, and show some basic data manipulation
+with the **arrow** package and **dplyr** verbs.
+
+The first time you load the **geslaR** package, it will automatically
+load both the **arrow** and **dplyr** packages.
+
+
+```r
+library(geslaR)
+```
+
+To download the full GESLA dataset, one can simply use
+
+
+
+
+```r
+download_gesla()
+#> ℹ The total size of the dataset is about 7GB, and the download time will depend on your
+#> internet connection
+#> Do you want to download the whole dataset? 
+#> 
+#> 1: Yes
+#> 2: No
+#> ℹ Wait while the dataset is downloaded...
+#> ℹ Dataset downloaded to './gesla_dataset'
+```
+
+
+
+This will create a directory called `gesla_dataset` in the current
+working directory (as defined by `getwd()`) and download the full
+dataset locally. This downlopad may take some time, as it depends on
+internet connection, but it's necessary only once. Note that this full
+dataset will need at least 7GB of (hard drive) storage, so make sure
+this is feasible. However, once downloaded, you will have access to the
+full dataset, and you will only need to do this once.
+
+To load this full dataset in R, use
+
+
+```r
+da <- open_dataset("gesla_dataset")
+class(da)
+#> [1] "FileSystemDataset" "Dataset"           "ArrowObject"       "R6"
+dim(da)
+#> [1] 18189361       13
+```
+
+Since this is an `ArrowObject` object, it will actually not load
+the full dataset in memory (as it would if it was a standard R object,
+such as a `tibble` or `data.frame`). To deal with this object, you can
+use `dplyr` verbs. For example, to count the number of observations by
+country, one could use
+
+
+```r
+da |>
+    count(country)
+#> FileSystemDataset (query)
+#> country: string
+#> n: int64
+#> 
+#> See $.data for the source Arrow object
+```
+
+Note, however, that the output is just a query to the full dataset. To
+explicitly return the calculation, you should use `dplyr::collect()`, so
+the result is a standard `tibble`
+
+
+```r
+da |>
+    count(country) |>
+    collect()
+#> # A tibble: 3 × 2
+#>   country        n
+#>   <chr>      <int>
+#> 1 IRL     16975901
+#> 2 ATA      1084526
+#> 3 FRA       128934
+```
+
+
+[dplyr]: https://dplyr.tidyverse.org/index.html
+[arrow]: https://arrow.apache.org/docs/r/index.html
+[GESLA]: https://gesla787883612.wordpress.com
+[Apache Arrow]: https://arrow.apache.org
+[Functions available in Arrow dplyr queries]: https://arrow.apache.org/docs/r/reference/acero.html
+[Data analysis with dplyr syntax]: https://arrow.apache.org/docs/r/articles/data_wrangling.html
