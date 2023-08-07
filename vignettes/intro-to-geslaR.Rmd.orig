@@ -12,6 +12,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  cache = TRUE,
   cache.path = "vignettes/intro-to-geslaR_cache/"
 )
 ```
@@ -39,7 +40,7 @@ In the sections below, we will discuss each of these possibilities.
 When you first load the **geslaR** package into an R session, two more
 packages will automatically be loaded: **arrow** and **dplyr**.
 
-```{r setup}
+```{r setup, cache=FALSE}
 library(geslaR)
 ```
 
@@ -63,11 +64,11 @@ If you want to explore the full GESLA dataset, you can download it with
 the `download_gesla()` function. The simplest way to use this function
 is to call it like
 
-```{r, include=FALSE}
+```{r, include=FALSE, cache=FALSE}
 if(dir.exists("gesla_dataset")) unlink("gesla_dataset", recursive = TRUE)
 ```
 
-```{r, cache=TRUE}
+```{r}
 download_gesla()
 ```
 
@@ -81,23 +82,34 @@ full dataset, and you will only need to do this once.
 
 To load this full dataset in R, use
 
-```{r, cache=TRUE}
+```{r}
 da <- open_dataset("gesla_dataset")
 class(da)
+dim(da)
 ```
 
-
-
-Since this is a `FileSystemDataset` object, it will actually not load
+Since this is an `ArrowObject` object, it will actually not load
 the full dataset in memory (as it would if it was a standard R object,
 such as a `tibble` or `data.frame`). To deal with this object, you can
 use `dplyr` verbs. For example, to count the number of observations by
 country, one could use
 
-```{r, eval=FALSE}
+```{r}
 da |>
     count(country)
 ```
+
+Note, however, that the output is just a query to the full dataset. To
+explicitly return the calculation, you should use `dplyr::collect()`, so
+the result is a standard `tibble`
+
+```{r}
+da |>
+    count(country) |>
+    collect()
+```
+
+
 
 Using the `query_gesla()` function here.
 
