@@ -59,11 +59,18 @@ the `download_gesla()` function. The simplest way to use this function
 is to call it like
 
 
+
+
 ```r
-download_gesla(ask = F)
-#> Error in download_gesla(ask = F): 
-#> ✖ The GESLA dataset is already downloaded
-#> ℹ Use `overwrite = TRUE` to download it again
+download_gesla()
+#> ℹ The total size of the dataset is about 7GB, and the download time will depend on your
+#> internet connection
+#> Do you want to download the whole dataset? 
+#> 
+#> 1: Yes
+#> 2: No
+#> ℹ Wait while the dataset is downloaded...
+#> ℹ Dataset downloaded to './gesla_dataset'
 ```
 
 This will create a directory called `gesla_dataset` in the current

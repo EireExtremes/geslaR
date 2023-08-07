@@ -63,8 +63,12 @@ If you want to explore the full GESLA dataset, you can download it with
 the `download_gesla()` function. The simplest way to use this function
 is to call it like
 
-```{r, eval=TRUE, cache=TRUE}
-download_gesla(ask = F)
+```{r, include=FALSE}
+if(dir.exists("gesla_dataset")) unlink("gesla_dataset", recursive = TRUE)
+```
+
+```{r, cache=TRUE}
+download_gesla()
 ```
 
 This will create a directory called `gesla_dataset` in the current
@@ -77,7 +81,7 @@ full dataset, and you will only need to do this once.
 
 To load this full dataset in R, use
 
-```{r, eval=TRUE, cache=TRUE}
+```{r, cache=TRUE}
 da <- open_dataset("gesla_dataset")
 class(da)
 ```
