@@ -62,23 +62,26 @@ If you want to explore the full GESLA dataset, you can download it with
 the `download_gesla()` function. The simplest way to use this function
 is to call it like
 
-```{r, eval=FALSE}
-download_gesla()
+```{r, eval=TRUE, cache=TRUE}
+download_gesla(ask = F, overwrite = T)
 ```
 
 This will create a directory called `gesla_dataset` in the current
 working directory (as defined by `getwd()`) and download the full
-dataset locally. Note that this may take some time, as it depends on
-internet connection. Note that this full dataset will need at least 7GB
-of (hard drive) storage, so make sure this is feasible. However, once
-downloaded, you will have access to the full dataset, and you will only
-need to do this once.
+dataset locally. This downlopad may take some time, as it depends on
+internet connection, but it's necessary only once. Note that this full
+dataset will need at least 7GB of (hard drive) storage, so make sure
+this is feasible. However, once downloaded, you will have access to the
+full dataset, and you will only need to do this once.
 
 To load this full dataset in R, use
 
-```{r, eval=FALSE}
+```{r, eval=TRUE, cache=TRUE}
 da <- open_dataset("gesla_dataset")
+class(da)
 ```
+
+
 
 Since this is a `FileSystemDataset` object, it will actually not load
 the full dataset in memory (as it would if it was a standard R object,
