@@ -1,3 +1,4 @@
+^vignettes/Makefile$
 ^\.covrignore$
 ^gesla_dataset$
 ^gesla_app$
