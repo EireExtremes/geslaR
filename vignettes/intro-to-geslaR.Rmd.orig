@@ -62,7 +62,7 @@ achievement.
 Regardless the way GESLA data is loaded into R, the best way to deal
 with it is using the [Apache Arrow][] framework. For a more detailed
 explanation and examples, please see the
-`vignette("intro-to-arrow", package = geslaR)`.
+`vignette("intro-to-arrow")`.
 
 ## Downloading the full GESLA dataset
 
