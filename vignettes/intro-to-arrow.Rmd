@@ -61,6 +61,21 @@ load both the **arrow** and **dplyr** packages.
 
 ```r
 library(geslaR)
+#> Loading required package: arrow
+#> 
+#> Attaching package: 'arrow'
+#> The following object is masked from 'package:utils':
+#> 
+#>     timestamp
+#> Loading required package: dplyr
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 ```
 
 To download the full GESLA dataset, one can simply use
@@ -70,14 +85,6 @@ To download the full GESLA dataset, one can simply use
 
 ```r
 download_gesla()
-#> ℹ The total size of the dataset is about 7GB, and the download time will depend on your
-#> internet connection
-#> Do you want to download the whole dataset? 
-#> 
-#> 1: Yes
-#> 2: No
-#> ℹ Wait while the dataset is downloaded...
-#> ℹ Dataset downloaded to './gesla_dataset'
 ```
 
 This will create a directory called `gesla_dataset` in the current
@@ -137,7 +144,8 @@ da
 #> See $metadata for additional Schema metadata
 ## Verify class
 class(da)
-#> [1] "FileSystemDataset" "Dataset"           "ArrowObject"       "R6"
+#> [1] "FileSystemDataset" "Dataset"           "ArrowObject"      
+#> [4] "R6"
 ```
 
 Since this is an `ArrowObject` object, it will actually not load
@@ -150,8 +158,9 @@ such as `dim()` and `names()` can be retrieved simply with
 dim(da)
 #> [1] 18189361       13
 names(da)
-#>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"   "site_name"
-#>  [8] "lat"       "lon"       "sea_level" "qc_flag"   "use_flag"  "file_name"
+#>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  
+#>  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" 
+#> [13] "file_name"
 ```
 
 However, any other manipulation of the dataset must be made using
@@ -182,8 +191,8 @@ da |>
 #>   country        n
 #>   <chr>      <int>
 #> 1 IRL     16975901
-#> 2 ATA      1084526
-#> 3 FRA       128934
+#> 2 FRA       128934
+#> 3 ATA      1084526
 ```
 
 This is intentionally done so that you can manipulate, calculate, and
@@ -233,18 +242,18 @@ da |>
         max = max(sea_level)) |>
     collect()
 #> # A tibble: 63 × 4
-#>     year   min    mean   max
-#>    <int> <dbl>   <dbl> <dbl>
-#>  1  2018 -4.09  0.0462 11.6 
-#>  2  2019 -5.80  0.0436  3.18
-#>  3  2015 -3.93 -0.0613  5.41
-#>  4  2016 -3.17 -0.0370  2.99
-#>  5  2017 -2.96 -0.0212  3.31
-#>  6  2012 -3.14 -0.0495  3.28
-#>  7  2013 -3.36 -0.0482  3.53
-#>  8  2020 -6.37 -0.0558  7.58
-#>  9  2021 -3.5  -0.0137  2.86
-#> 10  2014 -2.96 -0.0175  3.59
+#>     year   min     mean   max
+#>    <int> <dbl>    <dbl> <dbl>
+#>  1  2018 -4.09  0.0462  11.6 
+#>  2  2019 -5.80  0.0436   3.18
+#>  3  2004 -1.11  0.0391   4.07
+#>  4  2005 -1.32  1.32     4.83
+#>  5  2006 -2.47  0.692    4.94
+#>  6  2007 -3.48 -0.0374   4.94
+#>  7  2008 -3.41 -0.00481  4.85
+#>  8  2014 -2.96 -0.0175   3.59
+#>  9  2015 -3.93 -0.0613   5.41
+#> 10  2016 -3.17 -0.0370   2.99
 #> # ℹ 53 more rows
 ```
 

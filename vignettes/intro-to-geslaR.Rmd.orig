@@ -12,8 +12,11 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  fig.path = "fig-",
+  fig.align = "center",
+  out.width = "90%",
   cache = TRUE,
-  cache.path = "vignettes/intro-to-geslaR_cache/"
+  cache.path = "intro-to-geslaR_cache/"
 )
 ```
 
@@ -56,6 +59,11 @@ In the best case scenario, these two approaches can be used together for
 maximum efficiency, and the **geslaR** package was designed for this
 achievement.
 
+Regardless the way GESLA data is loaded into R, the best way to deal
+with it is using the [Apache Arrow][] framework. For a more detailed
+explanation and examples, please see the
+`vignette("intro-to-arrow", package = geslaR)`.
+
 ## Downloading the full GESLA dataset
 
 If you want to explore the full GESLA dataset, you can download it with
@@ -63,10 +71,10 @@ the `download_gesla()` function. The simplest way to use this function
 is to call it like
 
 ```{r, include=FALSE, cache=FALSE}
-if(dir.exists("gesla_dataset")) unlink("gesla_dataset", recursive = TRUE)
+if(!dir.exists("gesla_dataset")) download_gesla(ask = FALSE)
 ```
 
-```{r}
+```{r, eval=FALSE}
 download_gesla()
 ```
 

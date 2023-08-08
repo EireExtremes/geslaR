@@ -75,10 +75,10 @@ library(geslaR)
 To download the full GESLA dataset, one can simply use
 
 ```{r, include=FALSE, cache=FALSE}
-if(dir.exists("gesla_dataset")) unlink("gesla_dataset", recursive = TRUE)
+if(!dir.exists("gesla_dataset")) download_gesla(ask = FALSE)
 ```
 
-```{r}
+```{r, eval=FALSE}
 download_gesla()
 ```
 
