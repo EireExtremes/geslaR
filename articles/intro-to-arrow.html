@@ -132,18 +132,25 @@ manipulation with the <strong>arrow</strong> package and
 automatically load both the <strong>arrow</strong> and
 <strong>dplyr</strong> packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: arrow</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'arrow'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     timestamp</span></span>
+<span><span class="co">#&gt; Loading required package: dplyr</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
 <p>To download the full GESLA dataset, one can simply use</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/download_gesla.html">download_gesla</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ The total size of the dataset is about 7GB, and the download time will depend on your</span></span>
-<span><span class="co">#&gt; internet connection</span></span>
-<span><span class="co">#&gt; Do you want to download the whole dataset? </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1: Yes</span></span>
-<span><span class="co">#&gt; 2: No</span></span>
-<span><span class="co">#&gt; ℹ Wait while the dataset is downloaded...</span></span>
-<span><span class="co">#&gt; ℹ Dataset downloaded to './gesla_dataset'</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/download_gesla.html">download_gesla</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will create a directory called <code>gesla_dataset</code> in the
 current working directory (as defined by <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>) and
 download the full dataset locally. This download may take some time, as
@@ -194,7 +201,8 @@ dataset, because they all have the same structure (or “Schema”).</p>
 <span><span class="co">#&gt; See $metadata for additional Schema metadata</span></span>
 <span><span class="co">## Verify class</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "FileSystemDataset" "Dataset"           "ArrowObject"       "R6"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "FileSystemDataset" "Dataset"           "ArrowObject"      </span></span>
+<span><span class="co">#&gt; [4] "R6"</span></span></code></pre></div>
 <p>Since this is an <code>ArrowObject</code> object, it will actually
 not load the full dataset in memory (as it would if it was a standard R
 object, such as a <code>tibble</code> or <code>data.frame</code>). Note
@@ -204,8 +212,9 @@ that some basic informations, such as <code><a href="https://rdrr.io/r/base/dim.
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 18189361       13</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "date_time" "year"      "month"     "day"       "hour"      "country"   "site_name"</span></span>
-<span><span class="co">#&gt;  [8] "lat"       "lon"       "sea_level" "qc_flag"   "use_flag"  "file_name"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  </span></span>
+<span><span class="co">#&gt;  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" </span></span>
+<span><span class="co">#&gt; [13] "file_name"</span></span></code></pre></div>
 <p>However, any other manipulation of the dataset must be made using
 <strong>dplyr</strong> verbs. For example, to count the number of
 observations by country, one could use</p>
@@ -229,8 +238,8 @@ To explicitly return the calculation, you should use
 <span><span class="co">#&gt;   country        n</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;      &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 IRL     16975901</span></span>
-<span><span class="co">#&gt; 2 ATA      1084526</span></span>
-<span><span class="co">#&gt; 3 FRA       128934</span></span></code></pre></div>
+<span><span class="co">#&gt; 2 FRA       128934</span></span>
+<span><span class="co">#&gt; 3 ATA      1084526</span></span></code></pre></div>
 <p>This is intentionally done so that you can manipulate, calculate, and
 extract informations from the dataset, taking advantage of the Arrow
 in-memory analytics framework. This way, the computations should be
@@ -273,18 +282,18 @@ minimum, mean, and maximum sea level values for Ireland per year</p>
 <span>        max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">sea_level</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 63 × 4</span></span>
-<span><span class="co">#&gt;     year   min    mean   max</span></span>
-<span><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1  2018 -4.09  0.0462 11.6 </span></span>
-<span><span class="co">#&gt;  2  2019 -5.80  0.0436  3.18</span></span>
-<span><span class="co">#&gt;  3  2015 -3.93 -0.0613  5.41</span></span>
-<span><span class="co">#&gt;  4  2016 -3.17 -0.0370  2.99</span></span>
-<span><span class="co">#&gt;  5  2017 -2.96 -0.0212  3.31</span></span>
-<span><span class="co">#&gt;  6  2012 -3.14 -0.0495  3.28</span></span>
-<span><span class="co">#&gt;  7  2013 -3.36 -0.0482  3.53</span></span>
-<span><span class="co">#&gt;  8  2020 -6.37 -0.0558  7.58</span></span>
-<span><span class="co">#&gt;  9  2021 -3.5  -0.0137  2.86</span></span>
-<span><span class="co">#&gt; 10  2014 -2.96 -0.0175  3.59</span></span>
+<span><span class="co">#&gt;     year   min     mean   max</span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1  2018 -4.09  0.0462  11.6 </span></span>
+<span><span class="co">#&gt;  2  2019 -5.80  0.0436   3.18</span></span>
+<span><span class="co">#&gt;  3  2004 -1.11  0.0391   4.07</span></span>
+<span><span class="co">#&gt;  4  2005 -1.32  1.32     4.83</span></span>
+<span><span class="co">#&gt;  5  2006 -2.47  0.692    4.94</span></span>
+<span><span class="co">#&gt;  6  2007 -3.48 -0.0374   4.94</span></span>
+<span><span class="co">#&gt;  7  2008 -3.41 -0.00481  4.85</span></span>
+<span><span class="co">#&gt;  8  2014 -2.96 -0.0175   3.59</span></span>
+<span><span class="co">#&gt;  9  2015 -3.93 -0.0613   5.41</span></span>
+<span><span class="co">#&gt; 10  2016 -3.17 -0.0370   2.99</span></span>
 <span><span class="co">#&gt; # ℹ 53 more rows</span></span></code></pre></div>
 <p>This same query could already be used to produce graphics with
 <strong>ggplot2</strong>, for example. In this case, note that tha call

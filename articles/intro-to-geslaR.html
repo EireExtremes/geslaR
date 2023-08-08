@@ -103,7 +103,22 @@ possibilities.</p>
 session, two more packages will automatically be loaded:
 <strong>arrow</strong> and <strong>dplyr</strong>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: arrow</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'arrow'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     timestamp</span></span>
+<span><span class="co">#&gt; Loading required package: dplyr</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
 <p>These two packages are strictly necessary, as it is the way to deal
 with a huge dataset, like GESLA, without actually loading it in memory
 at once. The full GESLA dataset have more than 1.7 billion lines, and is
@@ -117,6 +132,10 @@ possibilities:</p>
 <p>In the best case scenario, these two approaches can be used together
 for maximum efficiency, and the <strong>geslaR</strong> package was
 designed for this achievement.</p>
+<p>Regardless the way GESLA data is loaded into R, the best way to deal
+with it is using the <a href="https://arrow.apache.org" class="external-link">Apache Arrow</a>
+framework. For a more detailed explanation and examples, please see the
+<code>vignette("intro-to-arrow", package = geslaR)</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="downloading-the-full-gesla-dataset">Downloading the full GESLA dataset<a class="anchor" aria-label="anchor" href="#downloading-the-full-gesla-dataset"></a>
@@ -125,15 +144,7 @@ designed for this achievement.</p>
 with the <code><a href="../reference/download_gesla.html">download_gesla()</a></code> function. The simplest way to use
 this function is to call it like</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/download_gesla.html">download_gesla</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ The total size of the dataset is about 7GB, and the download time will depend on your</span></span>
-<span><span class="co">#&gt; internet connection</span></span>
-<span><span class="co">#&gt; Do you want to download the whole dataset? </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1: Yes</span></span>
-<span><span class="co">#&gt; 2: No</span></span>
-<span><span class="co">#&gt; ℹ Wait while the dataset is downloaded...</span></span>
-<span><span class="co">#&gt; ℹ Dataset downloaded to './gesla_dataset'</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/download_gesla.html">download_gesla</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will create a directory called <code>gesla_dataset</code> in the
 current working directory (as defined by <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>) and
 download the full dataset locally. This downlopad may take some time, as
@@ -145,24 +156,46 @@ access to the full dataset, and you will only need to do this once.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html" class="external-link">open_dataset</a></span><span class="op">(</span><span class="st">"gesla_dataset"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "FileSystemDataset" "Dataset"           "ArrowObject"       "R6"</span></span></code></pre></div>
-<p>Since this is a <code>FileSystemDataset</code> object, it will
-actually not load the full dataset in memory (as it would if it was a
-standard R object, such as a <code>tibble</code> or
-<code>data.frame</code>). To deal with this object, you can use
-<code>dplyr</code> verbs. For example, to count the number of
-observations by country, one could use</p>
+<span><span class="co">#&gt; [1] "FileSystemDataset" "Dataset"           "ArrowObject"      </span></span>
+<span><span class="co">#&gt; [4] "R6"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 18189361       13</span></span></code></pre></div>
+<p>Since this is an <code>ArrowObject</code> object, it will actually
+not load the full dataset in memory (as it would if it was a standard R
+object, such as a <code>tibble</code> or <code>data.frame</code>). To
+deal with this object, you can use <code>dplyr</code> verbs. For
+example, to count the number of observations by country, one could
+use</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">da</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span></span></code></pre></div>
-<p>Using the <code><a href="../reference/query_gesla.html">query_gesla()</a></code> function here.</p>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span></span>
+<span><span class="co">#&gt; FileSystemDataset (query)</span></span>
+<span><span class="co">#&gt; country: string</span></span>
+<span><span class="co">#&gt; n: int64</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; See $.data for the source Arrow object</span></span></code></pre></div>
+<p>Note, however, that the output is just a query to the full dataset.
+To explicitly return the calculation, you should use
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">dplyr::collect()</a></code>, so the result is a standard
+<code>tibble</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">da</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span><span class="co">#&gt;   country        n</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 IRL     16975901</span></span>
+<span><span class="co">#&gt; 2 ATA      1084526</span></span>
+<span><span class="co">#&gt; 3 FRA       128934</span></span></code></pre></div>
+<p>Using the <code><a href="../reference/query_gesla.html">query_gesla()</a></code> function here.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/query_gesla.html">query_gesla</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"ATA"</span>, year <span class="op">=</span> <span class="fl">2018</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">da</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">da</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
