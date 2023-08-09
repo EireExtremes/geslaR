@@ -82,31 +82,29 @@ Please, see \code{vignette("intro-to-geslaR")} for a detailed example.
 \examples{
 \dontrun{
 ## Simple query
-da <- query_gesla(country = "ATA")
+da <- query_gesla(country = "IRL")
 
 ## Select one specific year
-da <- query_gesla(country = "ATA", year = 2018)
+da <- query_gesla(country = "IRL", year = 2015)
 
 ## Multiple years
-da <- query_gesla(country = "ATA", year = c(2018, 2019))
-da <- query_gesla(country = "ATA", year = 2010:2019)
-da <- query_gesla(country = "ATA", year = c(2010, 2012, 2014))
+da <- query_gesla(country = "IRL", year = c(2015, 2017))
+da <- query_gesla(country = "IRL", year = 2010:2017)
+da <- query_gesla(country = "IRL", year = c(2010, 2012, 2015))
 da |>
     count(year) |>
     collect()
 
 ## Multiple countries
-da <- query_gesla(country = c("IRL", "ATA", "BRA"), year = 2018)
-da <- query_gesla(country = c("IRL", "ATA", "BRA"), year = 2010:2019)
+da <- query_gesla(country = c("IRL", "ATA"), year = 2015)
+da <- query_gesla(country = c("IRL", "ATA"), year = 2010:2017)
 da |>
     count(country, year) |>
     collect()
 
-## Specifying a site name. Note that in this particular case,
-## "Faraday" data is only available for 2018, so no 2019 data will
-## be available
-da <- query_gesla(country = "ATA", year = c(2018, 2019),
-    site_name = "Faraday")
+## Specifying a site name
+da <- query_gesla(country = "IRL", year = c(2015, 2017),
+    site_name = "Dublin_Port")
 da |>
     count(year) |>
     collect()

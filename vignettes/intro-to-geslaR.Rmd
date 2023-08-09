@@ -91,38 +91,77 @@ dataset will need at least 7GB of (hard drive) storage, so make sure
 this is feasible. However, once downloaded, you will have access to the
 full dataset, and you will only need to do this once.
 
-To load this full dataset in R, use
+You will notice that the full dataset is composed by 5119 [Apache
+Parquet][] files, ending in `.parquet`
 
 
 ```r
+## Number of downloaded files
+length(list.files("gesla_dataset"))
+#> [1] 61
+## Check the first files
+head(list.files("gesla_dataset"))
+#> [1] "aranmore_island_leabgarrow-ara-irl-mi_c.parquet"
+#> [2] "aranmore-ara-irl-cmems.parquet"                 
+#> [3] "arklow_harbour_opw_station-ark-irl-mi_c.parquet"
+#> [4] "arklowharbour-ark-irl-cmems.parquet"            
+#> [5] "ballycotton_harbour-bal-irl-mi_c.parquet"       
+#> [6] "ballycotton-bal-irl-cmems.parquet"
+```
+
+These files are the same originally distributed in the GESLA dataset, so
+that each one refers to a site from where the data comes from. To load
+this full dataset in R, use the `arrow::open_dataset()` function,
+specifying the location of the `.parquet` files. Altough there are many
+files, this function recognizes them as a single dataset, because they
+all have the same structure (or "Schema").
+
+
+```r
+## Open dataset
 da <- open_dataset("gesla_dataset")
+## Check the object
+da
+#> FileSystemDataset with 61 Parquet files
+#> date_time: timestamp[us]
+#> year: int64
+#> month: int64
+#> day: int64
+#> hour: int64
+#> country: string
+#> site_name: string
+#> lat: double
+#> lon: double
+#> sea_level: double
+#> qc_flag: int64
+#> use_flag: int64
+#> file_name: string
+#> 
+#> See $metadata for additional Schema metadata
+## Verify class
 class(da)
 #> [1] "FileSystemDataset" "Dataset"           "ArrowObject"      
 #> [4] "R6"
-dim(da)
-#> [1] 18189361       13
 ```
 
 Since this is an `ArrowObject` object, it will actually not load
 the full dataset in memory (as it would if it was a standard R object,
-such as a `tibble` or `data.frame`). To deal with this object, you can
-use `dplyr` verbs. For example, to count the number of observations by
-country, one could use
+such as a `tibble` or `data.frame`). Note that some basic informations,
+such as `dim()` and `names()` can be retrieved simply with
 
 
 ```r
-da |>
-    count(country)
-#> FileSystemDataset (query)
-#> country: string
-#> n: int64
-#> 
-#> See $.data for the source Arrow object
+dim(da)
+#> [1] 18189361       13
+names(da)
+#>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  
+#>  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" 
+#> [13] "file_name"
 ```
 
-Note, however, that the output is just a query to the full dataset. To
-explicitly return the calculation, you should use `dplyr::collect()`, so
-the result is a standard `tibble`
+However, any other manipulation of the dataset must be made using
+**dplyr** verbs. For example, to count the number of observations by
+country, one could use
 
 
 ```r
@@ -137,28 +176,126 @@ da |>
 #> 3 FRA       128934
 ```
 
+## Querying subsets directly into R
 
+The `query_gesla()` function can be used to load subsets of the full
+GESLA dataset into R. This function will connect to the GESLA dataset
+hosted on an Amazon AWS S3 bucket, and will automatically filter the
+required piece of data. Note that the query may take some time, as it
+will depend on the size of the required subset and on internet
+connection speed.
 
-Using the `query_gesla()` function here.
+The selection is made by specifying one or more countries, years and
+site names. The only mandatory argument is `country`, where it should be
+a character vector of three-letter [ISO 3166-1
+alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code. If the
+argument `year` is empty, then all available years for those countries
+will be selected. The same accurs for the `site_name` argument.
+
+For example, to select all the available data for Ireland (IRL), simply
+use
 
 
 ```r
-da <- query_gesla(country = "ATA", year = 2018)
+da <- query_gesla(country = "IRL")
+#> ℹ This process can take some time, as it depends on the size of the final dataset, and on
+#> internet connection.
+#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [3.8s][K
+#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [2m 38.2s][K
+#> ℹ Query finished.[K✔ Query finished. [14ms][K
+da
+#> Table
+#> 16321218 rows x 13 columns
+#> $date_time <timestamp[us]>
+#> $year <int64>
+#> $month <int64>
+#> $day <int64>
+#> $hour <int64>
+#> $country <string>
+#> $site_name <string>
+#> $lat <double>
+#> $lon <double>
+#> $sea_level <double>
+#> $qc_flag <int64>
+#> $use_flag <int64>
+#> $file_name <string>
+#> 
+#> See $metadata for additional Schema metadata
+dim(da)
+#> [1] 16321218       13
+names(da)
+#>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  
+#>  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" 
+#> [13] "file_name"
 class(da)
+#> [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"
 ```
+
+This is also an `ArrowObject` object, and works the same way as any
+other Arrow object type, i.e., it can be manipulated with **dplyr**
+verbs. By the end of this section we will show some examples.
+
+Many other queries can be made, for example,
 
 
 ```r
-da |>
-    count(year)
+## Select one specific year
+da <- query_gesla(country = "IRL", year = 2015)
+
+## Multiple years
+da <- query_gesla(country = "IRL", year = c(2015, 2017))
+da <- query_gesla(country = "IRL", year = 2010:2017)
+da <- query_gesla(country = "IRL", year = c(2010, 2012, 2015))
+
+## Multiple countries
+da <- query_gesla(country = c("IRL", "ATA"), year = 2015)
+da <- query_gesla(country = c("IRL", "ATA"), year = 2010:2017)
 ```
+
+As one last example, we may be interested in data only for the site
+`Dublin_Port` in Ireland, and for the years 2015 and 2017. This query
+would be done as follows
 
 
 ```r
+da <- query_gesla(country = "IRL", year = c(2015, 2017),
+    site_name = "Dublin_Port")
+#> ℹ This process can take some time, as it depends on the size of the final dataset, and on
+#> internet connection.
+#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [3.2s][K
+#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [2m 9.9s][K
+#> ℹ Query finished.[K✔ Query finished. [24ms][K
+```
+
+Now we could explore this subset using **dplyr** verbs as usual
+
+
+```r
+## Verifying number of observations per year
 da |>
     count(year) |>
     collect()
+#> # A tibble: 2 × 2
+#>    year      n
+#>   <int>  <int>
+#> 1  2015  93790
+#> 2  2017 104835
+
+## Calculating summary statistics per year
+da |>
+    group_by(year) |>
+    summarise(
+        min = min(sea_level),
+        mean = mean(sea_level),
+        max = max(sea_level)) |>
+    collect()
+#> # A tibble: 2 × 4
+#>    year   min    mean   max
+#>   <int> <dbl>   <dbl> <dbl>
+#> 1  2015 -2.62 -0.0104  2.38
+#> 2  2017 -2.43  0.0762  2.53
 ```
+
 
 [GESLA]: https://gesla787883612.wordpress.com
 [Apache Arrow]: https://arrow.apache.org

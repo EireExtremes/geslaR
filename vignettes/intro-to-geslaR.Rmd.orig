@@ -70,11 +70,11 @@ If you want to explore the full GESLA dataset, you can download it with
 the `download_gesla()` function. The simplest way to use this function
 is to call it like
 
-```{r, include=FALSE, cache=FALSE}
+```{r dir, include=FALSE, cache=FALSE}
 if(!dir.exists("gesla_dataset")) download_gesla(ask = FALSE)
 ```
 
-```{r, eval=FALSE}
+```{r dwl, eval=FALSE}
 download_gesla()
 ```
 
@@ -86,54 +86,126 @@ dataset will need at least 7GB of (hard drive) storage, so make sure
 this is feasible. However, once downloaded, you will have access to the
 full dataset, and you will only need to do this once.
 
-To load this full dataset in R, use
+You will notice that the full dataset is composed by 5119 [Apache
+Parquet][] files, ending in `.parquet`
 
-```{r}
+```{r len}
+## Number of downloaded files
+length(list.files("gesla_dataset"))
+## Check the first files
+head(list.files("gesla_dataset"))
+```
+
+These files are the same originally distributed in the GESLA dataset, so
+that each one refers to a site from where the data comes from. To load
+this full dataset in R, use the `arrow::open_dataset()` function,
+specifying the location of the `.parquet` files. Altough there are many
+files, this function recognizes them as a single dataset, because they
+all have the same structure (or "Schema").
+
+```{r open}
+## Open dataset
 da <- open_dataset("gesla_dataset")
+## Check the object
+da
+## Verify class
 class(da)
-dim(da)
 ```
 
 Since this is an `ArrowObject` object, it will actually not load
 the full dataset in memory (as it would if it was a standard R object,
-such as a `tibble` or `data.frame`). To deal with this object, you can
-use `dplyr` verbs. For example, to count the number of observations by
-country, one could use
+such as a `tibble` or `data.frame`). Note that some basic informations,
+such as `dim()` and `names()` can be retrieved simply with
 
-```{r}
-da |>
-    count(country)
+```{r dim}
+dim(da)
+names(da)
 ```
 
-Note, however, that the output is just a query to the full dataset. To
-explicitly return the calculation, you should use `dplyr::collect()`, so
-the result is a standard `tibble`
+However, any other manipulation of the dataset must be made using
+**dplyr** verbs. For example, to count the number of observations by
+country, one could use
 
-```{r}
+```{r ctr}
 da |>
     count(country) |>
     collect()
 ```
 
+## Querying subsets directly into R
 
+The `query_gesla()` function can be used to load subsets of the full
+GESLA dataset into R. This function will connect to the GESLA dataset
+hosted on an Amazon AWS S3 bucket, and will automatically filter the
+required piece of data. Note that the query may take some time, as it
+will depend on the size of the required subset and on internet
+connection speed.
 
-Using the `query_gesla()` function here.
+The selection is made by specifying one or more countries, years and
+site names. The only mandatory argument is `country`, where it should be
+a character vector of three-letter [ISO 3166-1
+alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code. If the
+argument `year` is empty, then all available years for those countries
+will be selected. The same accurs for the `site_name` argument.
 
-```{r, eval=FALSE}
-da <- query_gesla(country = "ATA", year = 2018)
+For example, to select all the available data for Ireland (IRL), simply
+use
+
+```{r irl}
+da <- query_gesla(country = "IRL")
+da
+dim(da)
+names(da)
 class(da)
 ```
 
-```{r, eval=FALSE}
-da |>
-    count(year)
+This is also an `ArrowObject` object, and works the same way as any
+other Arrow object type, i.e., it can be manipulated with **dplyr**
+verbs. By the end of this section we will show some examples.
+
+Many other queries can be made, for example,
+
+```{r ex, eval=FALSE}
+## Select one specific year
+da <- query_gesla(country = "IRL", year = 2015)
+
+## Multiple years
+da <- query_gesla(country = "IRL", year = c(2015, 2017))
+da <- query_gesla(country = "IRL", year = 2010:2017)
+da <- query_gesla(country = "IRL", year = c(2010, 2012, 2015))
+
+## Multiple countries
+da <- query_gesla(country = c("IRL", "ATA"), year = 2015)
+da <- query_gesla(country = c("IRL", "ATA"), year = 2010:2017)
 ```
 
-```{r, eval=FALSE}
+As one last example, we may be interested in data only for the site
+`Dublin_Port` in Ireland, and for the years 2015 and 2017. This query
+would be done as follows
+
+```{r dub}
+da <- query_gesla(country = "IRL", year = c(2015, 2017),
+    site_name = "Dublin_Port")
+```
+
+Now we could explore this subset using **dplyr** verbs as usual
+
+```{r expl}
+## Verifying number of observations per year
 da |>
     count(year) |>
     collect()
+
+## Calculating summary statistics per year
+da |>
+    group_by(year) |>
+    summarise(
+        min = min(sea_level),
+        mean = mean(sea_level),
+        max = max(sea_level)) |>
+    collect()
 ```
+
 
 [GESLA]: https://gesla787883612.wordpress.com
 [Apache Arrow]: https://arrow.apache.org

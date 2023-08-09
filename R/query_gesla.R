@@ -69,37 +69,35 @@
 ##' @examples
 ##' \dontrun{
 ##' ## Simple query
-##' da <- query_gesla(country = "ATA")
+##' da <- query_gesla(country = "IRL")
 ##'
 ##' ## Select one specific year
-##' da <- query_gesla(country = "ATA", year = 2018)
+##' da <- query_gesla(country = "IRL", year = 2015)
 ##'
 ##' ## Multiple years
-##' da <- query_gesla(country = "ATA", year = c(2018, 2019))
-##' da <- query_gesla(country = "ATA", year = 2010:2019)
-##' da <- query_gesla(country = "ATA", year = c(2010, 2012, 2014))
+##' da <- query_gesla(country = "IRL", year = c(2015, 2017))
+##' da <- query_gesla(country = "IRL", year = 2010:2017)
+##' da <- query_gesla(country = "IRL", year = c(2010, 2012, 2015))
 ##' da |>
 ##'     count(year) |>
 ##'     collect()
 ##'
 ##' ## Multiple countries
-##' da <- query_gesla(country = c("IRL", "ATA", "BRA"), year = 2018)
-##' da <- query_gesla(country = c("IRL", "ATA", "BRA"), year = 2010:2019)
+##' da <- query_gesla(country = c("IRL", "ATA"), year = 2015)
+##' da <- query_gesla(country = c("IRL", "ATA"), year = 2010:2017)
 ##' da |>
 ##'     count(country, year) |>
 ##'     collect()
 ##'
-##' ## Specifying a site name. Note that in this particular case,
-##' ## "Faraday" data is only available for 2018, so no 2019 data will
-##' ## be available
-##' da <- query_gesla(country = "ATA", year = c(2018, 2019),
-##'     site_name = "Faraday")
+##' ## Specifying a site name
+##' da <- query_gesla(country = "IRL", year = c(2015, 2017),
+##'     site_name = "Dublin_Port")
 ##' da |>
 ##'     count(year) |>
 ##'     collect()
 ##' }
 ##'
-##' @importFrom dplyr filter collect
+##' @importFrom dplyr filter collect compute
 ##' @importFrom arrow arrow_with_s3 s3_bucket open_dataset
 ##' @importFrom cli format_error cli_progress_step cli_alert_info
 ##'
@@ -133,7 +131,7 @@ query_gesla <- function(country, year = NULL, site_name = NULL, use_flag = 1,
                           region = "eu-west-1",
                           anonymous = TRUE)
     daws <- open_dataset(aws_path, format = "parquet")
-    cli_progress_step("Filtering data...")
+    cli_progress_step("Filtering data. This can take some time...")
     ## See https://rlang.r-lib.org/reference/injection-operator.html
     f_daws <- daws |>
         filter(country %in% {{ country }},
@@ -148,7 +146,7 @@ query_gesla <- function(country, year = NULL, site_name = NULL, use_flag = 1,
     } # nocov end
     ## NOTE have to see if this is worthwile, because it will change the
     ## class to the standard Table. However, it taks some time.
-    ## f_daws <- f_daws |> compute()
+    f_daws <- f_daws |> compute()
     if(as_data_frame) { # nocov start
         cli_progress_step("Converting to data frame...")
         cli_alert_info("Converting to data frame can take some time and may result in large size objects. Consider using {.arg as_data_frame = FALSE} first.",
