@@ -74,11 +74,11 @@ library(geslaR)
 
 To download the full GESLA dataset, one can simply use
 
-```{r, include=FALSE, cache=FALSE}
+```{r dir, include=FALSE, cache=FALSE}
 if(!dir.exists("gesla_dataset")) download_gesla(ask = FALSE)
 ```
 
-```{r, eval=FALSE}
+```{r dwl, eval=FALSE}
 download_gesla()
 ```
 
@@ -93,7 +93,7 @@ full dataset, and you will only need to do this once.
 You will notice that the full dataset is composed by 5119 [Apache
 Parquet][] files, ending in `.parquet`
 
-```{r}
+```{r nbrs}
 ## Number of downloaded files
 length(list.files("gesla_dataset"))
 ## Check the first files
@@ -107,7 +107,7 @@ specifying the location of the `.parquet` files. Altough there are many
 files, this function recognizes them as a single dataset, because they
 all have the same structure (or "Schema").
 
-```{r}
+```{r open}
 ## Open dataset
 da <- open_dataset("gesla_dataset")
 ## Check the object
@@ -121,7 +121,7 @@ the full dataset in memory (as it would if it was a standard R object,
 such as a `tibble` or `data.frame`). Note that some basic informations,
 such as `dim()` and `names()` can be retrieved simply with
 
-```{r}
+```{r dim}
 dim(da)
 names(da)
 ```
@@ -130,7 +130,7 @@ However, any other manipulation of the dataset must be made using
 **dplyr** verbs. For example, to count the number of observations by
 country, one could use
 
-```{r}
+```{r cc}
 da |>
     count(country)
 ```
@@ -139,7 +139,7 @@ Note, however, that the output is just a query to the full dataset. To
 explicitly return the calculation, you should use `dplyr::collect()`, so
 the result is a standard `tibble`
 
-```{r}
+```{r ccc}
 da |>
     count(country) |>
     collect()
@@ -153,7 +153,7 @@ final result should be needed as an R object. For example, we could
 calculate the mean sea level for Ireland per year, for the whole
 dataset, as
 
-```{r}
+```{r fil}
 da |>
     filter(country == "IRL", use_flag == 1) |>
     group_by(year) |>
@@ -166,7 +166,7 @@ Any other queries could be made, as long as the **dplyr** verbs uesd are
 supported by the **arrow** package. For example, we could ask for the
 minimum, mean, and maximum sea level values for Ireland per year
 
-```{r}
+```{r filp}
 da |>
     filter(country == "IRL", use_flag == 1) |>
     group_by(year) |>
