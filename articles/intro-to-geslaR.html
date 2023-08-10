@@ -246,15 +246,15 @@ simply use</p>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ℹ Connecting to the data server... [K</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>✔ Connecting to the data server... [<span class="fl">3.5</span>s] [K</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>✔ Connecting to the data server... [<span class="fl">4.6</span>s] [K</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ℹ Filtering data. This can take some time... [K</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>✔ Filtering data. This can take some time... [3m 1s] [K</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>✔ Filtering data. This can take some time... [6m <span class="fl">21.8</span>s] [K</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>ℹ Query finished. [K</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>✔ Query finished. [14ms] [K</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>✔ Query finished. [13ms] [K</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>da</span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Table</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16321218 rows x 13 columns</span></span>
@@ -308,15 +308,15 @@ This query would be done as follows</p>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ℹ Connecting to the data server... [K</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>✔ Connecting to the data server... [<span class="fl">3.2</span>s] [K</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>✔ Connecting to the data server... [<span class="fl">4.4</span>s] [K</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ℹ Filtering data. This can take some time... [K</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>✔ Filtering data. This can take some time... [2m <span class="fl">44.9</span>s] [K</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>✔ Filtering data. This can take some time... [4m <span class="fl">21.5</span>s] [K</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>ℹ Query finished. [K</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>✔ Query finished. [19ms] [K</span></code></pre></div>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>✔ Query finished. [18ms] [K</span></code></pre></div>
 <p>Now we could explore this subset using <strong>dplyr</strong> verbs
 as usual</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -327,8 +327,8 @@ as usual</p>
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;    year      n</span></span>
 <span><span class="co">#&gt;   &lt;int&gt;  &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1  2017 104835</span></span>
-<span><span class="co">#&gt; 2  2015  93790</span></span>
+<span><span class="co">#&gt; 1  2015  93790</span></span>
+<span><span class="co">#&gt; 2  2017 104835</span></span>
 <span></span>
 <span><span class="co">## Calculating summary statistics per year</span></span>
 <span><span class="va">da</span> <span class="op">|&gt;</span></span>
@@ -341,13 +341,13 @@ as usual</p>
 <span><span class="co">#&gt; # A tibble: 2 × 4</span></span>
 <span><span class="co">#&gt;    year   min    mean   max</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1  2017 -2.43  0.0762  2.53</span></span>
-<span><span class="co">#&gt; 2  2015 -2.62 -0.0104  2.38</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  2015 -2.62 -0.0104  2.38</span></span>
+<span><span class="co">#&gt; 2  2017 -2.43  0.0762  2.53</span></span></code></pre></div>
 <p>Note the use of the [dplyr::collect()] function at the end of each
 call. This is necessary to convert the final result (which is processed
 by Arrow) to a common R object (usually a <code>tibble</code> or
 similar).</p>
-<p>As stated before, the queries made by <code>query _gesla()</code> may
+<p>As stated before, the queries made by <code><a href="../reference/query_gesla.html">query_gesla()</a></code> may
 take some time to process. To avoid repeating this query in every new
 session, you can save this object in a file locally, so it will be
 available instantly the next time you may need it. To achieve this, you
@@ -366,6 +366,38 @@ time, without the need for querying again. At any time, just use</p>
 will not be the same as the original object, as an
 <code>ArrowObject</code> object is not a standard R object (it actually
 is just a pointer to an Arrow style opbject).</p>
+<p>The <code><a href="../reference/query_gesla.html">query_gesla()</a></code> function also has two more arguments.
+The <code>use_flag = 1</code> means that only the data revised by the
+GESLA team and usefull for analysis must be used. Please see the <a href="https://gesla787883612.wordpress.com/format/" class="external-link">GESLA format</a>
+page for more information. The other argument,
+<code>as_data_frame = FALSE</code> specifies if the resulting object
+should be an <code>ArrowObject</code> (the default) or a
+<code>data.frame</code>. We highly recommend to keep this default
+option, as the resulting <code>data.frame</code> can be
+larger-than-memory, resukting in a memory overflow or even an R session
+crash. Keeping the object as an <code>ArrowObject</code> will always
+guarantee that the resulting query will be made available. In any case,
+an <code>ArrowObject</code> can always be converted to a
+<code>data.frame</code>, if that is desired, without the need to repeat
+the query with <code>as_data_frame = TRUE</code>. For example, the
+object <code>da</code> created above (which is an
+<code>ArrowObject</code>) may be converted to a <code>data.frame</code>
+with</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"</span></span>
+<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="va">da</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="using-the-gesla-shiny-app">Using the GESLA Shiny app<a class="anchor" aria-label="anchor" href="#using-the-gesla-shiny-app"></a>
+</h2>
+</div>
+<div class="section level2">
+<h2 id="reading-gesla-data-files">Reading GESLA data files<a class="anchor" aria-label="anchor" href="#reading-gesla-data-files"></a>
+</h2>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
