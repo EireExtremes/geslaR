@@ -1,4 +1,7 @@
 ^vignettes/Makefile$
+^vignettes/gesla_dataset$
+^vignettes/intro-to-geslaR_cache$
+^vignettes/intro-to-arrow_cache$
 ^\.covrignore$
 ^gesla_dataset$
 ^gesla_app$
