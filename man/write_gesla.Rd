@@ -44,6 +44,29 @@ the resulting file (with \code{.parquet} extension) from objects of this
 type will be much smaller than CSV files created from \code{data.frame}
 objects.
 }
+\examples{
+\dontrun{
+##------------------------------------------------------------------
+## Import an internal example Parquet file
+## Reading file
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "ireland.parquet", package = "geslaR"), tmp)
+da <- read_gesla(paste0(tmp, "/ireland.parquet"))
+## Generates a subset by filtering
+db <- da |>
+    filter(site_name == "Dublin_Port")
+## Save filtered data as file
+write_gesla(db)
+
+##------------------------------------------------------------------
+## Querying some data
+## Make the query
+da <- query_gesla(country = "IRL", site_name = "Dublin_Port")
+## Save the resulting query to file
+write_gesla(da)
+}
+}
 \author{
 Fernando Mayer
 }
