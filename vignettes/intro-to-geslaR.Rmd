@@ -200,8 +200,8 @@ use
 da <- query_gesla(country = "IRL")
 #> ℹ This process can take some time, as it depends on the size of the final dataset, and on
 #> internet connection.
-#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [3.8s][K
-#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [2m 38.2s][K
+#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [3.5s][K
+#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [3m 1s][K
 #> ℹ Query finished.[K✔ Query finished. [14ms][K
 da
 #> Table
@@ -263,8 +263,8 @@ da <- query_gesla(country = "IRL", year = c(2015, 2017),
 #> ℹ This process can take some time, as it depends on the size of the final dataset, and on
 #> internet connection.
 #> ℹ Connecting to the data server...[K✔ Connecting to the data server... [3.2s][K
-#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [2m 9.9s][K
-#> ℹ Query finished.[K✔ Query finished. [24ms][K
+#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [2m 44.9s][K
+#> ℹ Query finished.[K✔ Query finished. [19ms][K
 ```
 
 Now we could explore this subset using **dplyr** verbs as usual
@@ -278,8 +278,8 @@ da |>
 #> # A tibble: 2 × 2
 #>    year      n
 #>   <int>  <int>
-#> 1  2015  93790
-#> 2  2017 104835
+#> 1  2017 104835
+#> 2  2015  93790
 
 ## Calculating summary statistics per year
 da |>
@@ -292,9 +292,43 @@ da |>
 #> # A tibble: 2 × 4
 #>    year   min    mean   max
 #>   <int> <dbl>   <dbl> <dbl>
-#> 1  2015 -2.62 -0.0104  2.38
-#> 2  2017 -2.43  0.0762  2.53
+#> 1  2017 -2.43  0.0762  2.53
+#> 2  2015 -2.62 -0.0104  2.38
 ```
+
+Note the use of the [dplyr::collect()] function at the end of each call.
+This is necessary to convert the final result (which is processed by
+Arrow) to a common R object (usually a `tibble` or similar).
+
+As stated before, the queries made by `query _gesla()` may take some
+time to process. To avoid repeating this query in every new session, you
+can save this object in a file locally, so it will be available
+instantly the next time you may need it. To achieve this, you can use
+the `write_gesla()` function
+
+
+```r
+write_gesla(da)
+```
+
+In this case, this call will create a file named `gesla-data.parquet`,
+and it will be ready for reading at any time, without the need for
+querying again. At any time, just use
+
+
+```r
+da <- read_gesla("gesla-data.parquet")
+```
+
+to make it available again.
+
+Please, do not try to save this object as a standard R file, such as
+`.rds` or `.rda`, as using `saveRDS` or `save()` for example. In this
+case the resulting saved object will not be the same as the original
+object, as an `ArrowObject` object is not a standard R object (it
+actually is just a pointer to an Arrow style opbject).
+
+
 
 
 [GESLA]: https://gesla787883612.wordpress.com
