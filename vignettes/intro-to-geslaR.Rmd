@@ -200,9 +200,9 @@ use
 da <- query_gesla(country = "IRL")
 #> ℹ This process can take some time, as it depends on the size of the final dataset, and on
 #> internet connection.
-#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [3.5s][K
-#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [3m 1s][K
-#> ℹ Query finished.[K✔ Query finished. [14ms][K
+#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [4.6s][K
+#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [6m 21.8s][K
+#> ℹ Query finished.[K✔ Query finished. [13ms][K
 da
 #> Table
 #> 16321218 rows x 13 columns
@@ -262,9 +262,9 @@ da <- query_gesla(country = "IRL", year = c(2015, 2017),
     site_name = "Dublin_Port")
 #> ℹ This process can take some time, as it depends on the size of the final dataset, and on
 #> internet connection.
-#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [3.2s][K
-#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [2m 44.9s][K
-#> ℹ Query finished.[K✔ Query finished. [19ms][K
+#> ℹ Connecting to the data server...[K✔ Connecting to the data server... [4.4s][K
+#> ℹ Filtering data. This can take some time...[K✔ Filtering data. This can take some time... [4m 21.5s][K
+#> ℹ Query finished.[K✔ Query finished. [18ms][K
 ```
 
 Now we could explore this subset using **dplyr** verbs as usual
@@ -278,8 +278,8 @@ da |>
 #> # A tibble: 2 × 2
 #>    year      n
 #>   <int>  <int>
-#> 1  2017 104835
-#> 2  2015  93790
+#> 1  2015  93790
+#> 2  2017 104835
 
 ## Calculating summary statistics per year
 da |>
@@ -292,15 +292,15 @@ da |>
 #> # A tibble: 2 × 4
 #>    year   min    mean   max
 #>   <int> <dbl>   <dbl> <dbl>
-#> 1  2017 -2.43  0.0762  2.53
-#> 2  2015 -2.62 -0.0104  2.38
+#> 1  2015 -2.62 -0.0104  2.38
+#> 2  2017 -2.43  0.0762  2.53
 ```
 
 Note the use of the [dplyr::collect()] function at the end of each call.
 This is necessary to convert the final result (which is processed by
 Arrow) to a common R object (usually a `tibble` or similar).
 
-As stated before, the queries made by `query _gesla()` may take some
+As stated before, the queries made by `query_gesla()` may take some
 time to process. To avoid repeating this query in every new session, you
 can save this object in a file locally, so it will be available
 instantly the next time you may need it. To achieve this, you can use
@@ -328,8 +328,36 @@ case the resulting saved object will not be the same as the original
 object, as an `ArrowObject` object is not a standard R object (it
 actually is just a pointer to an Arrow style opbject).
 
+The `query_gesla()` function also has two more arguments. The `use_flag
+= 1` means that only the data revised by the GESLA team and usefull for
+analysis must be used. Please see the [GESLA format][] page for more
+information. The other argument, `as_data_frame = FALSE` specifies if
+the resulting object should be an `ArrowObject` (the default) or a
+`data.frame`. We highly recommend to keep this default option, as the
+resulting `data.frame` can be larger-than-memory, resukting in a memory
+overflow or even an R session crash. Keeping the object as an
+`ArrowObject` will always guarantee that the resulting query will be
+made available. In any case, an `ArrowObject` can always be converted to
+a `data.frame`, if that is desired, without the need to repeat the query
+with `as_data_frame = TRUE`. For example, the object `da` created above
+(which is an `ArrowObject`) may be converted to a `data.frame` with
 
+
+```r
+class(da)
+#> [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"
+db <- da |>
+    collect()
+class(db)
+#> [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+## Using the GESLA Shiny app
+
+
+## Reading GESLA data files
 
 
 [GESLA]: https://gesla787883612.wordpress.com
 [Apache Arrow]: https://arrow.apache.org
+[GESLA format]: https://gesla787883612.wordpress.com/format/
