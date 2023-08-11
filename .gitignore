@@ -1,3 +1,6 @@
+paper/*.pdf
+paper/*.jats
+paper/media/
 gesla_dataset/
 gesla_app/
 dev/*.csv

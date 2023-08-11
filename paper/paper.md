@@ -37,16 +37,19 @@ study tides, storm surges, extreme sea levels, and related processes.
 Three versions of the GESLA dataset are available for download,
 including a zip file containing the entire dataset, a CSV file
 containing metadata, and a KML file for plotting the location of all
-station records in Google Earth. The web application developed here
-facilitates the access of the GESLA dataset by providing basic filters
-to select the data of interest, generating informative plots, and
-showing the selected sites all over the world. Users can download the
-selected subset of data in CSV or Parquet file formats, with the latter
-being recommended due to its smaller size and the ability to handle it
-in many programming languages through the Apache Arrow language for
-in-memory analytics. The web interface was developed using the Shiny R
-package, with the CSV files from the GESLA dataset converted to the
-Parquet format and stored in an Amazon AWS bucket.
+station records in Google Earth. The **geslaR** R package developed here
+aims to facilitate the access to the GESLA dataset by providing
+functions to download it entirely, or directly query subsets of it
+directly into R, without the need of downloading anything. Also, it
+provides a built-in web-application, so that users can apply basic
+filters to select the data of interest, generating informative plots,
+and showing the selected sites all over the world. Users can download
+the selected subset of data in CSV or Parquet file formats, with the
+latter being recommended due to its smaller size and the ability to
+handle it in many programming languages through the Apache Arrow
+language for in-memory analytics. The web interface was developed using
+the Shiny R package, with the CSV files from the GESLA dataset converted
+to the Parquet format and stored in an Amazon AWS bucket.
 
 # Statement of need
 
@@ -76,22 +79,72 @@ download all the CSV files, and then search for the desired data, and
 possibly even merging several of them. The GESLA project also provides
 two auxiliary scripts (in Python and Matlab), to help researcher to
 handle and merge the desired subset of data. However, it is still needed
-to download all the dataset and to know in advance the files needed.
+to download all the dataset and to know in advance the files needed. So
+far, no R scripts were made available for R users.
 
-The goal of this application is to facilitate the access to the GESLA
+The goal of this package is to facilitate the access to the GESLA
 dataset, without the need to download and handle all the files, which
-may be computationally infeasible due to it's large size. By accessing
-the interface, the user has available three basic filters to select the
-data of interest: country, year and site. The user can select one or
-more options in each of these filters, and the resulting subset will be
-made available through a sample of the subset (the "Data preview" tab)
-(\autoref{fig:geslar}), some basic informative plots (the "Plots"
-tab), and a map showing the selected sites all over the world (the "Map"
-tab). Upon selection, the user can download only that subset of data.
-The application is available at this [link][]. The GESLA-3 dataset files
-were converted to the Parquet file format, for easy of storage and
-manipulation, and is hosted in an Amazon AWS bucket. However, the user
-can download any subset of data in CSV or Parquet.
+may be computationally infeasible due to it's large size.
+
+There are three different ways the GESLA dataset can be fetched from
+within R with the geslaR package:
+
+- Downloading the full dataset with the `download_gesla()` function.
+  This will download the full dataset locally, but in a set of Apache
+  Parquet (`.parquet`) file format, which are much smaller than the
+  original CSV files (7GB compared to 38GB).
+- Querying the full dataset directly from the host server with the
+  `query_gesla()` function. This function allows the user to specify a
+  particular set of countries, years and even site names. It will
+  connect to an Amazon AWS bucket and filter the data direcly from
+  there. The resulting object will be availabe in R, with only the
+  particular required subset.
+- Using the GESLA Shiny web application (geslaR-app) locally, via the
+  `run_gesla_app()` function. When running this function for the first
+  time, it will download the full dataset (in `.parquet` files), and
+  open a Shiny application that allows the user to explore subsets of
+  the full dataset, by applying filters for countries, years and sites.
+  Once downloaded the full dataset, this function can than be used to
+  open the interface when desired. The user has also the option to
+  export the selected subset in CSV or Parquet file formats.
+
+Regardless of the way the GESLA dataset is loaded into R, the standard
+way to deal with it is by using the Apache Arrow framework for in-memory
+analytics. The Apache Arrow is a language-independent software to deal
+with large datasets (larger-than-memory), in an effcient and fast way.
+This framework can be used within R via the **arrow** R package, which
+provides an interface between common **dplyr** verbs and the Arrow
+language. This way, datasets like GESLA which can be larger-than-memory,
+can be handled within R, without the need to actually load the data into
+memory, which is infeasible in most practical situations.
+
+The **geslaR** package also provides more two auxiliary functions:
+`read_gesla()` and `write_gesla()`. In many situations, it should be
+usefull to save any subset of the dataset into a hard-drive file format,
+which can then be read at any time. For example, when using the
+`query_gesla()` function to fetch a specific subset, the user can save
+the resulting R object to a file, so that it will not need to perform
+the query again. The `write_gesla()` function will save an appropriate
+file (CSV or Parquet), according to the class of the object. The
+`read_gesla()` function can then be used to read that file again into R,
+preserving all the data correctly. This function can also be used to
+read exported files from the geslaR-app.
+
+It worths mention that by accessing the geslaR-app interface, the user
+has available three basic filters to select the data of interest:
+country, year and site. The user can select one or more options in each
+of these filters, and the resulting subset will be made available
+through a sample of the subset (the "Data preview" tab)
+(\autoref{fig:geslar}), some basic informative plots (the "Plots" tab),
+and a map showing the selected sites all over the world (the "Map" tab).
+Upon selection, the user can download only that subset of data. The
+application is also available at this [link][]. However, frequent users
+may benefit with the local version provided by `run_gesla_app()`, as it
+will be much faster than the hosted one.
+
+<!-- The GESLA-3 dataset files were converted to the Parquet file format, for -->
+<!-- easy of storage and manipulation, and is hosted in an Amazon AWS bucket. -->
+<!-- However, the user can download any subset of data in CSV or Parquet. -->
 
 ![The fisrt page of the geslaR application, showing the "Data preview"
 tab after basic filtering.\label{fig:geslar}](geslaR.png)
