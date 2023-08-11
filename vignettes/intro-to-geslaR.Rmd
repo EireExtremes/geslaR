@@ -21,8 +21,6 @@ R, in full or subsets of it. There a few ways that this can be achieved:
 - Using the GESLA Shiny app (thereafter called only geslaR-app), to
   filter, visualise and possibly download subsets of the dataset
   (`run_gesla_app()`)
-- Directly reading specific files from the full dataset, or reading
-  files exported from the geslaR-app (`read_gesla()`)
 
 In the sections below, we will discuss each of these possibilities.
 
@@ -354,9 +352,39 @@ class(db)
 
 ## Using the GESLA Shiny app
 
+The GESLA Shiny app (geslaR-app) was developed as a user-friendly
+interface to explore the whole GESLA dataset. The app may be called
+simply as
 
-## Reading GESLA data files
 
+```r
+run_gesla_app()
+```
+
+This will create a directory called `gesla-app` on the current working
+directory, containing the necessary files for the app itself, and a
+sub-directory called `gesla_dataset` containing all the GESLA dataset
+files (as `.parquet` files, as this is done with the `download_gesla()`
+function as explained above). Note that the fisrt time this function is
+called, it will create this directories and download the full GESLA
+dataset. However, once this is done, the next time this function is
+called on this working directory, only the app will open in the default
+browser (no more downloads will be necessary).
+
+This web-interface allows the user to apply some basic filters, by
+choosing countries, years and sites. By doing this, the app will filter
+the data and show many informations about the selected subset. The first
+tab contains a preview of the selected subset. The two subsequent tabs
+provide some plots with the number of information by year, and summary
+plots for the sea level data itself. The last tab will show a map with
+the selected locations, and by clicking on the locations, a pop-up will
+show with information about that specific station.
+
+The user has the option to download the selected subset in CSV or
+Parquet file formats. We highly reccomend to export it as a Parquet
+file, as the file size will be much smaller, and it can be simply loaded
+into R with the `read_gesla()` function, creating an `ArrowObject`
+object.
 
 [GESLA]: https://gesla787883612.wordpress.com
 [Apache Arrow]: https://arrow.apache.org
