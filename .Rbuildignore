@@ -1,3 +1,4 @@
+^paper$
 ^vignettes/Makefile$
 ^vignettes/gesla_dataset$
 ^vignettes/intro-to-geslaR_cache$
