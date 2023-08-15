@@ -78,7 +78,7 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
                 cli_alert_info("Wait while the dataset is downloaded...") # nocov
             }
             copy_files(
-                from = s3_bucket("gesla-test/parquet_files",
+                from = s3_bucket("gesla-dataset/parquet_files",
                     region = "eu-west-1",
                     anonymous = TRUE),
                 to = dest
@@ -97,7 +97,7 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
             cli_alert_info("Wait while the dataset is downloaded...") # nocov
         }
         copy_files(
-            from = s3_bucket("gesla-test/parquet_files",
+            from = s3_bucket("gesla-dataset/parquet_files",
                 region = "eu-west-1",
                 anonymous = TRUE),
             to = dest
