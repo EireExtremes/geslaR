@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   intro-to-arrow: intro-to-arrow.html
   intro-to-geslaR: intro-to-geslaR.html
-last_built: 2023-08-18T17:47Z
+last_built: 2023-08-18T17:50Z
 urls:
   reference: https://eireextremes.github.io/geslaR/reference
   article: https://eireextremes.github.io/geslaR/articles
