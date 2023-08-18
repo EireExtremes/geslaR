@@ -1,4 +1,5 @@
 url: https://eireextremes.github.io/geslaR/
 template:
   bootstrap: 5
-
+articles:
+  - title: Vignettes
