@@ -3,3 +3,6 @@ template:
   bootstrap: 5
 articles:
   - title: Vignettes
+    contents:
+      - intro-to-geslaR
+      - intro-to-arrow
