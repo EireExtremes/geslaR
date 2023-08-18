@@ -1,9 +1,12 @@
 url: https://eireextremes.github.io/geslaR/
 template:
   bootstrap: 5
-articles:
-  - title: Vignettes
-    navbar: ~
-    contents:
-      - intro-to-arrow
-      - intro-to-geslaR
+navbar:
+  components:
+    articles:
+      text: Vignettes
+      menu:
+      - text: Introduction to Apache Arrow framework
+        href: vignettes/intro-to-arrow.html
+      - text: Dealing with the GESLA dataset in R
+        href: vignettes/intro-to-geslaR.html
