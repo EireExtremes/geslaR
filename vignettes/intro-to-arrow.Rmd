@@ -24,22 +24,22 @@ another.
 > A critical component of Apache Arrow is its in-memory columnar format, a
 standardized, language-agnostic specification for representing
 structured, table-like datasets in-memory. This data format has a rich
-data type system (included nested and user-defined data types) designed
+data type system (including nested and user-defined data types) designed
 to support the needs of analytic database systems, data frame libraries,
 and more.
 
 In other words, the Apache Arrow framework was designed to deal with
-large datsets (larger than memory), using in-memory analytics. This
-means that the computations made with "Arrow datasets" are extremaly
+large datasets (larger than memory), using in-memory analytics. This
+means that the computations made with "Arrow datasets" are extremely
 efficient, resulting in very fast computations, otherwise infeasible
 with standard computations.
 
 The Apache Arrow framework can be used in many different programming
-languages. However, in each of this languages, there are specific
+languages. However, in each of these languages, there are specific
 libraries to deal with it. In R, the [arrow][] package is available to
 load and manipulate Arrow datasets. The manipulation of Arrow objects
 are made through [dplyr][] verbs, which helps users to feel familiar
-with it. Not all **dplyr** verbs are availbale to work with Arrow
+with it. Not all **dplyr** verbs are available to work with Arrow
 datasets, but the vast majority of the most used ones are already
 "translated" to be used with Arrow. A list of such functions can be
 found in [Functions available in Arrow dplyr queries][]. A general
@@ -89,36 +89,33 @@ download_gesla()
 
 This will create a directory called `gesla_dataset` in the current
 working directory (as defined by `getwd()`) and download the full
-dataset locally. This download may take some time, as it depends on
-internet connection, but it's necessary only once. Note that this full
+dataset locally. This download may take some time (expect around 5 to 10
+minutes), as it depends on internet connection. Note that this full
 dataset will need at least 7GB of (hard drive) storage, so make sure
 this is feasible. However, once downloaded, you will have access to the
 full dataset, and you will only need to do this once.
 
-You will notice that the full dataset is composed by 5119 [Apache
+You will notice that the full dataset is composed of 5119 [Apache
 Parquet][] files, ending in `.parquet`
 
 
 ```r
 ## Number of downloaded files
 length(list.files("gesla_dataset"))
-#> [1] 61
+#> [1] 5119
 ## Check the first files
 head(list.files("gesla_dataset"))
-#> [1] "aranmore_island_leabgarrow-ara-irl-mi_c.parquet"
-#> [2] "aranmore-ara-irl-cmems.parquet"                 
-#> [3] "arklow_harbour_opw_station-ark-irl-mi_c.parquet"
-#> [4] "arklowharbour-ark-irl-cmems.parquet"            
-#> [5] "ballycotton_harbour-bal-irl-mi_c.parquet"       
-#> [6] "ballycotton-bal-irl-cmems.parquet"
+#> [1] "a121-a12-nld-cmems.parquet"      "a2-a2-bel-cmems.parquet"        
+#> [3] "aalesund-aal-nor-cmems.parquet"  "aarhus-aar-dnk-cmems.parquet"   
+#> [5] "aasiaat-aas-grl-gloss.parquet"   "abashiri-347a-jpn-uhslc.parquet"
 ```
 
-These files are the same originally distributed in the GESLA dataset, so
-that each one refers to a site from where the data comes from. To load
-this full dataset in R, use the `arrow::open_dataset()` function,
-specifying the location of the `.parquet` files. Altough there are many
-files, this function recognizes them as a single dataset, because they
-all have the same structure (or "Schema").
+These files are the same as those originally distributed in the GESLA
+database, so that each one refers to a site from where the data comes
+from. To load this full dataset in R, use the `arrow::open_dataset()`
+function, specifying the location of the `.parquet` files. Although there
+are many files, this function recognizes them as a single dataset,
+because they all have the same structure (or "Schema").
 
 
 ```r
@@ -126,7 +123,7 @@ all have the same structure (or "Schema").
 da <- open_dataset("gesla_dataset")
 ## Check the object
 da
-#> FileSystemDataset with 61 Parquet files
+#> FileSystemDataset with 5119 Parquet files
 #> date_time: timestamp[us]
 #> year: int64
 #> month: int64
@@ -148,24 +145,24 @@ class(da)
 #> [4] "R6"
 ```
 
-Since this is an `ArrowObject` object, it will actually not load
-the full dataset in memory (as it would if it was a standard R object,
-such as a `tibble` or `data.frame`). Note that some basic informations,
-such as `dim()` and `names()` can be retrieved simply with
+Since this is an `ArrowObject` object, it will actually not load the
+full dataset in memory (as it would if it was a standard R object, such
+as a `tibble` or `data.frame`). Note, however, that some basic
+information, such as `dim()` and `names()` can be retrieved simply with
 
 
 ```r
 dim(da)
-#> [1] 18189361       13
+#> [1] 1172435674         13
 names(da)
 #>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  
 #>  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" 
 #> [13] "file_name"
 ```
 
-However, any other manipulation of the dataset must be made using
-**dplyr** verbs. For example, to count the number of observations by
-country, one could use
+Any other manipulation of the dataset must be made using **dplyr**
+verbs. For example, to count the number of observations by country, one
+could use
 
 
 ```r
@@ -187,21 +184,28 @@ the result is a standard `tibble`
 da |>
     count(country) |>
     collect()
-#> # A tibble: 3 × 2
-#>   country        n
-#>   <chr>      <int>
-#> 1 IRL     16975901
-#> 2 ATA      1084526
-#> 3 FRA       128934
+#> # A tibble: 113 × 2
+#>    country         n
+#>    <chr>       <int>
+#>  1 BEL       1263467
+#>  2 JPN      74580447
+#>  3 NOR      28452201
+#>  4 DNK      36726648
+#>  5 USA     243838504
+#>  6 GBR      76038844
+#>  7 SLV        812230
+#>  8 MEX      10755284
+#>  9 CAN      67019312
+#> 10 NLD     133699230
+#> # ℹ 103 more rows
 ```
 
 This is intentionally done so that you can manipulate, calculate, and
-extract informations from the dataset, taking advantage of the Arrow
+extract information from the dataset, taking advantage of the Arrow
 in-memory analytics framework. This way, the computations should be
 faster, and the idea is that you just use `dplyr::collect()` when the
-final result should be needed as an R object. For example, we could
-calculate the mean sea level for Ireland per year, for the whole
-dataset, as
+final result is needed as an R object. For example, we could
+calculate the mean sea level for Ireland per year as
 
 
 ```r
@@ -227,7 +231,7 @@ da |>
 #> # ℹ 53 more rows
 ```
 
-Any other queries could be made, as long as the **dplyr** verbs uesd are
+Any other queries could be made, as long as the **dplyr** verbs used are
 supported by the **arrow** package. For example, we could ask for the
 minimum, mean, and maximum sea level values for Ireland per year
 
@@ -246,20 +250,20 @@ da |>
 #>    <int> <dbl>    <dbl> <dbl>
 #>  1  2018 -4.09  0.0462  11.6 
 #>  2  2019 -5.80  0.0436   3.18
-#>  3  2014 -2.96 -0.0175   3.59
-#>  4  2015 -3.93 -0.0613   5.41
-#>  5  2016 -3.17 -0.0370   2.99
-#>  6  2017 -2.96 -0.0212   3.31
-#>  7  2008 -3.41 -0.00481  4.85
-#>  8  2009 -3.00  0.0108   2.94
-#>  9  2010 -3.71 -0.0192   3.11
-#> 10  2011 -3.17 -0.00690  3.07
+#>  3  2003 -1.13 -0.00629  0.9 
+#>  4  2004 -1.11  0.0391   4.07
+#>  5  2005 -1.32  1.32     4.83
+#>  6  2006 -2.47  0.692    4.94
+#>  7  2007 -3.48 -0.0374   4.94
+#>  8  2008 -3.41 -0.00481  4.85
+#>  9  2009 -3.00  0.0108   2.94
+#> 10  2010 -3.71 -0.0192   3.11
 #> # ℹ 53 more rows
 ```
 
-This same query could already be used to produce graphics with
-**ggplot2**, for example. In this case, note that tha call to
-`dplyr::collect()` is mandatory in advance to using **ggplot2**
+This same query could then be used to produce graphics with
+**ggplot2**, for example. In this case, note that the call to
+`dplyr::collect()` is mandatory in advance of using **ggplot2**
 functions, as it will only accept standard R objects (such as `tibble`
 or `data.frame`).
 

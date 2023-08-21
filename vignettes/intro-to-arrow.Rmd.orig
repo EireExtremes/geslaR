@@ -39,8 +39,8 @@ to support the needs of analytic database systems, data frame libraries,
 and more.
 
 In other words, the Apache Arrow framework was designed to deal with
-large datsets (larger than memory), using in-memory analytics. This
-means that the computations made with "Arrow datasets" are extremaly
+large datasets (larger than memory), using in-memory analytics. This
+means that the computations made with "Arrow datasets" are extremely
 efficient, resulting in very fast computations, otherwise infeasible
 with standard computations.
 
@@ -49,7 +49,7 @@ languages. However, in each of these languages, there are specific
 libraries to deal with it. In R, the [arrow][] package is available to
 load and manipulate Arrow datasets. The manipulation of Arrow objects
 are made through [dplyr][] verbs, which helps users to feel familiar
-with it. Not all **dplyr** verbs are availbale to work with Arrow
+with it. Not all **dplyr** verbs are available to work with Arrow
 datasets, but the vast majority of the most used ones are already
 "translated" to be used with Arrow. A list of such functions can be
 found in [Functions available in Arrow dplyr queries][]. A general
@@ -103,7 +103,7 @@ head(list.files("gesla_dataset"))
 These files are the same as those originally distributed in the GESLA
 database, so that each one refers to a site from where the data comes
 from. To load this full dataset in R, use the `arrow::open_dataset()`
-function, specifying the location of the `.parquet` files. Altough there
+function, specifying the location of the `.parquet` files. Although there
 are many files, this function recognizes them as a single dataset,
 because they all have the same structure (or "Schema").
 
