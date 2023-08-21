@@ -80,12 +80,13 @@ Niamh Cahill</h4>
 
     
     
-<p>The <strong>geslaR</strong> package was designed to fetch the <a href="https://gesla787883612.wordpress.com" class="external-link">GESLA</a> dataset into R, in
-full or subsets of it. There a few ways that this can be achieved:</p>
+<p>The <strong>geslaR</strong> package was designed to fetch the <a href="https://gesla787883612.wordpress.com" class="external-link">GESLA</a> dataset into R, as
+a full dataset or as a subset of the data. There a few ways that this
+can be achieved:</p>
 <ul>
-<li>Downloading the entire dataset locally, then load it into R and work
-from there using the <a href="https://arrow.apache.org" class="external-link">Apache Arrow</a>
-framework (<code><a href="../reference/download_gesla.html">download_gesla()</a></code>)</li>
+<li>Downloading the entire dataset locally, then loading it into R and
+working from there using the <a href="https://arrow.apache.org" class="external-link">Apache
+Arrow</a> framework (<code><a href="../reference/download_gesla.html">download_gesla()</a></code>)</li>
 <li>Querying the hosted dataset directly from R, specifying the desired
 subset (<code><a href="../reference/query_gesla.html">query_gesla()</a></code>)</li>
 <li>Using the GESLA Shiny app (thereafter called only geslaR-app), to
@@ -117,9 +118,9 @@ session, two more packages will automatically be loaded:
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
-<p>These two packages are strictly necessary, as it is the way to deal
-with a huge dataset, like GESLA, without actually loading it in memory
-at once. The full GESLA dataset have more than 1.7 billion lines, and is
+<p>These two packages are strictly necessary for dealing with a huge
+dataset like GESLA, to alleviate the need to load it in memory all at
+once. The full GESLA dataset has more than 1.7 billion lines, and is
 nearly impossible to load it in R (or any other RAM memory language,
 like e.g. Python) all at once. To avoid this problem, there are two
 possibilities:</p>
@@ -129,28 +130,28 @@ possibilities:</p>
 </ol>
 <p>In the best case scenario, these two approaches can be used together
 for maximum efficiency, and the <strong>geslaR</strong> package was
-designed for this achievement.</p>
-<p>Regardless the way GESLA data is loaded into R, the best way to deal
-with it is using the <a href="https://arrow.apache.org" class="external-link">Apache Arrow</a>
-framework. For a more detailed explanation and examples, please see the
-<code><a href="../articles/intro-to-arrow.html">vignette("intro-to-arrow")</a></code>.</p>
+designed to achieve this.</p>
+<p>Regardless the way the GESLA data is loaded into R, the best way to
+deal with it is using the <a href="https://arrow.apache.org" class="external-link">Apache
+Arrow</a> framework. For a more detailed explanation and examples,
+please see the <code><a href="../articles/intro-to-arrow.html">vignette("intro-to-arrow")</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="downloading-the-full-gesla-dataset">Downloading the full GESLA dataset<a class="anchor" aria-label="anchor" href="#downloading-the-full-gesla-dataset"></a>
 </h2>
 <p>If you want to explore the full GESLA dataset, you can download it
-with the <code><a href="../reference/download_gesla.html">download_gesla()</a></code> function. The simplest way to use
-this function is to call it like</p>
+with the <code><a href="../reference/download_gesla.html">download_gesla()</a></code> function as follows</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/download_gesla.html">download_gesla</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will create a directory called <code>gesla_dataset</code> in the
 current working directory (as defined by <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>) and
-download the full dataset locally. This download may take some time, as
-it depends on internet connection, but it’s necessary only once. Note
-that this full dataset will need at least 7GB of (hard drive) storage,
-so make sure this is feasible. However, once downloaded, you will have
-access to the full dataset, and you will only need to do this once.</p>
-<p>You will notice that the full dataset is composed by 5119 <a href="https://parquet.apache.org" class="external-link">Apache Parquet</a> files, ending in
+download the full dataset locally. This download may take some time
+(expect around 5 to 10 minutes), as it depends on internet connection.
+Note that this full dataset will need at least 7GB of (hard drive)
+storage, so make sure this is feasible. However, once downloaded, you
+will have access to the full dataset, and you will only need to do this
+once.</p>
+<p>You will notice that the full dataset is composed of 5119 <a href="https://parquet.apache.org" class="external-link">Apache Parquet</a> files, ending in
 <code>.parquet</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Number of downloaded files</span></span>
@@ -161,12 +162,13 @@ access to the full dataset, and you will only need to do this once.</p>
 <span><span class="co">#&gt; [1] "a121-a12-nld-cmems.parquet"      "a2-a2-bel-cmems.parquet"        </span></span>
 <span><span class="co">#&gt; [3] "aalesund-aal-nor-cmems.parquet"  "aarhus-aar-dnk-cmems.parquet"   </span></span>
 <span><span class="co">#&gt; [5] "aasiaat-aas-grl-gloss.parquet"   "abashiri-347a-jpn-uhslc.parquet"</span></span></code></pre></div>
-<p>These files are the same originally distributed in the GESLA dataset,
-so that each one refers to a site from where the data comes from. To
-load this full dataset in R, use the <code><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html" class="external-link">arrow::open_dataset()</a></code>
-function, specifying the location of the <code>.parquet</code> files.
-Although there are many files, this function recognises them as a single
-dataset, because they all have the same structure (or “Schema”).</p>
+<p>These files are the same as those originally distributed in the GESLA
+dataset, so that each one refers to a site from where the data comes
+from. To load this full dataset in R, use the
+<code><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html" class="external-link">arrow::open_dataset()</a></code> function, specifying the location of
+the <code>.parquet</code> files. Although there are many files, this
+function recognises them as a single dataset, because they all have the
+same structure (or “Schema”).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Open dataset</span></span>
 <span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html" class="external-link">open_dataset</a></span><span class="op">(</span><span class="st">"gesla_dataset"</span><span class="op">)</span></span>
@@ -194,8 +196,8 @@ dataset, because they all have the same structure (or “Schema”).</p>
 <span><span class="co">#&gt; [4] "R6"</span></span></code></pre></div>
 <p>Since this is an <code>ArrowObject</code> object, it will actually
 not load the full dataset in memory (as it would if it was a standard R
-object, such as a <code>tibble</code> or <code>data.frame</code>). Note
-that some basic informations, such as <code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code> and
+object, such as a <code>tibble</code> or <code>data.frame</code>). Note,
+however, that some basic information, such as <code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code> and
 <code><a href="https://rdrr.io/r/base/names.html" class="external-link">names()</a></code> can be retrieved simply with</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
@@ -204,7 +206,7 @@ that some basic informations, such as <code><a href="https://rdrr.io/r/base/dim.
 <span><span class="co">#&gt;  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  </span></span>
 <span><span class="co">#&gt;  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" </span></span>
 <span><span class="co">#&gt; [13] "file_name"</span></span></code></pre></div>
-<p>However, any other manipulation of the dataset must be made using
+<p>Any other manipulation of the dataset must be made using
 <strong>dplyr</strong> verbs. For example, to count the number of
 observations by country, one could use</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -232,13 +234,13 @@ observations by country, one could use</p>
 <p>The <code><a href="../reference/query_gesla.html">query_gesla()</a></code> function can be used to load subsets
 of the full GESLA dataset into R. This function will connect to the
 GESLA dataset hosted on an Amazon AWS S3 bucket, and will automatically
-filter the required piece of data. Note that the query may take some
-time, as it will depend on the size of the required subset and on
-internet connection speed.</p>
+filter the required piece of data. Note that the query may vary, as it
+will depend on the size of the required subset and on internet
+connection speed.</p>
 <p>The selection is made by specifying one or more countries, years and
 site names. The only mandatory argument is <code>country</code>, where
 it should be a character vector of three-letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" class="external-link">ISO 3166-1
-alpha-3</a> code. If the argument <code>year</code> is empty, then all
+alpha-3</a> codes. If the argument <code>year</code> is empty, then all
 available years for those countries will be selected. The same occurs
 for the <code>site_name</code> argument.</p>
 <p>For example, to select all the available data for Ireland (IRL),
@@ -370,8 +372,8 @@ object will not be the same as the original object, as an
 <code>ArrowObject</code> object is not a standard R object (it actually
 is just a pointer to an Arrow style object).</p>
 <p>The <code><a href="../reference/query_gesla.html">query_gesla()</a></code> function also has two more arguments.
-The <code>use_flag = 1</code> means that only the data revised by the
-GESLA team and useful for analysis must be used. Please see the <a href="https://gesla787883612.wordpress.com/format/" class="external-link">GESLA format</a>
+The <code>use_flag = 1</code> means that only the data suggested by the
+GESLA team as being useful for analysis must be used. Please see the <a href="https://gesla787883612.wordpress.com/format/" class="external-link">GESLA format</a>
 page for more information. The other argument,
 <code>as_data_frame = FALSE</code> specifies if the resulting object
 should be an <code>ArrowObject</code> (the default) or a
@@ -408,18 +410,19 @@ itself, and a sub-directory called <code>gesla_dataset</code> containing
 all the GESLA dataset files (as <code>.parquet</code> files, as this is
 done with the <code><a href="../reference/download_gesla.html">download_gesla()</a></code> function as explained
 above). Note that the first time this function is called, it will create
-this directories and download the full GESLA dataset. However, once this
-is done, the next time this function is called on this working
+these directories and download the full GESLA dataset. However, once
+this is done, the next time this function is called on this working
 directory, only the app will open in the default browser (no more
 downloads will be necessary).</p>
 <p>This web-interface allows the user to apply some basic filters, by
 choosing countries, years and sites. By doing this, the app will filter
-the data and show many informations about the selected subset. The first
-tab contains a preview of the selected subset. The two subsequent tabs
-provide some plots with the number of information by year, and summary
+the data and show information about the selected subset. The first tab
+contains a preview of the selected subset. The two subsequent tabs
+provide some plots with the number of observations by year, and summary
 plots for the sea level data itself. The last tab will show a map with
 the selected locations, and by clicking on the locations, a pop-up will
-show with information about that specific station.</p>
+show information about that specific station.</p>
+<!-- Maybe some screenshots here -->
 <p>The user has the option to download the selected subset in CSV or
 Parquet file formats. We highly recommend to export it as a Parquet
 file, as the file size will be much smaller, and it can be simply loaded
