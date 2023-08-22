@@ -123,7 +123,7 @@ query_gesla <- function(country, year = NULL, site_name = NULL, use_flag = 1,
             "x" =
                 "{.arg use_flag} must be only 0 or 1, or {.code c(0, 1)}."
         )))
-    }
+    } # nocov start
     cli_alert_info("This process can take some time, as it depends on the size of the final dataset, and on internet connection.",
                    wrap = TRUE)
     cli_progress_step("Connecting to the data server...")
@@ -136,23 +136,23 @@ query_gesla <- function(country, year = NULL, site_name = NULL, use_flag = 1,
     f_daws <- daws |>
         filter(country %in% {{ country }},
             use_flag %in% {{ use_flag }})
-    if(!is.null(year)) { # nocov start
+    if(!is.null(year)) {
         f_daws <- f_daws |>
             filter(year %in% {{ year }})
     }
     if(!is.null(site_name)) {
         f_daws <- f_daws |>
             filter(site_name %in% {{ site_name }})
-    } # nocov end
+    }
     ## NOTE have to see if this is worthwile, because it will change the
     ## class to the standard Table. However, it taks some time.
     f_daws <- f_daws |> compute()
-    if(as_data_frame) { # nocov start
+    if(as_data_frame) {
         cli_progress_step("Converting to data frame...")
         cli_alert_info("Converting to data frame can take some time and may result in large size objects. Consider using {.arg as_data_frame = FALSE} first.",
                        wrap = TRUE)
         f_daws <- f_daws |> collect()
-    } # nocov end
+    }
     cli_progress_step("Query finished.")
-    return(f_daws)
+    return(f_daws) # nocov end
 }
