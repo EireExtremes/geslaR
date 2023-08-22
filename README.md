@@ -43,8 +43,14 @@ analytics. The web interface was developed using the Shiny R package,
 with the CSV files from the GESLA dataset converted to the Parquet
 format and stored in an Amazon AWS bucket.
 
-To get started with the package, please see the vignettes [Introduction
-to Apache Arrow framework](articles/intro-to-arrow.html).
+To get started with the package, please see the vignette [Dealing with
+the GESLA dataset in
+R](https://eireextremes.github.io/geslaR/articles/intro-to-geslaR.html),
+where you will find a besic introduction to all the functions available
+and how to use each one of them. To learn how to use the Apache Arrow
+framework to deal with the dataset in R, see the vignette [Introduction
+to Apache Arrow
+framework](https://eireextremes.github.io/geslaR/articles/intro-to-arrow.html).
 
 ## Installation
 
@@ -60,7 +66,6 @@ To be able to use the built-in web-application, all the package
 dependencies should also be installed with:
 
 ``` r
-## install.packages("devtools")
 devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)
 ```
 
@@ -68,7 +73,11 @@ devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)
 
 ``` r
 library(geslaR)
+```
 
+To read files from the GESLA dataset, use the `read_gesla()` function.
+
+``` r
 ##------------------------------------------------------------------
 ## Import an internal example Parquet file
 tmp <- tempdir()
@@ -108,12 +117,18 @@ da <- read_gesla(paste0(tmp, "/ireland.csv"),
 object.size(da)
 ```
 
+To make a query to the GESLA dataset and load it directly into R, one
+can use the `query_gesla()` function.
+
 ``` r
 ## Query a subset of the GESLA dataset, without the need of downloading
 ## all the dataset
 de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
 class(de)
 ```
+
+To download the full dataset locally, use the `download_gesla()`
+function.
 
 ``` r
 ## Download the whole dataset (parquet files) into a specific location
@@ -128,6 +143,10 @@ download_gesla(dest = "./gesla_dataset")
 ## Selection: 1
 ## ℹ Wait while the dataset is downloaded...
 ```
+
+To open the built-in web-application, use the `run_gesla_app()` function
+(note that this will need the installation of **geslaR** with all of its
+dependencies).
 
 ``` r
 ## This function will download the whole dataset (if not yet done), and
