@@ -84,7 +84,7 @@ run_gesla_app <- function(app_dest = "./gesla_app",
                           overwrite = FALSE,
                           open = TRUE) {
     missing_pkgs <- check_suggests()
-    if(length(missing_pkgs != 0L)) {
+    if(length(missing_pkgs != 0L)) { # nocov start
         stop(format_error(c("",
             "x" =
                 "The following packages are required to run the GESLA app: {missing_pkgs}",
@@ -92,7 +92,7 @@ run_gesla_app <- function(app_dest = "./gesla_app",
                 "Consider installing each one with {.code install.packages('name')}",
             "i" =
                 "Or reinstall the {.pkg geslaR} package with {.code remotes::install_github('EireExtremes/geslaR', dependencies = TRUE)}. In this case you will need to restart your R session."))
-        )
+        ) # nocov end
     }
     if(!dir.exists(dest) && overwrite) {
         stop(format_error(c("",
@@ -111,11 +111,11 @@ run_gesla_app <- function(app_dest = "./gesla_app",
             "The total size of the dataset is about 7GB, and the download time will depend on your internet connection",
             wrap = TRUE)
         opt <- utils::menu(c("Yes", "No"), title = "Do you wish to continue?")
-        if(opt == 1L) {
+        if(opt == 1L) { # nocov start
             cli_alert_info("Wait while the dataset is downloaded...")
             download_gesla(dest = dest, ask = FALSE,
                 messages = FALSE, overwrite = FALSE)
-        } else {
+        } else { # nocov end
             stop(format_error(c("",
                 "x" = "No data was downloaded",
                 "i" =
@@ -131,18 +131,18 @@ run_gesla_app <- function(app_dest = "./gesla_app",
             "The total size of the dataset is about 7GB, and the download time will depend on your internet connection",
             wrap = TRUE)
         opt <- utils::menu(c("Yes", "No"), title = "Do you wish to continue?")
-        if(opt == 1L) {
+        if(opt == 1L) { # nocov start
             cli_alert_info("Wait while the dataset is downloaded...")
             download_gesla(dest = dest, ask = FALSE,
                 messages = FALSE, overwrite = TRUE)
-        } else {
+        } else { # nocov end
             stop(format_error(c("",
                 "x" = "No data was downloaded",
                 "i" =
                     "If you don't want to download the dataset again, use {.arg overwrite = FALSE}"))
             )
         }
-    }
+    } # nocov start
     fls <- list.files(system.file("shiny", package = "geslaR"))
     for(app_files in fls) {
         if(!file.exists(paste0(app_dest, "/", app_files))) {
@@ -156,5 +156,5 @@ run_gesla_app <- function(app_dest = "./gesla_app",
     } else {
         cli_alert_info("To open the geslaR-app in your browser, you should run")
         cli_alert_info("{.code shiny::runApp()} in the {.arg app_dest} directory")
-    }
+    } # nocov end
 }

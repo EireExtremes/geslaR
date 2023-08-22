@@ -74,7 +74,7 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
         opt <- utils::menu(c("Yes", "No"),
             title = "Do you want to download the whole dataset?")
         if(opt == 1L) {
-            if(messages) {
+            if(messages) { # nocov start
                 cli_alert_info("Wait while the dataset is downloaded...") # nocov
             }
             copy_files(
@@ -85,14 +85,14 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
             )
             if(messages) {
                 cli_alert_info("Dataset downloaded to {.path {dest}}") # nocov
-            }
+            } # nocov end
         } else {
             unlink(dest, recursive = TRUE)
             stop(format_error(c("",
                 "x" = "No data was downloaded"))
             )
         }
-    } else {
+    } else { # nocov start
         if(messages) {
             cli_alert_info("Wait while the dataset is downloaded...") # nocov
         }
@@ -105,5 +105,5 @@ download_gesla <- function(dest = "./gesla_dataset", ask = TRUE,
         if(messages) {
             cli_alert_info("Dataset downloaded to {.path {dest}}") # nocov
         }
-    }
+    } # nocov end
 }

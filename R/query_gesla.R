@@ -104,7 +104,7 @@
 ##' @export
 query_gesla <- function(country, year = NULL, site_name = NULL, use_flag = 1,
                         as_data_frame = FALSE) {
-    if(!arrow_with_s3()) {
+    if(!arrow_with_s3()) { # nocov start
         stop(format_error(c("",
             "x" =
                 "The current installation of the {.pkg arrow} package does not support an Amazon AWS (S3) connection.",
@@ -112,7 +112,7 @@ query_gesla <- function(country, year = NULL, site_name = NULL, use_flag = 1,
             "i" =
                 "See https://arrow.apache.org/docs/3.0/r/index.html for further details."
         )))
-    }
+    } # nocov end
     if(missing(country)) {
         stop(format_error(c("",
             "x" = "At least one country must be specified."
