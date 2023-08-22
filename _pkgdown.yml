@@ -6,10 +6,10 @@ navbar:
     articles:
       text: Vignettes
       menu:
-      - text: Introduction to Apache Arrow framework
-        href: articles/intro-to-arrow.html
       - text: Dealing with the GESLA dataset in R
         href: articles/intro-to-geslaR.html
+      - text: Introduction to Apache Arrow framework
+        href: articles/intro-to-arrow.html
 
 # articles:
 # - title: Vignettes
