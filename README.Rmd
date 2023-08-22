@@ -49,23 +49,54 @@ code_cov <-
 |:----------:|---------------|-----------------|--------------|--------------|
 | **Status** | `r cmd_check` | `r cover`       | `r pkg_down` | `r code_cov` |
 
-The geslaR package was developed to deal with the
+The **geslaR** package was developed to deal with the
 [GESLA](https://gesla787883612.wordpress.com) (Global Extreme Sea Level
 Analysis) dataset.
 
+The GESLA (Global Extreme Sea Level Analysis) project aims to provide a
+global database of higher-frequency sea-level records for researchers to
+study tides, storm surges, extreme sea levels, and related processes.
+Three versions of the GESLA dataset are available for download,
+including a zip file containing the entire dataset, a CSV file
+containing metadata, and a KML file for plotting the location of all
+station records in Google Earth. The **geslaR** R package developed here
+aims to facilitate the access to the GESLA dataset by providing
+functions to download it entirely, or query subsets of it directly into
+R, without the need of downloading the full dataset. Also, it provides a
+built-in web-application, so that users can apply basic filters to
+select the data of interest, generating informative plots, and showing
+the selected sites all over the world. Users can download the selected
+subset of data in CSV or Parquet file formats, with the latter being
+recommended due to its smaller size and the ability to handle it in many
+programming languages through the Apache Arrow language for in-memory
+analytics. The web interface was developed using the Shiny R package,
+with the CSV files from the GESLA dataset converted to the Parquet
+format and stored in an Amazon AWS bucket.
+
+To get started with the package, please see the vignettes [Introduction
+to Apache Arrow framework](articles/intro-to-arrow.html).
+
 ## Installation
 
-You can install the development version of geslaR from
-[GitHub](https://github.com/) with:
+You can install the latest version of geslaR from
+[GitHub](https://github.com/EireExtremes/geslaR) with:
 
-``` r
-# install.packages("devtools")
+```{r install, eval=FALSE}
+## install.packages("devtools")
 devtools::install_github("EireExtremes/geslaR")
+```
+
+To be able to use the built-in web-application, all the package
+dependencies should also be installed with:
+
+```{r install2, eval=FALSE}
+## install.packages("devtools")
+devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)
 ```
 
 ## Examples
 
-```{r example}
+```{r ex-read, eval=FALSE}
 library(geslaR)
 
 ##------------------------------------------------------------------
@@ -107,14 +138,14 @@ da <- read_gesla(paste0(tmp, "/ireland.csv"),
 object.size(da)
 ```
 
-```{r}
+```{r ex-query, eval=FALSE}
 ## Query a subset of the GESLA dataset, without the need of downloading
 ## all the dataset
 de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
 class(de)
 ```
 
-```{r eval=FALSE}
+```{r ex-down, eval=FALSE}
 ## Download the whole dataset (parquet files) into a specific location
 download_gesla(dest = "./gesla_dataset")
 ## ℹ The total size of the dataset is about 7GB, and the download time will depend on
@@ -128,7 +159,7 @@ download_gesla(dest = "./gesla_dataset")
 ## ℹ Wait while the dataset is downloaded...
 ```
 
-```{r eval=FALSE}
+```{r ex-run, eval=FALSE}
 ## This function will download the whole dataset (if not yet done), and
 ## open the geslar-app web interface locally on your browser
 run_gesla_app()
@@ -140,6 +171,6 @@ This work has emanated from research conducted with the financial
 support of Science Foundation Ireland and co-funded by GSI under Grant
 number 20/FFP-P/8610.
 
-```{r, echo=FALSE}
+```{r fig, echo=FALSE}
 knitr::include_graphics("man/figures/logos2.png")
 ```

@@ -19,104 +19,100 @@ Get And Manipulate the GESLA Dataset
 |:----------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Status** | [![R-CMD-check](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EireExtremes/geslaR/actions/workflows/R-CMD-check.yaml) | [![test-coverage](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/test-coverage.yaml) | [![pkgdown](https://github.com/EireExtremes/geslaR/actions/workflows/pkgdown.yaml/badge.svg?branch=main)](https://github.com/EireExtremes/geslaR/actions/workflows/pkgdown.yaml) | [![Codecov test coverage](https://codecov.io/gh/EireExtremes/geslaR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EireExtremes/geslaR?branch=main) |
 
-The geslaR package was developed to deal with the
+The **geslaR** package was developed to deal with the
 [GESLA](https://gesla787883612.wordpress.com) (Global Extreme Sea Level
 Analysis) dataset.
 
+The GESLA (Global Extreme Sea Level Analysis) project aims to provide a
+global database of higher-frequency sea-level records for researchers to
+study tides, storm surges, extreme sea levels, and related processes.
+Three versions of the GESLA dataset are available for download,
+including a zip file containing the entire dataset, a CSV file
+containing metadata, and a KML file for plotting the location of all
+station records in Google Earth. The **geslaR** R package developed here
+aims to facilitate the access to the GESLA dataset by providing
+functions to download it entirely, or query subsets of it directly into
+R, without the need of downloading the full dataset. Also, it provides a
+built-in web-application, so that users can apply basic filters to
+select the data of interest, generating informative plots, and showing
+the selected sites all over the world. Users can download the selected
+subset of data in CSV or Parquet file formats, with the latter being
+recommended due to its smaller size and the ability to handle it in many
+programming languages through the Apache Arrow language for in-memory
+analytics. The web interface was developed using the Shiny R package,
+with the CSV files from the GESLA dataset converted to the Parquet
+format and stored in an Amazon AWS bucket.
+
+To get started with the package, please see the vignettes [Introduction
+to Apache Arrow framework](articles/intro-to-arrow.html).
+
 ## Installation
 
-You can install the development version of geslaR from
-[GitHub](https://github.com/) with:
+You can install the latest version of geslaR from
+[GitHub](https://github.com/EireExtremes/geslaR) with:
 
 ``` r
-# install.packages("devtools")
+## install.packages("devtools")
 devtools::install_github("EireExtremes/geslaR")
+```
+
+To be able to use the built-in web-application, all the package
+dependencies should also be installed with:
+
+``` r
+## install.packages("devtools")
+devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)
 ```
 
 ## Examples
 
 ``` r
 library(geslaR)
-#> Loading required package: arrow
-#> 
-#> Attaching package: 'arrow'
-#> The following object is masked from 'package:utils':
-#> 
-#>     timestamp
-#> Loading required package: dplyr
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 
 ##------------------------------------------------------------------
 ## Import an internal example Parquet file
 tmp <- tempdir()
 file.copy(system.file(
     "extdata", "ireland.parquet", package = "geslaR"), tmp)
-#> [1] TRUE
 da <- read_gesla(paste0(tmp, "/ireland.parquet"))
 ## Check size in memory
 object.size(da)
-#> 488 bytes
 
 ##------------------------------------------------------------------
 ## Import an internal example CSV file
 tmp <- tempdir()
 file.copy(system.file(
     "extdata", "ireland.csv", package = "geslaR"), tmp)
-#> [1] TRUE
 da <- read_gesla(paste0(tmp, "/ireland.csv"))
 ## Check size in memory
 object.size(da)
-#> 488 bytes
 
 ##------------------------------------------------------------------
 ## Import an internal example Parquet file as data.frame
 tmp <- tempdir()
 file.copy(system.file(
     "extdata", "ireland.parquet", package = "geslaR"), tmp)
-#> [1] FALSE
 da <- read_gesla(paste0(tmp, "/ireland.parquet"),
     as_data_frame = TRUE)
 ## Check size in memory
 object.size(da)
-#> 11112 bytes
 
 ##------------------------------------------------------------------
 ## Import an internal example CSV file as data.frame
 tmp <- tempdir()
 file.copy(system.file(
     "extdata", "ireland.csv", package = "geslaR"), tmp)
-#> [1] FALSE
 da <- read_gesla(paste0(tmp, "/ireland.csv"),
     as_data_frame = TRUE)
 ## Check size in memory
 object.size(da)
-#> 11104 bytes
 ```
 
 ``` r
 ## Query a subset of the GESLA dataset, without the need of downloading
 ## all the dataset
 de <- query_gesla(country = "IRL", year = 2020:2021, as_data_frame = FALSE)
-#> ℹ This process can take some time, as it depends on the size of the final
-#> dataset, and on internet connection.
-#> ℹ Connecting to the data server...
-#> ✔ Connecting to the data server... [3.1s]
-#> 
-#> ℹ Filtering data...
-#> ✔ Filtering data... [30ms]
-#> 
-#> ℹ Query finished.
-#> ✔ Query finished. [31ms]
-#> 
 class(de)
-#> [1] "arrow_dplyr_query"
 ```
 
 ``` r
