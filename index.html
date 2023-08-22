@@ -100,99 +100,70 @@
 <td><a href="https://app.codecov.io/gh/EireExtremes/geslaR?branch=main" class="external-link"><img src="https://codecov.io/gh/EireExtremes/geslaR/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></td>
 </tr></tbody>
 </table>
-<p>The geslaR package was developed to deal with the <a href="https://gesla787883612.wordpress.com" class="external-link">GESLA</a> (Global Extreme Sea Level Analysis) dataset.</p>
+<p>The <strong>geslaR</strong> package was developed to deal with the <a href="https://gesla787883612.wordpress.com" class="external-link">GESLA</a> (Global Extreme Sea Level Analysis) dataset.</p>
+<p>The GESLA (Global Extreme Sea Level Analysis) project aims to provide a global database of higher-frequency sea-level records for researchers to study tides, storm surges, extreme sea levels, and related processes. Three versions of the GESLA dataset are available for download, including a zip file containing the entire dataset, a CSV file containing metadata, and a KML file for plotting the location of all station records in Google Earth. The <strong>geslaR</strong> R package developed here aims to facilitate the access to the GESLA dataset by providing functions to download it entirely, or query subsets of it directly into R, without the need of downloading the full dataset. Also, it provides a built-in web-application, so that users can apply basic filters to select the data of interest, generating informative plots, and showing the selected sites all over the world. Users can download the selected subset of data in CSV or Parquet file formats, with the latter being recommended due to its smaller size and the ability to handle it in many programming languages through the Apache Arrow language for in-memory analytics. The web interface was developed using the Shiny R package, with the CSV files from the GESLA dataset converted to the Parquet format and stored in an Amazon AWS bucket.</p>
+<p>To get started with the package, please see the vignettes <a href="articles/intro-to-arrow.html">Introduction to Apache Arrow framework</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of geslaR from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the latest version of geslaR from <a href="https://github.com/EireExtremes/geslaR" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<code class="sourceCode R"><span><span class="co">## install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EireExtremes/geslaR"</span><span class="op">)</span></span></code></pre></div>
+<p>To be able to use the built-in web-application, all the package dependencies should also be installed with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EireExtremes/geslaR"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: arrow</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'arrow'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     timestamp</span></span>
-<span><span class="co">#&gt; Loading required package: dplyr</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     filter, lag</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
 <span></span>
 <span><span class="co">##------------------------------------------------------------------</span></span>
 <span><span class="co">## Import an internal example Parquet file</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>    <span class="st">"extdata"</span>, <span class="st">"ireland.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.parquet"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 488 bytes</span></span>
 <span></span>
 <span><span class="co">##------------------------------------------------------------------</span></span>
 <span><span class="co">## Import an internal example CSV file</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>    <span class="st">"extdata"</span>, <span class="st">"ireland.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.csv"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 488 bytes</span></span>
 <span></span>
 <span><span class="co">##------------------------------------------------------------------</span></span>
 <span><span class="co">## Import an internal example Parquet file as data.frame</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>    <span class="st">"extdata"</span>, <span class="st">"ireland.parquet"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span>
 <span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.parquet"</span><span class="op">)</span>,</span>
 <span>    as_data_frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 11112 bytes</span></span>
 <span></span>
 <span><span class="co">##------------------------------------------------------------------</span></span>
 <span><span class="co">## Import an internal example CSV file as data.frame</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>    <span class="st">"extdata"</span>, <span class="st">"ireland.csv"</span>, package <span class="op">=</span> <span class="st">"geslaR"</span><span class="op">)</span>, <span class="va">tmp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span>
 <span><span class="va">da</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gesla.html">read_gesla</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"/ireland.csv"</span><span class="op">)</span>,</span>
 <span>    as_data_frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 11104 bytes</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Query a subset of the GESLA dataset, without the need of downloading</span></span>
 <span><span class="co">## all the dataset</span></span>
 <span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query_gesla.html">query_gesla</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"IRL"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">:</span><span class="fl">2021</span>, as_data_frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ This process can take some time, as it depends on the size of the final</span></span>
-<span><span class="co">#&gt; dataset, and on internet connection.</span></span>
-<span><span class="co">#&gt; ℹ Connecting to the data server...</span></span>
-<span><span class="co">#&gt; ✔ Connecting to the data server... [3.1s]</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ℹ Filtering data...</span></span>
-<span><span class="co">#&gt; ✔ Filtering data... [30ms]</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ℹ Query finished.</span></span>
-<span><span class="co">#&gt; ✔ Query finished. [31ms]</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "arrow_dplyr_query"</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the whole dataset (parquet files) into a specific location</span></span>
 <span><span class="fu"><a href="reference/download_gesla.html">download_gesla</a></span><span class="op">(</span>dest <span class="op">=</span> <span class="st">"./gesla_dataset"</span><span class="op">)</span></span>
 <span><span class="co">## ℹ The total size of the dataset is about 7GB, and the download time will depend on</span></span>
@@ -204,7 +175,7 @@
 <span></span>
 <span><span class="co">## Selection: 1</span></span>
 <span><span class="co">## ℹ Wait while the dataset is downloaded...</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This function will download the whole dataset (if not yet done), and</span></span>
 <span><span class="co">## open the geslar-app web interface locally on your browser</span></span>
 <span><span class="fu"><a href="reference/run_gesla_app.html">run_gesla_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
