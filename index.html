@@ -41,8 +41,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
-    <a class="dropdown-item" href="articles/intro-to-arrow.html">Introduction to Apache Arrow framework</a>
     <a class="dropdown-item" href="articles/intro-to-geslaR.html">Dealing with the GESLA dataset in R</a>
+    <a class="dropdown-item" href="articles/intro-to-arrow.html">Introduction to Apache Arrow framework</a>
   </div>
 </li>
       </ul>
@@ -102,7 +102,7 @@
 </table>
 <p>The <strong>geslaR</strong> package was developed to deal with the <a href="https://gesla787883612.wordpress.com" class="external-link">GESLA</a> (Global Extreme Sea Level Analysis) dataset.</p>
 <p>The GESLA (Global Extreme Sea Level Analysis) project aims to provide a global database of higher-frequency sea-level records for researchers to study tides, storm surges, extreme sea levels, and related processes. Three versions of the GESLA dataset are available for download, including a zip file containing the entire dataset, a CSV file containing metadata, and a KML file for plotting the location of all station records in Google Earth. The <strong>geslaR</strong> R package developed here aims to facilitate the access to the GESLA dataset by providing functions to download it entirely, or query subsets of it directly into R, without the need of downloading the full dataset. Also, it provides a built-in web-application, so that users can apply basic filters to select the data of interest, generating informative plots, and showing the selected sites all over the world. Users can download the selected subset of data in CSV or Parquet file formats, with the latter being recommended due to its smaller size and the ability to handle it in many programming languages through the Apache Arrow language for in-memory analytics. The web interface was developed using the Shiny R package, with the CSV files from the GESLA dataset converted to the Parquet format and stored in an Amazon AWS bucket.</p>
-<p>To get started with the package, please see the vignettes <a href="articles/intro-to-arrow.html">Introduction to Apache Arrow framework</a>.</p>
+<p>To get started with the package, please see the vignette <a href="https://eireextremes.github.io/geslaR/articles/intro-to-geslaR.html">Dealing with the GESLA dataset in R</a>, where you will find a besic introduction to all the functions available and how to use each one of them. To learn how to use the Apache Arrow framework to deal with the dataset in R, see the vignette <a href="https://eireextremes.github.io/geslaR/articles/intro-to-arrow.html">Introduction to Apache Arrow framework</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -112,16 +112,16 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EireExtremes/geslaR"</span><span class="op">)</span></span></code></pre></div>
 <p>To be able to use the built-in web-application, all the package dependencies should also be installed with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EireExtremes/geslaR"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EireExtremes/geslaR"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">##------------------------------------------------------------------</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EireExtremes/geslaR" class="external-link">geslaR</a></span><span class="op">)</span></span></code></pre></div>
+<p>To read files from the GESLA dataset, use the <code><a href="reference/read_gesla.html">read_gesla()</a></code> function.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">##------------------------------------------------------------------</span></span>
 <span><span class="co">## Import an internal example Parquet file</span></span>
 <span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
@@ -158,12 +158,14 @@
 <span>    as_data_frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">## Check size in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html" class="external-link">object.size</a></span><span class="op">(</span><span class="va">da</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>To make a query to the GESLA dataset and load it directly into R, one can use the <code><a href="reference/query_gesla.html">query_gesla()</a></code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Query a subset of the GESLA dataset, without the need of downloading</span></span>
 <span><span class="co">## all the dataset</span></span>
 <span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query_gesla.html">query_gesla</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"IRL"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">:</span><span class="fl">2021</span>, as_data_frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>To download the full dataset locally, use the <code><a href="reference/download_gesla.html">download_gesla()</a></code> function.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the whole dataset (parquet files) into a specific location</span></span>
 <span><span class="fu"><a href="reference/download_gesla.html">download_gesla</a></span><span class="op">(</span>dest <span class="op">=</span> <span class="st">"./gesla_dataset"</span><span class="op">)</span></span>
 <span><span class="co">## ℹ The total size of the dataset is about 7GB, and the download time will depend on</span></span>
@@ -175,7 +177,8 @@
 <span></span>
 <span><span class="co">## Selection: 1</span></span>
 <span><span class="co">## ℹ Wait while the dataset is downloaded...</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>To open the built-in web-application, use the <code><a href="reference/run_gesla_app.html">run_gesla_app()</a></code> function (note that this will need the installation of <strong>geslaR</strong> with all of its dependencies).</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This function will download the whole dataset (if not yet done), and</span></span>
 <span><span class="co">## open the geslar-app web interface locally on your browser</span></span>
 <span><span class="fu"><a href="reference/run_gesla_app.html">run_gesla_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
