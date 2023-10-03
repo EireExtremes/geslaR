@@ -9,7 +9,7 @@
 ##' functions to import the dataset to R.
 ##'
 ##' This function can be used for exported files from the online
-##' interface (hosted at <https://bit.ly/geslar-app>) or from a local
+##' interface (hosted at <https://bit.ly/gesla-app>) or from a local
 ##' interface, as when using the [geslaR::run_gesla_app()] function.
 ##'
 ##' @details We highly recommend to export subsets of the GESLA dataset

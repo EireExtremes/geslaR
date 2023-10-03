@@ -47,7 +47,7 @@ researchers.
 The country codes must follow the three-letter \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{ISO 3166-1 alpha-3} code.
 However, note that not all countries are available at the GESLA
 dataset. If in doubt, please check the GESLA Shiny app interface
-(geslaR-app) online at \url{https://bit.ly/geslar-app}, or use the
+(geslaR-app) online at \url{https://bit.ly/gesla-app}, or use the
 \code{\link[=run_gesla_app]{run_gesla_app()}} function to open the interface locally.
 
 The \code{use_flag} argument must be \code{1} or \code{0}, or \code{c(0, 1)}. The

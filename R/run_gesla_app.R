@@ -11,7 +11,7 @@
 ##' the next time this function is called, the app will open instantly.
 ##'
 ##' The same application is hosted online at
-##' <https://bit.ly/geslar-app>, with the exact same capabilities. The
+##' <https://bit.ly/gesla-app>, with the exact same capabilities. The
 ##' advantage of using the interface locally is primarily because of its
 ##' speed. If you don't need the whole GESLA dataset and/or will only
 ##' use a subset of it, we recommend to use the online interface to

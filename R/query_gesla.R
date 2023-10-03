@@ -11,7 +11,7 @@
 ##' alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code.
 ##' However, note that not all countries are available at the GESLA
 ##' dataset. If in doubt, please check the GESLA Shiny app interface
-##' (geslaR-app) online at <https://bit.ly/geslar-app>, or use the
+##' (geslaR-app) online at <https://bit.ly/gesla-app>, or use the
 ##' [geslaR::run_gesla_app()] function to open the interface locally.
 ##'
 ##' The `use_flag` argument must be `1` or `0`, or `c(0, 1)`. The
