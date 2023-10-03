@@ -1,5 +1,5 @@
 Package: geslaR
-Title: Get And Manipulate the GESLA Dataset
+Title: Get and Manipulate the GESLA Dataset
 Version: 1.0-0
 Authors@R:
     c(person("Fernando", "Mayer", , "fernando.mayer@mu.ie", role = c("aut", "cre"),

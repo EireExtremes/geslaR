@@ -3,6 +3,7 @@
 ^vignettes/gesla_dataset$
 ^vignettes/intro-to-geslaR_cache$
 ^vignettes/intro-to-arrow_cache$
+^tests/testthat/_snaps$
 ^\.covrignore$
 ^gesla_dataset$
 ^gesla_app$

@@ -1,3 +1,4 @@
+tests/testthat/_snaps/
 paper/*.pdf
 paper/*.jats
 paper/media/
