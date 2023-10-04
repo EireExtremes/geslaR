@@ -1,6 +1,6 @@
 Package: geslaR
 Title: Get and Manipulate the GESLA Dataset
-Version: 1.0-0
+Version: 1.0-1
 Authors@R:
     c(person("Fernando", "Mayer", , "fernando.mayer@mu.ie", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5115-338X")),
