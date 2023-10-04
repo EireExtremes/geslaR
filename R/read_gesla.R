@@ -9,8 +9,10 @@
 ##' functions to import the dataset to R.
 ##'
 ##' This function can be used for exported files from the online
-##' interface (hosted at <https://bit.ly/gesla-app>) or from a local
-##' interface, as when using the [geslaR::run_gesla_app()] function.
+##' interface (hosted in this
+##' [server](https://rstudio.maths.nuim.ie:3939/content/3258adf1-efbb-4996-9a8a-08a474639e8b/))
+##' or from a local interface, as when using the
+##' [geslaR::run_gesla_app()] function.
 ##'
 ##' @details We highly recommend to export subsets of the GESLA dataset
 ##' from the geslaR-app in the Parquet file format. This format has a

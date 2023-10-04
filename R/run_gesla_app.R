@@ -10,13 +10,13 @@
 ##' Note, however, that the dataset needs to be downloaded only once, so
 ##' the next time this function is called, the app will open instantly.
 ##'
-##' The same application is hosted online at
-##' <https://bit.ly/gesla-app>, with the exact same capabilities. The
-##' advantage of using the interface locally is primarily because of its
-##' speed. If you don't need the whole GESLA dataset and/or will only
-##' use a subset of it, we recommend to use the online interface to
-##' filter the desired subset. After that, you can use the
-##' [geslaR::read_gesla()] function to import it.
+##' The same application is hosted in an online [server](https://rstudio.maths.nuim.ie:3939/content/3258adf1-efbb-4996-9a8a-08a474639e8b/),
+##' with the exact same capabilities. The advantage of using the
+##' interface locally is primarily because of its speed. If you don't
+##' need the whole GESLA dataset and/or will only use a subset of it, we
+##' recommend to use the online interface to filter the desired subset.
+##' After that, you can use the [geslaR::read_gesla()] function to
+##' import it.
 ##'
 ##' @details The geslaR-app Shiny interface relies on a set of packages,
 ##' defined in the Suggests fiels of the package `DESCRIPTION` file.

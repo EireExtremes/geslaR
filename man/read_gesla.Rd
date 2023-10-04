@@ -30,8 +30,10 @@ automatically identify the file type and use the appropriate
 functions to import the dataset to R.
 
 This function can be used for exported files from the online
-interface (hosted at \url{https://bit.ly/gesla-app}) or from a local
-interface, as when using the \code{\link[=run_gesla_app]{run_gesla_app()}} function.
+interface (hosted in this
+\href{https://rstudio.maths.nuim.ie:3939/content/3258adf1-efbb-4996-9a8a-08a474639e8b/}{server})
+or from a local interface, as when using the
+\code{\link[=run_gesla_app]{run_gesla_app()}} function.
 }
 \details{
 We highly recommend to export subsets of the GESLA dataset
