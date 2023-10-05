@@ -6,7 +6,14 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5115-338X")),
       person("Niamh", "Cahill", , "niamh.cahill@mu.ie", role = c("aut"),
            comment = c(ORCID = "0000-0003-3086-550X")))
-Description: Read or query subsets of the GESLA dataset.
+Description: Promote access to the GESLA
+    <https://gesla787883612.wordpress.com> (Global Extreme Sea Level
+    Analysis) dataset, a higher-frequency sea-level record data from all
+    over the world. It provides functions to download it entirely, or
+    query subsets directly into R, without the need of downloading the
+    full dataset. Also, it provides a built-in web-application, so that
+    users can apply basic filters to select the data of interest,
+    generating informative plots, and showing the selected sites.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
