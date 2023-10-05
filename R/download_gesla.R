@@ -26,24 +26,27 @@
 ##' @return The whole GESLA dataset, consisting of 5119 files (with
 ##' `.parquet` extension). It should have approximately 7GB in size.
 ##'
-##' @author Fernando Mayer
+##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
 ##'
-##' @examples
-##' \dontrun{
-##' ## Download to 'gesla_dataset' folder in the current working
-##' ## directory
-##' download_gesla()
+##' @examplesIf interactive()
+##' ## Create a temporary directory for downloaded files
+##' tmp <- tempdir()
+##' ## Download to 'gesla_dataset' folder in the temporary directory
+##' download_gesla(dest = paste0(tmp, "/gesla_dataset"))
 ##' ## To overwrite (download again) on the same location
-##' download_gesla(overwrite = TRUE)
+##' download_gesla(dest = paste0(tmp, "/gesla_dataset"),
+##'   overwrite = TRUE)
 ##' ## Download to another directory
-##' download_gesla(dest = "~/gesla")
+##' download_gesla(dest = paste0(tmp, "~/gesla"))
 ##' ## Don't ask for confirmation before download
-##' download_gesla(ask = FALSE)
+##' download_gesla(dest = paste0(tmp, "/gesla_dataset_2"),
+##'   ask = FALSE)
 ##' ## Don't show informative messages
-##' download_gesla(messages = FALSE)
+##' download_gesla(dest = paste0(tmp, "/gesla_dataset_3"),
+##'   messages = FALSE)
 ##' ## Don't ask for confirmation neither show messages
-##' download_gesla(ask = FALSE, messages = FALSE)
-##' }
+##' download_gesla(dest = paste0(tmp, "/gesla_dataset_4"),
+##'   ask = FALSE, messages = FALSE)
 ##' @importFrom arrow copy_files s3_bucket
 ##' @importFrom cli cli_alert_info format_error
 ##'
