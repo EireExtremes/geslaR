@@ -64,10 +64,9 @@
 ##' @return An object of class `arrow_dplyr_query` or a `tbl_df`
 ##' (`data.frame`).
 ##'
-##' @author Fernando Mayer
+##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
 ##'
-##' @examples
-##' \dontrun{
+##' @examplesIf interactive()
 ##' ## Simple query
 ##' da <- query_gesla(country = "IRL")
 ##'
@@ -95,7 +94,6 @@
 ##' da |>
 ##'     count(year) |>
 ##'     collect()
-##' }
 ##'
 ##' @importFrom dplyr filter collect compute
 ##' @importFrom arrow arrow_with_s3 s3_bucket open_dataset

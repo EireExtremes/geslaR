@@ -80,7 +80,7 @@ crash. Therefore, we always recommend to start with \code{as_data_frame = FALSE}
 Please, see \code{vignette("intro-to-geslaR")} for a detailed example.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Simple query
 da <- query_gesla(country = "IRL")
 
@@ -108,9 +108,8 @@ da <- query_gesla(country = "IRL", year = c(2015, 2017),
 da |>
     count(year) |>
     collect()
-}
-
+\dontshow{\}) # examplesIf}
 }
 \author{
-Fernando Mayer
+Fernando Mayer \email{fernando.mayer@mu.ie}
 }
