@@ -80,35 +80,35 @@ crash. Therefore, we always recommend to start with \code{as_data_frame = FALSE}
 Please, see \code{vignette("intro-to-geslaR")} for a detailed example.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-## Simple query
-da <- query_gesla(country = "IRL")
+if(interactive()) {
+    ## Simple query
+    da <- query_gesla(country = "IRL")
 
-## Select one specific year
-da <- query_gesla(country = "IRL", year = 2015)
+    ## Select one specific year
+    da <- query_gesla(country = "IRL", year = 2015)
 
-## Multiple years
-da <- query_gesla(country = "IRL", year = c(2015, 2017))
-da <- query_gesla(country = "IRL", year = 2010:2017)
-da <- query_gesla(country = "IRL", year = c(2010, 2012, 2015))
-da |>
-    count(year) |>
-    collect()
+    ## Multiple years
+    da <- query_gesla(country = "IRL", year = c(2015, 2017))
+    da <- query_gesla(country = "IRL", year = 2010:2017)
+    da <- query_gesla(country = "IRL", year = c(2010, 2012, 2015))
+    da |>
+        count(year) |>
+        collect()
 
-## Multiple countries
-da <- query_gesla(country = c("IRL", "ATA"), year = 2015)
-da <- query_gesla(country = c("IRL", "ATA"), year = 2010:2017)
-da |>
-    count(country, year) |>
-    collect()
+    ## Multiple countries
+    da <- query_gesla(country = c("IRL", "ATA"), year = 2015)
+    da <- query_gesla(country = c("IRL", "ATA"), year = 2010:2017)
+    da |>
+        count(country, year) |>
+        collect()
 
-## Specifying a site name
-da <- query_gesla(country = "IRL", year = c(2015, 2017),
-    site_name = "Dublin_Port")
-da |>
-    count(year) |>
-    collect()
-\dontshow{\}) # examplesIf}
+    ## Specifying a site name
+    da <- query_gesla(country = "IRL", year = c(2015, 2017),
+        site_name = "Dublin_Port")
+    da |>
+        count(year) |>
+        collect()
+}
 }
 \author{
 Fernando Mayer \email{fernando.mayer@mu.ie}
