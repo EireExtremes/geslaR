@@ -28,29 +28,8 @@
 ##'
 ##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
 ##'
-##' @examplesIf interactive()
-##' ## Create a temporary directory for downloaded files
-##' tmp <- tempdir()
-##' ## Download to 'gesla_dataset' folder in the temporary directory
-##' dest <- paste0(tmp, "/gesla_dataset")
-##' download_gesla(dest = dest)
-##' ## To overwrite (download again) on the same location
-##' download_gesla(dest = dest, overwrite = TRUE)
-##' # Clean temporary directory
-##' unlink(dest, recursive = TRUE)
-##' ## Download to another directory
-##' dest <- paste0(tmp, "/gesla")
-##' download_gesla(dest = dest)
-##' ## Don't ask for confirmation before download
-##' unlink(dest, recursive = TRUE)
-##' download_gesla(dest = dest, ask = FALSE)
-##' ## Don't show informative messages
-##' unlink(dest, recursive = TRUE)
-##' download_gesla(dest = dest, messages = FALSE)
-##' ## Don't ask for confirmation neither show messages
-##' unlink(dest, recursive = TRUE)
-##' download_gesla(dest = dest, ask = FALSE, messages = FALSE)
-##' unlink(dest, recursive = TRUE)
+##' @example inst/examples/download_gesla-ex.R
+##'
 ##' @importFrom arrow copy_files s3_bucket
 ##' @importFrom cli cli_alert_info format_error
 ##'
