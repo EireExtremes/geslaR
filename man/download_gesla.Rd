@@ -49,21 +49,25 @@ function.
 ## Create a temporary directory for downloaded files
 tmp <- tempdir()
 ## Download to 'gesla_dataset' folder in the temporary directory
-download_gesla(dest = paste0(tmp, "/gesla_dataset"))
+dest <- paste0(tmp, "/gesla_dataset")
+download_gesla(dest = dest)
 ## To overwrite (download again) on the same location
-download_gesla(dest = paste0(tmp, "/gesla_dataset"),
-  overwrite = TRUE)
+download_gesla(dest = dest, overwrite = TRUE)
+# Clean temporary directory
+unlink(dest, recursive = TRUE)
 ## Download to another directory
-download_gesla(dest = paste0(tmp, "~/gesla"))
+dest <- paste0(tmp, "/gesla")
+download_gesla(dest = dest)
 ## Don't ask for confirmation before download
-download_gesla(dest = paste0(tmp, "/gesla_dataset_2"),
-  ask = FALSE)
+unlink(dest, recursive = TRUE)
+download_gesla(dest = dest, ask = FALSE)
 ## Don't show informative messages
-download_gesla(dest = paste0(tmp, "/gesla_dataset_3"),
-  messages = FALSE)
+unlink(dest, recursive = TRUE)
+download_gesla(dest = dest, messages = FALSE)
 ## Don't ask for confirmation neither show messages
-download_gesla(dest = paste0(tmp, "/gesla_dataset_4"),
-  ask = FALSE, messages = FALSE)
+unlink(dest, recursive = TRUE)
+download_gesla(dest = dest, ask = FALSE, messages = FALSE)
+unlink(dest, recursive = TRUE)
 \dontshow{\}) # examplesIf}
 }
 \author{
