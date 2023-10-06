@@ -38,28 +38,8 @@
 ##' @importFrom arrow write_csv_arrow write_parquet
 ##' @importFrom cli format_error
 ##'
-##' @examples
-##' \dontrun{
-##' ##------------------------------------------------------------------
-##' ## Import an internal example Parquet file
-##' ## Reading file
-##' tmp <- tempdir()
-##' file.copy(system.file(
-##'     "extdata", "ireland.parquet", package = "geslaR"), tmp)
-##' da <- read_gesla(paste0(tmp, "/ireland.parquet"))
-##' ## Generates a subset by filtering
-##' db <- da |>
-##'     filter(site_name == "Dublin_Port")
-##' ## Save filtered data as file
-##' write_gesla(db)
+##' @example inst/examples/write_gesla-ex.R
 ##'
-##' ##------------------------------------------------------------------
-##' ## Querying some data
-##' ## Make the query
-##' da <- query_gesla(country = "IRL", site_name = "Dublin_Port")
-##' ## Save the resulting query to file
-##' write_gesla(da)
-##' }
 ##' @export
 write_gesla <- function(x, file_name = "gesla-data", ...) {
     cls <- class(x)
