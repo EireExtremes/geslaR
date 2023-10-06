@@ -91,5 +91,5 @@ if(interactive()) {
 }
 }
 \author{
-Fernando Mayer
+Fernando Mayer \email{fernando.mayer@mu.ie}
 }

@@ -33,7 +33,7 @@
 ##' @return A file with extension `.csv`, if `x` is a `data.frame`, or a
 ##' file with extension `.parquet`, if `x` is an `ArrowObject`
 ##'
-##' @author Fernando Mayer
+##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
 ##'
 ##' @importFrom arrow write_csv_arrow write_parquet
 ##' @importFrom cli format_error

@@ -48,7 +48,7 @@
 ##'
 ##' @return An Arrow `Table` object, or a `tbl_df` (`data.frame`)
 ##'
-##' @author Fernando Mayer
+##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
 ##'
 ##' @example inst/examples/read_gesla-ex.R
 ##'

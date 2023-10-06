@@ -53,7 +53,7 @@
 ##' @return The geslaR-app Shiny interface will open in your default
 ##' browser.
 ##'
-##' @author Fernando Mayer
+##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
 ##'
 ##' @example inst/examples/run_gesla_app-ex.R
 ##'

@@ -75,5 +75,5 @@ unlink(paste0(tmp, "/gesla-data.parquet"))
 unlink(paste0(tmp, "/ireland.parquet"))
 }
 \author{
-Fernando Mayer
+Fernando Mayer \email{fernando.mayer@mu.ie}
 }

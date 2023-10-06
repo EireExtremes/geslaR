@@ -102,5 +102,5 @@ unlink(paste0(tmp, "/ireland.parquet"))
 unlink(paste0(tmp, "/ireland.csv"))
 }
 \author{
-Fernando Mayer
+Fernando Mayer \email{fernando.mayer@mu.ie}
 }
