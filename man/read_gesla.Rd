@@ -97,6 +97,9 @@ da <- read_gesla(paste0(tmp, "/ireland.csv"),
 ## Check size in memory
 object.size(da)
 
+## Remove files from temporary directory
+unlink(paste0(tmp, "/ireland.parquet"))
+unlink(paste0(tmp, "/ireland.csv"))
 }
 \author{
 Fernando Mayer
