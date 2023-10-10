@@ -23,7 +23,11 @@ The **geslaR** package was developed to deal with the
 [GESLA](https://gesla787883612.wordpress.com) (Global Extreme Sea Level
 Analysis) dataset.
 
-\[![cran-badge](https://www.r-pkg.org/badges/version-last-release/geslaR)\]
+<figure>
+<img src="https://www.r-pkg.org/badges/version-last-release/geslaR"
+alt="cran-badge" />
+<figcaption aria-hidden="true">cran-badge</figcaption>
+</figure>
 
 The GESLA (Global Extreme Sea Level Analysis) project aims to provide a
 global database of higher-frequency sea-level records for researchers to
