@@ -56,18 +56,27 @@ framework](https://eireextremes.github.io/geslaR/articles/intro-to-arrow.html).
 
 ## Installation
 
-You can install the latest version of geslaR from
-[GitHub](https://github.com/EireExtremes/geslaR) with:
+You can install the latest **stable** version of geslaR from
+[CRAN](https://cran.r-project.org/package=geslaR) with:
 
 ``` r
-## install.packages("devtools")
-devtools::install_github("EireExtremes/geslaR")
+install.packages("geslaR")
 ```
 
 To be able to use the built-in web-application, all the package
 dependencies should also be installed with:
 
 ``` r
+install.packages("geslaR", dependencies = TRUE)
+```
+
+To install the **development** version from
+[GitHub](https://github.com/EireExtremes/geslaR) use:
+
+``` r
+## install.packages("devtools")
+devtools::install_github("EireExtremes/geslaR")
+## Or
 devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)
 ```
 

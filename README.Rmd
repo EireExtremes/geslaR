@@ -83,18 +83,27 @@ the vignette [Introduction to Apache Arrow framework][].
 
 ## Installation
 
-You can install the latest version of geslaR from
-[GitHub](https://github.com/EireExtremes/geslaR) with:
+You can install the latest **stable** version of geslaR from
+[CRAN](https://cran.r-project.org/package=geslaR) with:
 
-```{r install, eval=FALSE}
-## install.packages("devtools")
-devtools::install_github("EireExtremes/geslaR")
+```{r install-cran, eval=FALSE}
+install.packages("geslaR")
 ```
 
 To be able to use the built-in web-application, all the package
 dependencies should also be installed with:
 
-```{r install2, eval=FALSE}
+```{r install-cran2, eval=FALSE}
+install.packages("geslaR", dependencies = TRUE)
+```
+
+To install the **development** version from
+[GitHub](https://github.com/EireExtremes/geslaR) use:
+
+```{r install, eval=FALSE}
+## install.packages("devtools")
+devtools::install_github("EireExtremes/geslaR")
+## Or
 devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)
 ```
 
