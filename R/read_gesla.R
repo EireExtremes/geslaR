@@ -54,10 +54,11 @@
 ##'
 ##' @importFrom arrow read_csv_arrow read_parquet
 ##' @importFrom cli format_error
+##' @importFrom utils tail
 ##'
 ##' @export
 read_gesla <- function(file, as_data_frame = FALSE, ...) {
-    ftype <- unlist(strsplit(file, split = "\\."))[2]
+    ftype <- tail(unlist(strsplit(file, split = "\\.")), n = 1)
     if(!ftype %in% c("csv", "parquet")) {
         stop(format_error(c("",
             "x" = "'file' must be csv or parquet.")))
