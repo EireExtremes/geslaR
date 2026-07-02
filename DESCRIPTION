@@ -23,7 +23,7 @@ BugReports: https://github.com/EireExtremes/geslaR/issues
 Depends:
     arrow,
     dplyr,
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 Imports:
     cli
 Suggests:
