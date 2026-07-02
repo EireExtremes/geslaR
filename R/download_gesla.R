@@ -26,7 +26,7 @@
 ##' @return The whole GESLA dataset, consisting of 5119 files (with
 ##' `.parquet` extension). It should have approximately 7GB in size.
 ##'
-##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
+##' @author Fernando Mayer \email{fernando.mayer@ufpr.br}
 ##'
 ##' @example inst/examples/download_gesla-ex.R
 ##'

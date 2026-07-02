@@ -64,5 +64,5 @@ if(interactive()) {
 }
 }
 \author{
-Fernando Mayer \email{fernando.mayer@mu.ie}
+Fernando Mayer \email{fernando.mayer@ufpr.br}
 }

@@ -13,7 +13,7 @@ read_gesla(file, as_data_frame = FALSE, ...)
 as an Arrow \code{Table} format. Otherwise, the data will be in a
 \code{tbl_df} (\code{data.frame}) format. See Details.}
 
-\item{...}{Other arguments from \code{\link[arrow:read_delim_arrow]{arrow::read_csv_arrow()}}, and
+\item{...}{Other arguments from \code{\link[arrow:read_csv_arrow]{arrow::read_csv_arrow()}}, and
 \code{\link[arrow:read_parquet]{arrow::read_parquet()}}, from the
 \href{https://arrow.apache.org/docs/r/}{arrow} package.}
 }
@@ -102,5 +102,5 @@ unlink(paste0(tmp, "/ireland.parquet"))
 unlink(paste0(tmp, "/ireland.csv"))
 }
 \author{
-Fernando Mayer \email{fernando.mayer@mu.ie}
+Fernando Mayer \email{fernando.mayer@ufpr.br}
 }

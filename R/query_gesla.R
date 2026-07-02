@@ -64,7 +64,7 @@
 ##' @return An object of class `arrow_dplyr_query` or a `tbl_df`
 ##' (`data.frame`).
 ##'
-##' @author Fernando Mayer \email{fernando.mayer@mu.ie}
+##' @author Fernando Mayer \email{fernando.mayer@ufpr.br}
 ##'
 ##' @example inst/examples/query_gesla-ex.R
 ##'
