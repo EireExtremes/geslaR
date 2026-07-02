@@ -54,7 +54,7 @@ smaller than CSV files created from `data.frame` objects.
 
 ## Author
 
-Fernando Mayer <fernando.mayer@mu.ie>
+Fernando Mayer <fernando.mayer@ufpr.br>
 
 ## Examples
 

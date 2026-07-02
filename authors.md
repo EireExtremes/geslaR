@@ -13,13 +13,13 @@ Source:
 [`DESCRIPTION`](https://github.com/EireExtremes/geslaR/blob/main/DESCRIPTION)
 
 Mayer F, Cahill N (2026). *geslaR: Get and Manipulate the GESLA
-Dataset*. R package version 1.0-2,
+Dataset*. R package version 1.0-3,
 <https://github.com/EireExtremes/geslaR>.
 
     @Manual{,
       title = {geslaR: Get and Manipulate the GESLA Dataset},
       author = {Fernando Mayer and Niamh Cahill},
       year = {2026},
-      note = {R package version 1.0-2},
+      note = {R package version 1.0-3},
       url = {https://github.com/EireExtremes/geslaR},
     }

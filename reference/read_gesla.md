@@ -72,7 +72,7 @@ See **Examples** below.
 
 ## Author
 
-Fernando Mayer <fernando.mayer@mu.ie>
+Fernando Mayer <fernando.mayer@ufpr.br>
 
 ## Examples
 

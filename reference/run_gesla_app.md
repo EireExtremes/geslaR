@@ -81,7 +81,7 @@ same directory, the interface should open in your browser instantly.
 
 ## Author
 
-Fernando Mayer <fernando.mayer@mu.ie>
+Fernando Mayer <fernando.mayer@ufpr.br>
 
 ## Examples
 

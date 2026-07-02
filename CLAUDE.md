@@ -27,7 +27,8 @@ these from an R console at the package root (or via `Rscript -e`).
   `devtools::document()` (do this after editing any `##'` roxygen block
   in `R/*.R`)
 - Full package check (what CI runs, `R-CMD-check.yaml`):
-  `devtools::check()` / `rcmdcheck::rcmdcheck()`
+  `devtools::check()` /
+  [`rcmdcheck::rcmdcheck()`](http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.md)
 - Load all functions for interactive testing: `devtools::load_all()`
 - Test coverage (what CI runs, `test-coverage.yaml`): `covr::codecov()`
   or `covr::package_coverage()` — note `R/utils.R` is excluded from
