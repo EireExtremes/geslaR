@@ -1,0 +1,418 @@
+# Dealing with the GESLA dataset in R
+
+The **geslaR** package was designed to fetch the
+[GESLA](https://gesla787883612.wordpress.com) dataset into R, as a full
+dataset or as a subset of the data. There a few ways that this can be
+achieved:
+
+- Downloading the entire dataset locally, then loading it into R and
+  working from there using the [Apache Arrow](https://arrow.apache.org)
+  framework
+  ([`download_gesla()`](https://eireextremes.github.io/geslaR/reference/download_gesla.md))
+- Querying the hosted dataset directly from R, specifying the desired
+  subset
+  ([`query_gesla()`](https://eireextremes.github.io/geslaR/reference/query_gesla.md))
+- Using the GESLA Shiny app (thereafter called only geslaR-app), to
+  filter, visualise and possibly download subsets of the dataset
+  ([`run_gesla_app()`](https://eireextremes.github.io/geslaR/reference/run_gesla_app.md))
+
+In the sections below, we will discuss each of these possibilities.
+
+## Loading the package
+
+When you first load the **geslaR** package into an R session, two more
+packages will automatically be loaded: **arrow** and **dplyr**.
+
+``` r
+
+library(geslaR)
+#> Loading required package: arrow
+#> 
+#> Attaching package: 'arrow'
+#> The following object is masked from 'package:utils':
+#> 
+#>     timestamp
+#> Loading required package: dplyr
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+```
+
+These two packages are strictly necessary for dealing with a huge
+dataset like GESLA, to alleviate the need to load it in memory all at
+once. The full GESLA dataset has more than 1.7 billion lines, and is
+nearly impossible to load it in R (or any other RAM memory language,
+like e.g. Python) all at once. To avoid this problem, there are two
+possibilities:
+
+1.  Load (smaller) subsets of the full dataset
+2.  Use an “in-memory” analytics framework
+
+In the best case scenario, these two approaches can be used together for
+maximum efficiency, and the **geslaR** package was designed to achieve
+this.
+
+Regardless the way the GESLA data is loaded into R, the best way to deal
+with it is using the [Apache Arrow](https://arrow.apache.org) framework.
+For a more detailed explanation and examples, please see the
+[`vignette("intro-to-arrow")`](https://eireextremes.github.io/geslaR/articles/intro-to-arrow.md).
+
+## Downloading the full GESLA dataset
+
+If you want to explore the full GESLA dataset, you can download it with
+the
+[`download_gesla()`](https://eireextremes.github.io/geslaR/reference/download_gesla.md)
+function as follows
+
+``` r
+
+download_gesla()
+```
+
+This will create a directory called `gesla_dataset` in the current
+working directory (as defined by
+[`getwd()`](https://rdrr.io/r/base/getwd.html)) and download the full
+dataset locally. This download may take some time (expect around 5 to 10
+minutes), as it depends on internet connection. Note that this full
+dataset will need at least 7GB of (hard drive) storage, so make sure
+this is feasible. However, once downloaded, you will have access to the
+full dataset, and you will only need to do this once.
+
+You will notice that the full dataset is composed of 5119 [Apache
+Parquet](https://parquet.apache.org) files, ending in `.parquet`
+
+``` r
+
+## Number of downloaded files
+length(list.files("gesla_dataset"))
+#> [1] 5119
+## Check the first files
+head(list.files("gesla_dataset"))
+#> [1] "a121-a12-nld-cmems.parquet"      "a2-a2-bel-cmems.parquet"        
+#> [3] "aalesund-aal-nor-cmems.parquet"  "aarhus-aar-dnk-cmems.parquet"   
+#> [5] "aasiaat-aas-grl-gloss.parquet"   "abashiri-347a-jpn-uhslc.parquet"
+```
+
+These files are the same as those originally distributed in the GESLA
+dataset, so that each one refers to a site from where the data comes
+from. To load this full dataset in R, use the
+[`arrow::open_dataset()`](https://arrow.apache.org/docs/r/reference/open_dataset.html)
+function, specifying the location of the `.parquet` files. Although
+there are many files, this function recognises them as a single dataset,
+because they all have the same structure (or “Schema”).
+
+``` r
+
+## Open dataset
+da <- open_dataset("gesla_dataset")
+## Check the object
+da
+#> FileSystemDataset with 5119 Parquet files
+#> date_time: timestamp[us]
+#> year: int64
+#> month: int64
+#> day: int64
+#> hour: int64
+#> country: string
+#> site_name: string
+#> lat: double
+#> lon: double
+#> sea_level: double
+#> qc_flag: int64
+#> use_flag: int64
+#> file_name: string
+#> 
+#> See $metadata for additional Schema metadata
+## Verify class
+class(da)
+#> [1] "FileSystemDataset" "Dataset"           "ArrowObject"      
+#> [4] "R6"
+```
+
+Since this is an `ArrowObject` object, it will actually not load the
+full dataset in memory (as it would if it was a standard R object, such
+as a `tibble` or `data.frame`). Note, however, that some basic
+information, such as [`dim()`](https://rdrr.io/r/base/dim.html) and
+[`names()`](https://rdrr.io/r/base/names.html) can be retrieved simply
+with
+
+``` r
+
+dim(da)
+#> [1] 1172435674         13
+names(da)
+#>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  
+#>  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" 
+#> [13] "file_name"
+```
+
+Any other manipulation of the dataset must be made using **dplyr**
+verbs. For example, to count the number of observations by country, one
+could use
+
+``` r
+
+da |>
+    count(country) |>
+    collect()
+#> # A tibble: 113 × 2
+#>    country         n
+#>    <chr>       <int>
+#>  1 BEL       1263467
+#>  2 JPN      74580447
+#>  3 USA     243838504
+#>  4 DNK      36726648
+#>  5 SLV        812230
+#>  6 GBR      76038844
+#>  7 YEM         63362
+#>  8 CAN      67019312
+#>  9 AUS      72441932
+#> 10 EGY        220872
+#> # ℹ 103 more rows
+```
+
+## Querying subsets directly into R
+
+The
+[`query_gesla()`](https://eireextremes.github.io/geslaR/reference/query_gesla.md)
+function can be used to load subsets of the full GESLA dataset into R.
+This function will connect to the GESLA dataset hosted on an Amazon AWS
+S3 bucket, and will automatically filter the required piece of data.
+Note that the query may vary, as it will depend on the size of the
+required subset and on internet connection speed.
+
+The selection is made by specifying one or more countries, years and
+site names. The only mandatory argument is `country`, where it should be
+a character vector of three-letter [ISO 3166-1
+alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) codes. If the
+argument `year` is empty, then all available years for those countries
+will be selected. The same occurs for the `site_name` argument.
+
+For example, to select all the available data for Ireland (IRL), simply
+use
+
+``` r
+da <- query_gesla(country = "IRL")
+#> ℹ This process can take some time, as it depends on the size of the final dataset, and on
+#> internet connection.
+#> 
+ℹ Connecting to the data server... [K
+
+✔ Connecting to the data server... [3.5s] [K
+#> 
+ℹ Filtering data. This can take some time... [K
+
+✔ Filtering data. This can take some time... [2m 43.4s] [K
+#> 
+ℹ Query finished. [K
+
+✔ Query finished. [13ms] [K
+da
+#> Table
+#> 16321218 rows x 13 columns
+#> $date_time <timestamp[us]>
+#> $year <int64>
+#> $month <int64>
+#> $day <int64>
+#> $hour <int64>
+#> $country <string>
+#> $site_name <string>
+#> $lat <double>
+#> $lon <double>
+#> $sea_level <double>
+#> $qc_flag <int64>
+#> $use_flag <int64>
+#> $file_name <string>
+#> 
+#> See $metadata for additional Schema metadata
+dim(da)
+#> [1] 16321218       13
+names(da)
+#>  [1] "date_time" "year"      "month"     "day"       "hour"      "country"  
+#>  [7] "site_name" "lat"       "lon"       "sea_level" "qc_flag"   "use_flag" 
+#> [13] "file_name"
+class(da)
+#> [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"
+```
+
+This is also an `ArrowObject` object, and works the same way as any
+other Arrow object type, i.e., it can be manipulated with **dplyr**
+verbs. By the end of this section we will show some examples.
+
+Many other queries can be made, for example,
+
+``` r
+
+## Select one specific year
+da <- query_gesla(country = "IRL", year = 2015)
+
+## Multiple years
+da <- query_gesla(country = "IRL", year = c(2015, 2017))
+da <- query_gesla(country = "IRL", year = 2010:2017)
+da <- query_gesla(country = "IRL", year = c(2010, 2012, 2015))
+
+## Multiple countries
+da <- query_gesla(country = c("IRL", "ATA"), year = 2015)
+da <- query_gesla(country = c("IRL", "ATA"), year = 2010:2017)
+```
+
+As one last example, we may be interested in data only for the site
+`Dublin_Port` in Ireland, and for the years 2015 and 2017. This query
+would be done as follows
+
+``` r
+da <- query_gesla(country = "IRL", year = c(2015, 2017),
+    site_name = "Dublin_Port")
+#> ℹ This process can take some time, as it depends on the size of the final dataset, and on
+#> internet connection.
+#> 
+ℹ Connecting to the data server... [K
+
+✔ Connecting to the data server... [3.4s] [K
+#> 
+ℹ Filtering data. This can take some time... [K
+
+✔ Filtering data. This can take some time... [2m 34s] [K
+#> 
+ℹ Query finished. [K
+
+✔ Query finished. [21ms] [K
+```
+
+Now we could explore this subset using **dplyr** verbs as usual
+
+``` r
+
+## Verifying number of observations per year
+da |>
+    count(year) |>
+    collect()
+#> # A tibble: 2 × 2
+#>    year      n
+#>   <int>  <int>
+#> 1  2015  93790
+#> 2  2017 104835
+
+## Calculating summary statistics per year
+da |>
+    group_by(year) |>
+    summarise(
+        min = min(sea_level),
+        mean = mean(sea_level),
+        max = max(sea_level)) |>
+    collect()
+#> # A tibble: 2 × 4
+#>    year   min    mean   max
+#>   <int> <dbl>   <dbl> <dbl>
+#> 1  2015 -2.62 -0.0104  2.38
+#> 2  2017 -2.43  0.0762  2.53
+```
+
+Note the use of the
+[`dplyr::collect()`](https://dplyr.tidyverse.org/reference/compute.html)
+function at the end of each call. This is necessary to convert the final
+result (which is processed by Arrow) to a common R object (usually a
+`tibble` or similar).
+
+As stated before, the queries made by
+[`query_gesla()`](https://eireextremes.github.io/geslaR/reference/query_gesla.md)
+may take some time to process. To avoid repeating this query in every
+new session, you can save this object in a file locally, so it will be
+available instantly the next time you may need it. To achieve this, you
+can use the
+[`write_gesla()`](https://eireextremes.github.io/geslaR/reference/write_gesla.md)
+function
+
+``` r
+
+write_gesla(da)
+```
+
+In this case, this call will create a file named `gesla-data.parquet`,
+and it will be ready for reading at any time, without the need for
+querying again. At any time, just use
+
+``` r
+
+da <- read_gesla("gesla-data.parquet")
+```
+
+to make it available again.
+
+Please, do not try to save this object as a standard R file, such as
+`.rds` or `.rda`, as using
+[`saveRDS()`](https://rdrr.io/r/base/readRDS.html) or
+[`save()`](https://rdrr.io/r/base/save.html) for example. In this case
+the resulting saved object will not be the same as the original object,
+as an `ArrowObject` object is not a standard R object (it actually is
+just a pointer to an Arrow style object).
+
+The
+[`query_gesla()`](https://eireextremes.github.io/geslaR/reference/query_gesla.md)
+function also has two more arguments. The `use_flag = 1` means that only
+the data suggested by the GESLA team as being useful for analysis must
+be used. Please see the [GESLA
+format](https://gesla787883612.wordpress.com/format/) page for more
+information. The other argument, `as_data_frame = FALSE` specifies if
+the resulting object should be an `ArrowObject` (the default) or a
+`data.frame`. We highly recommend to keep this default option, as the
+resulting `data.frame` can be larger-than-memory, resulting in a memory
+overflow or even an R session crash. Keeping the object as an
+`ArrowObject` will always guarantee that the resulting query will be
+made available. In any case, an `ArrowObject` can always be converted to
+a `data.frame`, if that is desired, without the need to repeat the query
+with `as_data_frame = TRUE`. For example, the object `da` created above
+(which is an `ArrowObject`) may be converted to a `data.frame` with
+
+``` r
+
+class(da)
+#> [1] "Table"        "ArrowTabular" "ArrowObject"  "R6"
+db <- da |>
+    collect()
+class(db)
+#> [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+## Using the GESLA Shiny app
+
+The GESLA Shiny app (geslaR-app) was developed as a user-friendly
+interface to explore the whole GESLA dataset. The app may be called
+simply as
+
+``` r
+
+run_gesla_app()
+```
+
+This will create a directory called `gesla-app` on the current working
+directory, containing the necessary files for the app itself, and a
+sub-directory called `gesla_dataset` containing all the GESLA dataset
+files (as `.parquet` files, as this is done with the
+[`download_gesla()`](https://eireextremes.github.io/geslaR/reference/download_gesla.md)
+function as explained above). Note that the first time this function is
+called, it will create these directories and download the full GESLA
+dataset. However, once this is done, the next time this function is
+called on this working directory, only the app will open in the default
+browser (no more downloads will be necessary).
+
+This web-interface allows the user to apply some basic filters, by
+choosing countries, years and sites. By doing this, the app will filter
+the data and show information about the selected subset. The first tab
+contains a preview of the selected subset. The two subsequent tabs
+provide some plots with the number of observations by year, and summary
+plots for the sea level data itself. The last tab will show a map with
+the selected locations, and by clicking on the locations, a pop-up will
+show information about that specific station.
+
+The user has the option to download the selected subset in CSV or
+Parquet file formats. We highly recommend to export it as a Parquet
+file, as the file size will be much smaller, and it can be simply loaded
+into R with the
+[`read_gesla()`](https://eireextremes.github.io/geslaR/reference/read_gesla.md)
+function, creating an `ArrowObject` object.

@@ -1,0 +1,107 @@
+# Run the GESLA Shiny app
+
+Run the GESLA Shiny app (geslaR-app) locally. The first time this
+function is called, it will check if the GESLA dataset is present. If
+not, it will prompt to download it or not. Please note that the entire
+GESLA dataset is about 7GB in size, so make sure there is enough space
+for it. The Shiny app will only work with the entire dataset downloaded
+locally.
+
+Note, however, that the dataset needs to be downloaded only once, so the
+next time this function is called, the app will open instantly.
+
+The same application is hosted in an online
+[server](https://rstudio.maths.nuim.ie:3939/content/3258adf1-efbb-4996-9a8a-08a474639e8b/),
+with the exact same capabilities. The advantage of using the interface
+locally is primarily because of its speed. If you don't need the whole
+GESLA dataset and/or will only use a subset of it, we recommend to use
+the online interface to filter the desired subset. After that, you can
+use the
+[`read_gesla()`](https://eireextremes.github.io/geslaR/reference/read_gesla.md)
+function to import it.
+
+## Usage
+
+``` r
+run_gesla_app(
+  app_dest = "./gesla_app",
+  dest = paste0(app_dest, "/gesla_dataset"),
+  overwrite = FALSE,
+  open = TRUE
+)
+```
+
+## Arguments
+
+- app_dest:
+
+  The destination directory that will host the app and the database. It
+  will be created if it doesn't exist. By default, it will create a
+  directory called `gesla_app` in the current working directory.
+
+- dest:
+
+  The destination directory that will host the GESLA dataset files. By
+  default, it will create a subdirectory under the directory defined in
+  `app_dest`. It's not recommended to change this argument. If needed,
+  change only the `app_dest` argument.
+
+- overwrite:
+
+  Overwrite the current dataset? If `TRUE` and called on the same
+  directory as the app, it will overwrite (i.e. download again) the
+  whole dataset. This is usually not necessary, unless the dataset has
+  really changed.
+
+- open:
+
+  Should the app open in the default browser? Defaults to `TRUE`.
+
+## Value
+
+The geslaR-app Shiny interface will open in your default browser.
+
+## Details
+
+The geslaR-app Shiny interface relies on a set of packages, defined in
+the Suggests fiels of the package `DESCRIPTION` file. When called for
+the first time, the function will check if all the packages are
+available. If one or more are not installed, a message will show which
+one of them should be installed. Alternatively, you can install all of
+them at once by reinstalling the `geslaR` package with
+`devtools::install_github("EireExtremes/geslaR", dependencies = TRUE)`.
+In this case, you will need to restart your R session.
+
+When downloading the GESLA dataset for the first time, it may take a few
+minutes, since it depends on your internet connection and on the traffic
+on an Amazon AWS server. Don't stop the process before it ends
+completely. Note that this will be needed only the first time. Once the
+dataset is downloaded, the other time this function is called on the
+same directory, the interface should open in your browser instantly.
+
+## Author
+
+Fernando Mayer <fernando.mayer@mu.ie>
+
+## Examples
+
+``` r
+if(interactive()) {
+    ##------------------------------------------------------------------
+    ## This will create a directory called `geslaR_app` on the current
+    ## working directory and import the necessary files for the app.
+    ## Also, it will create a subdirectory `gesla_app/gesla_dataset`,
+    ## where the dataset will be downloaded.
+    tmp <- paste0(tempdir(), "/gesla_app")
+    run_gesla_app(app_dest = tmp)
+
+    ##------------------------------------------------------------------
+    ## This function call on the same directory where the app is hosted,
+    ## will overwrite the whole dataset (i.e. it will be downloaded
+    ## again). A prompt for confirmation will be issued.
+    run_gesla_app(app_dest = tmp, overwrite = TRUE)
+
+    ## Remove files from temporary directory
+    unlink(tmp, recursive = TRUE)
+}
+```

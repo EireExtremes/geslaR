@@ -1,0 +1,129 @@
+# Read a GESLA dataset
+
+Read a CSV or Parquet file, as exported from the GESLA Shiny app
+interface (geslaR-app). A "GESLA dataset file" is a subset of the GESLA
+dataset, fetched from the geslaR-app. When using that app, you can
+choose to download the selected subset in CSV or Parquet file formats.
+Whichever option is chosen this function will automatically identify the
+file type and use the appropriate functions to import the dataset to R.
+
+This function can be used for exported files from the online interface
+(hosted in this
+[server](https://rstudio.maths.nuim.ie:3939/content/3258adf1-efbb-4996-9a8a-08a474639e8b/))
+or from a local interface, as when using the
+[`run_gesla_app()`](https://eireextremes.github.io/geslaR/reference/run_gesla_app.md)
+function.
+
+## Usage
+
+``` r
+read_gesla(file, as_data_frame = FALSE, ...)
+```
+
+## Arguments
+
+- file:
+
+  The file name (must end in `.csv` or `.parquet` only)
+
+- as_data_frame:
+
+  If `FALSE` (default), the data will be imported as an Arrow `Table`
+  format. Otherwise, the data will be in a `tbl_df` (`data.frame`)
+  format. See Details.
+
+- ...:
+
+  Other arguments from
+  [`arrow::read_csv_arrow()`](https://arrow.apache.org/docs/r/reference/read_delim_arrow.html),
+  and
+  [`arrow::read_parquet()`](https://arrow.apache.org/docs/r/reference/read_parquet.html),
+  from the [arrow](https://arrow.apache.org/docs/r/) package.
+
+## Value
+
+An Arrow `Table` object, or a `tbl_df` (`data.frame`)
+
+## Details
+
+We highly recommend to export subsets of the GESLA dataset from the
+geslaR-app in the Parquet file format. This format has a much smaller
+file size when comparred to the CSV format.
+
+In any case, the only difference between CSV and Parquet files will be
+the file size. However, when importing these data to R, both file types
+have the option to be imported as an Arrow `Table` format, which is the
+default (argument `as_data_frame = FALSE`). This way, the object created
+in R will have a very small size, independent of how big the file size
+is. To deal with this type of object, you can use `dplyr` verbs, in the
+same way as a normal `data.frame` (or `tbl_df`). Some examples can be
+found in the [Arrow
+documentation](https://arrow.apache.org/docs/r/articles/data_wrangling.html).
+
+If the `as_data_frame` argument is set to `TRUE`, the imported R object
+will vary in size, according to the size of the dataset, and regardless
+of the file type. In many situations, this can be infeasible, since the
+object can result in a "larger-than-memory" size, and possibly will make
+R operations slow or even a session crash. Therefore, we always
+recommend to start with `as_data_frame = FALSE`, and work with the
+dataset from there.
+
+See **Examples** below.
+
+## Author
+
+Fernando Mayer <fernando.mayer@mu.ie>
+
+## Examples
+
+``` r
+##------------------------------------------------------------------
+## Import an internal example Parquet file
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "ireland.parquet", package = "geslaR"), tmp)
+#> [1] TRUE
+da <- read_gesla(paste0(tmp, "/ireland.parquet"))
+## Check size in memory
+object.size(da)
+#> 488 bytes
+
+##------------------------------------------------------------------
+## Import an internal example CSV file
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "ireland.csv", package = "geslaR"), tmp)
+#> [1] TRUE
+da <- read_gesla(paste0(tmp, "/ireland.csv"))
+## Check size in memory
+object.size(da)
+#> 488 bytes
+
+##------------------------------------------------------------------
+## Import an internal example Parquet file as data.frame
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "ireland.parquet", package = "geslaR"), tmp)
+#> [1] FALSE
+da <- read_gesla(paste0(tmp, "/ireland.parquet"),
+    as_data_frame = TRUE)
+## Check size in memory
+object.size(da)
+#> 11112 bytes
+
+##------------------------------------------------------------------
+## Import an internal example CSV file as data.frame
+tmp <- tempdir()
+file.copy(system.file(
+    "extdata", "ireland.csv", package = "geslaR"), tmp)
+#> [1] FALSE
+da <- read_gesla(paste0(tmp, "/ireland.csv"),
+    as_data_frame = TRUE)
+## Check size in memory
+object.size(da)
+#> 11104 bytes
+
+## Remove files from temporary directory
+unlink(paste0(tmp, "/ireland.parquet"))
+unlink(paste0(tmp, "/ireland.csv"))
+```

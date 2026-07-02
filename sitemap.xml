@@ -1,45 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/404.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/articles/intro-to-arrow.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/articles/intro-to-geslaR.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/reference/download_gesla.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/reference/query_gesla.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/reference/read_gesla.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/reference/run_gesla_app.html</loc>
-  </url>
-  <url>
-    <loc>https://eireextremes.github.io/geslaR/reference/write_gesla.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://eireextremes.github.io/geslaR/404.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/CLAUDE.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/LICENSE.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/articles/index.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/articles/intro-to-arrow.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/articles/intro-to-geslaR.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/authors.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/index.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/news/index.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/reference/download_gesla.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/reference/index.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/reference/query_gesla.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/reference/read_gesla.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/reference/run_gesla_app.html</loc></url>
+<url><loc>https://eireextremes.github.io/geslaR/reference/write_gesla.html</loc></url>
 </urlset>
+

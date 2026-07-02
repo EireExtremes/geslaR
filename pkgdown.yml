@@ -1,11 +1,10 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.8.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   intro-to-arrow: intro-to-arrow.html
   intro-to-geslaR: intro-to-geslaR.html
-last_built: 2023-12-19T02:26Z
+last_built: 2026-07-02T21:39Z
 urls:
   reference: https://eireextremes.github.io/geslaR/reference
   article: https://eireextremes.github.io/geslaR/articles
-
