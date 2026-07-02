@@ -10,12 +10,11 @@
 ##' @details The country codes must follow the three-letter [ISO 3166-1
 ##' alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code.
 ##' However, note that not all countries are available at the GESLA
-##' dataset. If in doubt, please check the GESLA Shiny app interface
-##' (geslaR-app) online in this [server](https://rstudio.maths.nuim.ie:3939/content/3258adf1-efbb-4996-9a8a-08a474639e8b/), or use the
-##' [geslaR::run_gesla_app()] function to open the interface locally.
+##' dataset. If in doubt, use the [geslaR::run_gesla_app()] function to
+##' check the GESLA Shiny app interface (geslaR-app) locally.
 ##'
 ##' The `use_flag` argument must be `1` or `0`, or `c(0, 1)`. The
-##' `use_flag` is a column at the GESLA dataset thet indicates wehter
+##' `use_flag` is a column at the GESLA dataset that indicates whether
 ##' the data should be used for analysis or not. The `1` (default)
 ##' indicates it should, and `0` the otherwise. In a data analysis
 ##' scenario, the user must only be interested in using the recommended

@@ -11,7 +11,7 @@
 ##' Parquet](https://parquet.apache.org) file format. If `x` is a
 ##' `data.frame`, the file will have a standard `.csv` extension.
 ##'
-##' This function is usefull to save objects created by the
+##' This function is useful to save objects created by the
 ##' `query_gesla()` function, for example. However, it may be used in
 ##' any case where saving a (possible subset) of the GESLA dataset may
 ##' be needed.

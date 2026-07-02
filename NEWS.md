@@ -4,6 +4,10 @@
   check NOTE caused by the use of the native pipe `|>` in
   `query_gesla()`.
 * Update maintainer email address.
+* Remove references to the discontinued NUIM RStudio Connect server
+  that hosted the online geslaR-app; only the locally-run app (via
+  `run_gesla_app()`) is documented now.
+* Fix various spelling typos in the documentation.
 
 # geslaR 1.0-2
 

@@ -7,7 +7,7 @@
 ##' you can use the [geslaR::query_gesla()] function, to directly import
 ##' a subset of it.
 ##'
-##' @details This function should only be usefull if you want to deal
+##' @details This function should only be useful if you want to deal
 ##' with all the files from the GESLA dataset. If you need only a
 ##' subset, you can use the [geslaR::query_gesla()] function, or the
 ##' GESLA Shiny app interface, from the [geslaR::run_gesla_app()]

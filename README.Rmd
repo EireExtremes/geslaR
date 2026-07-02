@@ -76,7 +76,7 @@ with the CSV files from the GESLA dataset converted to the Parquet
 format and stored in an Amazon AWS bucket.
 
 To get started with the package, please see the vignette [Dealing with
-the GESLA dataset in R][], where you will find a besic introduction to
+the GESLA dataset in R][], where you will find a basic introduction to
 all the functions available and how to use each one of them. To learn
 how to use the Apache Arrow framework to deal with the dataset in R, see
 the vignette [Introduction to Apache Arrow framework][].

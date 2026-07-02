@@ -44,18 +44,10 @@ entire dataset downloaded locally.
 
 Note, however, that the dataset needs to be downloaded only once, so
 the next time this function is called, the app will open instantly.
-
-The same application is hosted in an online \href{https://rstudio.maths.nuim.ie:3939/content/3258adf1-efbb-4996-9a8a-08a474639e8b/}{server},
-with the exact same capabilities. The advantage of using the
-interface locally is primarily because of its speed. If you don't
-need the whole GESLA dataset and/or will only use a subset of it, we
-recommend to use the online interface to filter the desired subset.
-After that, you can use the \code{\link[=read_gesla]{read_gesla()}} function to
-import it.
 }
 \details{
 The geslaR-app Shiny interface relies on a set of packages,
-defined in the Suggests fiels of the package \code{DESCRIPTION} file.
+defined in the Suggests fields of the package \code{DESCRIPTION} file.
 When called for the first time, the function will check if all the
 packages are available. If one or more are not installed, a message
 will show which one of them should be installed. Alternatively, you
